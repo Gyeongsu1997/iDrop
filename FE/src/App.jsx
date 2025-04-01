@@ -40,6 +40,17 @@ export default function App() {
     return <RouterProvider router={router} />;
 }
 
+const RoleProvider = ({ children }) => {
+    const role = useRouteLoaderData("auth");
+    return (
+        <>
+            {typeof children === "function"
+                ? children(role === "PARENT")
+                : children}
+        </>
+    );
+};
+
 const router = createBrowserRouter(
     createRoutesFromElements(
         <>
@@ -159,14 +170,3 @@ const router = createBrowserRouter(
         </>
     )
 );
-
-function RoleProvider({ children }) {
-    const role = useRouteLoaderData("auth");
-    return (
-        <>
-            {typeof children === "function"
-                ? children(role === "PARENT")
-                : children}
-        </>
-    );
-}
