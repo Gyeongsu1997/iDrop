@@ -27,25 +27,6 @@
 |               [@Sang-minKIM](https://github.com/Sang-minKIM)            |              [@yook-jongho](https://github.com/yook-jongho)     |                [@Gyeongsu1997](https://github.com/Gyeongsu1997)      |                [@Win-9](https://github.com/Win-9)                 |                [@eekrwl](https://github.com/eekrwl)                |              
 |                               김상민                                  |                                육종호                                 |                               최경수                                  |                              강승구                                 |                               안채완                               |                               
 
-## 🏆️ 팀 목표 🏆️
-
-- 실제로 사용할 수 있는 서비스 만들기
-- 개발자들끼리의 협업 경험하기
-- 기술적인 발전하기
-
-## 📜 그라운드 룰 📜
-
-- 정기회의
-  - 아침 회의(10:10)
-  - 점심(13:30) 간단한 상황공유
-  - 저녁 회고
-- 하루에 한 번씩 다같이 리프레쉬 산책!!!
-  - `오후 4시`
-- 아무 의견이나 말하기 (자기 의견 자신감있게 주장하기)
-- 카톡이나 슬랙 답장에 체크 표시 하기
-- 소통을 위한 아카이빙 공간
-  - 사적 카톡
-  - 공적 슬랙
 
 ## 📃 프로젝트 문서 📃
 
