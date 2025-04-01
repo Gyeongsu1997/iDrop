@@ -1,8 +1,6 @@
-# iDrop
+# 아이드랍(iDrop) - 믿을 수 있는 아이 픽업 모빌리티 서비스
 
-### 아이드랍(iDrop) - 믿을 수 있는 아이 픽업 모빌리티 서비스
-
-<img width="495" alt="로고" src="https://github.com/softeerbootcamp-3rd/Team2-iFive/assets/39684697/b7561593-a4a6-4130-84ff-826161ee78c1">
+<img width="495" alt="로고" src=".docs/logo.png">
 
 
 ## 🐥 프로젝트 소개 🚗
