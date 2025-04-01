@@ -1,6 +1,6 @@
 import { getToken } from "firebase/messaging";
 import { postFcmToken } from "./notificationAPI";
-import { messaging } from "./foregroundMessage";
+import { messaging } from "./fcmForeground";
 
 export async function handleAllowNotification() {
     try {
