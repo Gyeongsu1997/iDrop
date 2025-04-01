@@ -33,9 +33,6 @@ public class Driver extends Users {
     private String introduction;
     private Double drivingScore;
     private Double starRate;
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "car_id")
-    private Car car;
 
     @OneToMany(mappedBy = "driver")
     private List<PickUpInfo> pickUpInfoList = new ArrayList<>();
