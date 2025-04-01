@@ -28,9 +28,6 @@
 | 코딩 컨벤션        | [Coding 컨벤션](https://github.com/softeerbootcamp-3rd/Team2-iFive/wiki/Coding-Convention)  |
 | Git 컨벤션        | [Git 컨벤션](https://github.com/softeerbootcamp-3rd/Team2-iFive/wiki/Git-Convention)        |
 
-
-<br/>
-
 ### 기획 문서
 
 | 문서 종류     | 링크                                                                                                                                                                                                                           |
