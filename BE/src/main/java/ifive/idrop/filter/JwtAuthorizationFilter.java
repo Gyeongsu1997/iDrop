@@ -27,7 +27,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class JwtAuthorizationFilter implements Filter {
     public static final String USER_ID = "userId";
-    private final String[] whiteListUris = {"/user/signup", "/user/login", "/auth/refresh/token", "/ws/**"};
+    private final String[] whiteListUris = {"/user/signup", "/user/login", "/auth/refresh/token", "/ws/**", "/swagger-ui/**", "/v3/**"};
     private final JwtProvider jwtProvider;
     private final ObjectMapper objectMapper;
 
