@@ -19,15 +19,6 @@
 ### 픽업 - 실시간 위치추적
 [![Video Label](http://img.youtube.com/vi/2nyEEmA7uak/0.jpg)](https://youtu.be/2nyEEmA7uak)
 
-## 🙌 팀 소개 🙌
-
-|                                개발(FE)                              |                                개발(FE)                                |                              개발(BE)                               |                             개발(BE)                                |                              개발(BE)                              |
-| :-----------------------------------------------------------------: | :-------------------------------------------------------------------: | :----------------------------------------------------------------: | :---------------------------------------------------------------: | :----------------------------------------------------------------: |
-| <img src="https://github.com/Sang-minKIM.png" width="100" height="100"> | <img src="https://github.com/yook-jongho.png" width="100" height="100"> | <img src="https://github.com/Gyeongsu1997.png" width="100" height="100"> | <img src="https://github.com/Win-9.png" width="100" height="100">     | <img src="https://github.com/eekrwl.png" width="100" height="100"> |
-|               [@Sang-minKIM](https://github.com/Sang-minKIM)            |              [@yook-jongho](https://github.com/yook-jongho)     |                [@Gyeongsu1997](https://github.com/Gyeongsu1997)      |                [@Win-9](https://github.com/Win-9)                 |                [@eekrwl](https://github.com/eekrwl)                |              
-|                               김상민                                  |                                육종호                                 |                               최경수                                  |                              강승구                                 |                               안채완                               |                               
-
-
 ## 📃 프로젝트 문서 📃
 
 ### 개발 문서
