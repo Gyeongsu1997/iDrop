@@ -3,17 +3,16 @@ package ifive.idrop.driver.controller;
 import ifive.idrop.auth.resolver.Login;
 
 import ifive.idrop.common.dto.BaseResponse;
+import ifive.idrop.common.exception.CommonException;
+import ifive.idrop.common.exception.ErrorCode;
 import ifive.idrop.dto.request.SubscribeCheckRequest;
 import ifive.idrop.dto.response.*;
 import ifive.idrop.dto.request.DriverInformation;
 import ifive.idrop.driver.domain.Driver;
 import ifive.idrop.driver.service.DriverService;
+import ifive.idrop.entity.Users;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -54,5 +53,15 @@ public class DriverController {
     public BaseResponse<List<DriverTodayRemainingPickUpResponse>> getRemainingPickUpList(@Login Driver driver) {
         List<DriverTodayRemainingPickUpResponse> pickUpList = driverService.getTodayRemainingPickUpList(driver.getId());
         return BaseResponse.of("Data Successfully Proceed", pickUpList);
+    }
+
+    @GetMapping("/detail/driver/{driverId}")
+    public DriverDetailResponse detailDriver(@Login Users user, @PathVariable("driverId") Long driverId) {
+        if (user instanceof Driver driver) {
+            if (!driver.getId().equals(driverId)) {
+                throw new CommonException(ErrorCode.UNAUTHORIZED_USER);
+            }
+        }
+        return driverService.detail(driverId);
     }
 }

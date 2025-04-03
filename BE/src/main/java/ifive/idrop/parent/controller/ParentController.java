@@ -8,6 +8,7 @@ import ifive.idrop.driver.domain.Driver;
 import ifive.idrop.common.exception.CommonException;
 import ifive.idrop.common.exception.ErrorCode;
 import ifive.idrop.driver.service.DriverService;
+import ifive.idrop.entity.Users;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -65,5 +66,18 @@ public class ParentController {
         if(parentService.hasCurrentPickUp(parent.getId()))
             return BaseResponse.success();
         throw new CommonException(ErrorCode.PICKUP_NOT_FOUND);
+    }
+
+    @GetMapping("/user/pickup/now")
+    public BaseResponse checkPickUpInfo(@Login Users user) {
+        if (user instanceof Parent) {
+            return parentService.getChildRunningInfo((Parent) user);
+        }
+
+        if (user instanceof Driver) {
+            return driverService.getAllChildRunningInfo((Driver) user);
+        }
+
+        throw new CommonException(ErrorCode.UNAUTHORIZED_USER);
     }
 }
