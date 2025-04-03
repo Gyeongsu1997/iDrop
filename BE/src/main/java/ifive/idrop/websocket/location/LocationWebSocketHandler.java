@@ -11,6 +11,7 @@ import ifive.idrop.auth.utils.JwtProvider;
 import ifive.idrop.parent.domain.Parent;
 import ifive.idrop.pickup.domain.PickUp;
 import ifive.idrop.repository.UserRepository;
+import ifive.idrop.user.domain.User;
 import ifive.idrop.util.CustomObjectMapper;
 import ifive.idrop.websocket.PickUpInfoRepository;
 import ifive.idrop.websocket.location.dto.ChildGeoLocation;
@@ -65,9 +66,9 @@ public class LocationWebSocketHandler extends TextWebSocketHandler {
         String sessionId = session.getId();
         sessions.put(sessionId, session);
 
-        Users user = getUserBySession(session);
+        User user = getUserBySession(session);
 
-        if (user.getRole() == DRIVER) {
+        if (user instanceof Driver) {
             Long driverId = ((Driver) user).getId();
             drivers.put(sessionId, driverId);
             try {
@@ -82,7 +83,7 @@ public class LocationWebSocketHandler extends TextWebSocketHandler {
 
             log.info("webSocket/location - DRIVER connected (session ID={}, driver ID={})", sessionId, driverId);
 
-        } else if (user.getRole() == PARENT) {
+        } else if (user instanceof Parent) {
             Long parentId = ((Parent) user).getId();
             if (!parentDriverSets.containsKey(parentId)) {
                 session.sendMessage(new TextMessage("기사가 접속 중이 아닙니다."));
@@ -148,7 +149,7 @@ public class LocationWebSocketHandler extends TextWebSocketHandler {
     }
 
     //웹소켓 세션에서 User 구하기
-    private Users getUserBySession(WebSocketSession session) throws JsonProcessingException {
+    private User getUserBySession(WebSocketSession session) throws JsonProcessingException {
         // HTTP 헤더에서 엑세스 토큰을 꺼낸다.
 
         String accessToken = String.valueOf(session.getHandshakeHeaders().get("Sec-Websocket-Protocol"));

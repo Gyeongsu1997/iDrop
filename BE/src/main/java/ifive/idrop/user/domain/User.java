@@ -1,28 +1,31 @@
-package ifive.idrop.entity;
+package ifive.idrop.user.domain;
 
 import ifive.idrop.auth.dto.LoginRequest;
-import ifive.idrop.entity.enums.Role;
 import jakarta.persistence.*;
 import lombok.Getter;
 
+@Entity
 @Getter
-@MappedSuperclass
-public abstract class Users {
-    private String userId;
+@Table(name = "users")
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "role")
+public abstract class User {
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "users_id")
+    private Long id;
+
+    private String loginId;
     private String password;
     private String name;
     private String phoneNumber;
-    @Enumerated(EnumType.STRING)
-    private Role role;
     private String refreshToken;
     private String fcmToken;
 
-    public void setUserInfo(String userId, String password, String name, String phoneNumber, Role role){
-        this.userId = userId;
+    public void setUserInfo(String loginId, String password, String name, String phoneNumber){
+        this.loginId = loginId;
         this.password = password;
         this.name = name;
         this.phoneNumber = phoneNumber;
-        this.role = role;
     }
 
     public void updateRefreshToken(String refreshToken) {
@@ -34,6 +37,6 @@ public abstract class Users {
     }
 
     public boolean verifyUser(LoginRequest loginRequest) {
-        return this.userId.equals(loginRequest.getUserId()) && this.password.equals(loginRequest.getPassword());
+        return this.loginId.equals(loginRequest.getUserId()) && this.password.equals(loginRequest.getPassword());
     }
 }

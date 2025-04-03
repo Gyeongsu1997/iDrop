@@ -2,7 +2,7 @@ package ifive.idrop.dto.request;
 
 import ifive.idrop.driver.domain.Driver;
 import ifive.idrop.parent.domain.Parent;
-import ifive.idrop.entity.Users;
+import ifive.idrop.user.domain.User;
 import ifive.idrop.entity.enums.Role;
 import ifive.idrop.common.exception.CommonException;
 import ifive.idrop.common.exception.ErrorCode;
@@ -18,14 +18,14 @@ public class SignUpRequest {
     private String phone;
     private String role;
 
-    public Users toEntity() {
+    public User toEntity() {
         if ("기사".equals(role)) {
             Driver driver = new Driver();
-            driver.setUserInfo(userId, password, name, phone, Role.DRIVER);
+            driver.setUserInfo(userId, password, name, phone);
             return driver;
         } else if ("부모".equals(role)) {
             Parent parent = new Parent();
-            parent.setUserInfo(userId, password, name, phone, Role.PARENT);
+            parent.setUserInfo(userId, password, name, phone);
             return parent;
         } else
             throw new CommonException(ErrorCode.INVALID_ROLE_OF_USER);

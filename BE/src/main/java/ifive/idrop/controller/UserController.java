@@ -4,7 +4,7 @@ import ifive.idrop.auth.resolver.Login;
 import ifive.idrop.common.dto.BaseResponse;
 import ifive.idrop.dto.response.NameResponse;
 import ifive.idrop.dto.request.SignUpRequest;
-import ifive.idrop.entity.Users;
+import ifive.idrop.user.domain.User;
 import ifive.idrop.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +21,7 @@ public class UserController {
     }
 
     @GetMapping("/name")
-    public NameResponse getName(@Login Users user) {
+    public NameResponse getName(@Login User user) {
         return userService.getName(user);
     }
 }

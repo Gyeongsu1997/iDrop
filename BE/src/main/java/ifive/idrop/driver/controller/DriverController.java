@@ -9,7 +9,7 @@ import ifive.idrop.driver.dto.*;
 import ifive.idrop.dto.response.*;
 import ifive.idrop.driver.domain.Driver;
 import ifive.idrop.driver.service.DriverService;
-import ifive.idrop.entity.Users;
+import ifive.idrop.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -55,7 +55,7 @@ public class DriverController {
     }
 
     @GetMapping("/detail/driver/{driverId}")
-    public DriverDetailResponse detailDriver(@Login Users user, @PathVariable("driverId") Long driverId) {
+    public DriverDetailResponse detailDriver(@Login User user, @PathVariable("driverId") Long driverId) {
         if (user instanceof Driver driver) {
             if (!driver.getId().equals(driverId)) {
                 throw new CommonException(ErrorCode.UNAUTHORIZED_USER);

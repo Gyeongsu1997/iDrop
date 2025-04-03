@@ -4,7 +4,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.WebpushConfig;
 import com.google.firebase.messaging.WebpushNotification;
-import ifive.idrop.entity.Users;
+import ifive.idrop.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -16,9 +16,9 @@ import java.util.concurrent.ExecutionException;
 @Slf4j
 public class NotificationUtill {
 
-    static public void createNotification(Users user, String title, String message) {
+    static public void createNotification(User user, String title, String message) {
         if (user.getFcmToken() == null) {
-            log.error("user = {}, FCM토큰이 없습니다", user.getUserId());
+            log.error("user = {}, FCM토큰이 없습니다", user.getLoginId());
             return;
         }
 
@@ -30,7 +30,7 @@ public class NotificationUtill {
         try {
             sendNotification(request);
         } catch (ExecutionException e) {
-            log.error("user = {}, FCM토큰이 없습니다", user.getUserId());
+            log.error("user = {}, FCM토큰이 없습니다", user.getLoginId());
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

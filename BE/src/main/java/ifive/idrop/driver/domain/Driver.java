@@ -5,7 +5,7 @@ import ifive.idrop.driver.dto.DriverDetailResponse;
 import ifive.idrop.driver.dto.DriverSummary;
 import ifive.idrop.driver.dto.WorkHoursDto;
 import ifive.idrop.entity.PickUpInfo;
-import ifive.idrop.entity.Users;
+import ifive.idrop.user.domain.User;
 import ifive.idrop.entity.WorkHours;
 import ifive.idrop.entity.enums.Gender;
 import ifive.idrop.common.exception.CommonException;
@@ -21,11 +21,8 @@ import static ifive.idrop.util.ScheduleUtils.*;
 
 @Entity
 @Getter
-public class Driver extends Users {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "driver_id")
-    private Long id;
+@DiscriminatorValue("D")
+public class Driver extends User {
     @Enumerated(EnumType.STRING)
     private Gender gender;
     private LocalDate birth;

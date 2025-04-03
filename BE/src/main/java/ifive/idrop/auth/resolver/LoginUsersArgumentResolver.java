@@ -2,7 +2,7 @@ package ifive.idrop.auth.resolver;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import ifive.idrop.entity.Users;
+import ifive.idrop.user.domain.User;
 import ifive.idrop.common.exception.CommonException;
 import ifive.idrop.common.exception.ErrorCode;
 import ifive.idrop.auth.domain.AuthenticateUser;
@@ -29,7 +29,7 @@ public class LoginUsersArgumentResolver implements HandlerMethodArgumentResolver
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
         boolean hasLoginAnnotation = parameter.hasParameterAnnotation(Login.class);
-        boolean hasUsersType = Users.class.isAssignableFrom(parameter.getParameterType());
+        boolean hasUsersType = User.class.isAssignableFrom(parameter.getParameterType());
         return hasLoginAnnotation && hasUsersType;
     }
 
@@ -38,9 +38,9 @@ public class LoginUsersArgumentResolver implements HandlerMethodArgumentResolver
         HttpServletRequest httpServletRequest = (HttpServletRequest) webRequest.getNativeRequest();
         String token = getToken(httpServletRequest);
         AuthenticateUser authenticateUser = getAuthenticateUser(token);
-        Optional<Users> optional = userRepository.findByUserId(authenticateUser.getUserId());
-        Users users = optional.orElseThrow(() -> new CommonException(ErrorCode.USER_NOT_FOUND));
-        return users;
+        Optional<User> optional = userRepository.findByUserId(authenticateUser.getUserId());
+        User user = optional.orElseThrow(() -> new CommonException(ErrorCode.USER_NOT_FOUND));
+        return user;
     }
 
     private String getToken(HttpServletRequest request){

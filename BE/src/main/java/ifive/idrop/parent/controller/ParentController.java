@@ -8,7 +8,7 @@ import ifive.idrop.driver.domain.Driver;
 import ifive.idrop.common.exception.CommonException;
 import ifive.idrop.common.exception.ErrorCode;
 import ifive.idrop.driver.service.DriverService;
-import ifive.idrop.entity.Users;
+import ifive.idrop.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -69,7 +69,7 @@ public class ParentController {
     }
 
     @GetMapping("/user/pickup/now")
-    public BaseResponse checkPickUpInfo(@Login Users user) {
+    public BaseResponse checkPickUpInfo(@Login User user) {
         if (user instanceof Parent) {
             return parentService.getChildRunningInfo((Parent) user);
         }

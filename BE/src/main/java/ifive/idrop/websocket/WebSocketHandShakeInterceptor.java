@@ -1,7 +1,7 @@
 package ifive.idrop.websocket;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import ifive.idrop.entity.Users;
+import ifive.idrop.user.domain.User;
 import ifive.idrop.auth.domain.AuthenticateUser;
 import ifive.idrop.auth.filter.VerifyUserFilter;
 import ifive.idrop.auth.utils.JwtProvider;
@@ -33,7 +33,7 @@ public class WebSocketHandShakeInterceptor implements HandshakeInterceptor {
 
         try {
             AuthenticateUser authenticateUser = getAuthenticateUser(accessToken);
-            Optional<Users> user = userRepository.findByUserId(authenticateUser.getUserId());
+            Optional<User> user = userRepository.findByUserId(authenticateUser.getUserId());
             return user.isPresent();
         } catch (Exception e) {
             response.setStatusCode(HttpStatus.UNAUTHORIZED);

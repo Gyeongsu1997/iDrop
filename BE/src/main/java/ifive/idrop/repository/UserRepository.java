@@ -2,7 +2,7 @@ package ifive.idrop.repository;
 
 import ifive.idrop.driver.domain.Driver;
 import ifive.idrop.parent.domain.Parent;
-import ifive.idrop.entity.Users;
+import ifive.idrop.user.domain.User;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -16,11 +16,11 @@ import java.util.stream.Stream;
 public class UserRepository {
     private final EntityManager em;
 
-    public void save(Users users) {
-        em.persist(users);
+    public void save(User user) {
+        em.persist(user);
     }
 
-    public Optional<Users> findByUserId(String userId) {
+    public Optional<User> findByUserId(String userId) {
         List<Driver> driverResultList = em.createQuery("select d from Driver d where d.userId = :userId", Driver.class)
                 .setParameter("userId", userId)
                 .getResultList();
@@ -29,12 +29,12 @@ public class UserRepository {
                 .setParameter("userId", userId)
                 .getResultList();
 
-        List<Users> result = Stream.concat(driverResultList.stream(), parentResultList.stream()).toList();
+        List<User> result = Stream.concat(driverResultList.stream(), parentResultList.stream()).toList();
 
         return result.stream().findAny();
     }
 
-    public Optional<Users> findByRefreshToken(String refreshToken) {
+    public Optional<User> findByRefreshToken(String refreshToken) {
         List<Driver> driverResultList = em.createQuery("select d from Driver d where d.refreshToken = :refreshToken", Driver.class)
                 .setParameter("refreshToken", refreshToken)
                 .getResultList();
@@ -43,7 +43,7 @@ public class UserRepository {
                 .setParameter("refreshToken", refreshToken)
                 .getResultList();
 
-        List<Users> result = Stream.concat(driverResultList.stream(), parentResultList.stream()).toList();
+        List<User> result = Stream.concat(driverResultList.stream(), parentResultList.stream()).toList();
 
         return result.stream().findAny();
     }

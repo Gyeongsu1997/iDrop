@@ -3,9 +3,10 @@ package ifive.idrop.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ifive.idrop.common.dto.BaseResponse;
 import ifive.idrop.auth.dto.LoginRequest;
+import ifive.idrop.driver.domain.Driver;
 import ifive.idrop.dto.response.NameResponse;
 import ifive.idrop.dto.request.SignUpRequest;
-import ifive.idrop.entity.Users;
+import ifive.idrop.user.domain.User;
 import ifive.idrop.entity.enums.Role;
 import ifive.idrop.common.exception.CommonException;
 import ifive.idrop.common.exception.ErrorCode;
@@ -31,31 +32,37 @@ public class UserService {
     @Transactional
     public BaseResponse<String> signUp(SignUpRequest signUpRequest){
         checkDuplicateUserId(signUpRequest.getUserId());
-        Users user = signUpRequest.toEntity();
+        User user = signUpRequest.toEntity();
         userRepository.save(user);
-        return BaseResponse.of("성공적으로 회원가입 되었습니다.", user.getRole().getName());
+        if (user instanceof Driver)
+            return BaseResponse.of("성공적으로 회원가입 되었습니다.", "기사");
+        else
+            return BaseResponse.of("성공적으로 회원가입 되었습니다.", "부모");
     }
 
     public void checkDuplicateUserId(String userId) {
-        Optional<Users> optional = userRepository.findByUserId(userId);
+        Optional<User> optional = userRepository.findByUserId(userId);
         if (optional.isPresent())
             throw new CommonException(ErrorCode.DUPLICATE_USERID);
     }
 
     public Role verifyUser(LoginRequest loginRequest){
-        Optional<Users> optional = userRepository.findByUserId(loginRequest.getUserId());
-        Users user = optional.orElseThrow(() -> new CommonException(ErrorCode.USERID_NOT_EXIST));
+        Optional<User> optional = userRepository.findByUserId(loginRequest.getUserId());
+        User user = optional.orElseThrow(() -> new CommonException(ErrorCode.USERID_NOT_EXIST));
         if (!user.verifyUser(loginRequest))
             throw new CommonException(ErrorCode.PASSWORD_NOT_MATCHED);
-        return user.getRole();
+        if (user instanceof Driver)
+            return Role.DRIVER;
+        else
+            return Role.PARENT;
     }
 
     @Transactional
     public void updateRefreshToken(String userId, String refreshToken){
-        Optional<Users> optional = userRepository.findByUserId(userId);
+        Optional<User> optional = userRepository.findByUserId(userId);
         if (optional.isEmpty())
             return;
-        Users user = optional.get();
+        User user = optional.get();
         user.updateRefreshToken(refreshToken);
     }
 
@@ -65,17 +72,21 @@ public class UserService {
         try{
             // 유효한 토큰 인지 검증
             jwtProvider.getClaims(refreshToken);
-            Optional<Users> optional = userRepository.findByRefreshToken(refreshToken);
+            Optional<User> optional = userRepository.findByRefreshToken(refreshToken);
             if (optional.isEmpty())
                 return null;
-            Users user = optional.get();
+            User user = optional.get();
 
             HashMap<String, Object> claims = new HashMap<>();
-            AuthenticateUser authenticateUser = new AuthenticateUser(user.getUserId(), user.getRole());
+            AuthenticateUser authenticateUser;
+            if (user instanceof Driver)
+                authenticateUser = new AuthenticateUser(user.getLoginId(), Role.DRIVER);
+            else
+                authenticateUser = new AuthenticateUser(user.getLoginId(), Role.PARENT);
             String authenticateUserJson = objectMapper.writeValueAsString(authenticateUser);
             claims.put(VerifyUserFilter.AUTHENTICATE_USER, authenticateUserJson);
             Jwt jwt = jwtProvider.createJwt(claims);
-            updateRefreshToken(user.getUserId(),jwt.getRefreshToken());
+            updateRefreshToken(user.getLoginId(), jwt.getRefreshToken());
             return jwt;
         } catch (Exception e){
             return null;
@@ -83,15 +94,15 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public NameResponse getName(Users user) {
-        Users foundUser = userRepository.findByUserId(user.getUserId())
+    public NameResponse getName(User user) {
+        User foundUser = userRepository.findByUserId(user.getLoginId())
                 .orElseThrow(() -> new CommonException(ErrorCode.USER_NOT_FOUND));
         return new NameResponse(foundUser);
     }
 
     @Transactional
     public BaseResponse<String> updateFCMToken(String userId, String fcmToken) {
-        Users foundUser = userRepository.findByUserId(userId)
+        User foundUser = userRepository.findByUserId(userId)
                 .orElseThrow(() -> new CommonException(ErrorCode.USER_NOT_FOUND));
         foundUser.updateFcmToken(fcmToken);
         return BaseResponse.success();

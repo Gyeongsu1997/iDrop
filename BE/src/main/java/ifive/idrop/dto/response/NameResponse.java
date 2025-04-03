@@ -2,8 +2,9 @@ package ifive.idrop.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import ifive.idrop.child.domain.Child;
+import ifive.idrop.driver.domain.Driver;
 import ifive.idrop.parent.domain.Parent;
-import ifive.idrop.entity.Users;
+import ifive.idrop.user.domain.User;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -16,8 +17,12 @@ public class NameResponse {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     List<String> children;
 
-    public NameResponse(Users user) {
-        this.role = user.getRole().getName();
+    public NameResponse(User user) {
+        if (user instanceof Driver) {
+            this.role = "기사";
+        } else {
+            this.role = "부모";
+        }
         this.name = user.getName();
         if (user instanceof Parent parent) {
             children = new ArrayList<>();
