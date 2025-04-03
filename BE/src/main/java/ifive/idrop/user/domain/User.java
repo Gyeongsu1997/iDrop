@@ -27,8 +27,7 @@ public abstract class User {
 
     private String fcmToken;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "authentication_id")
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Authentication authentication;
 
     public static User createUser(SignUpRequest signUpRequest) {
@@ -46,15 +45,8 @@ public abstract class User {
         user.password = signUpRequest.getPassword();
         user.name = signUpRequest.getName();
         user.phoneNumber = signUpRequest.getPhoneNumber();
-        user.authentication = new Authentication();
+        user.authentication = Authentication.of(user);
         return user;
-    }
-
-    public void setUserInfo(String loginId, String password, String name, String phoneNumber){
-        this.loginId = loginId;
-        this.password = password;
-        this.name = name;
-        this.phoneNumber = phoneNumber;
     }
 
     public void updateFcmToken(String fcmToken) {
