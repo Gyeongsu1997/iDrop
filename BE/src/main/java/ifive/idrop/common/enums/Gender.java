@@ -1,25 +1,24 @@
-package ifive.idrop.entity.enums;
+package ifive.idrop.common.enums;
 
 import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.exception.ErrorCode;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 @Getter
+@RequiredArgsConstructor
 public enum Gender {
-    MALE("남성"),
-    FEMALE("여성");
-    private final String gender;
+    M("Male"),
+    F("Female");
 
-    Gender(String gender) {
-        this.gender = gender;
-    }
+    private final String label;
 
     public static Gender of(String gender) {
         if ("남성".equals(gender)) {
-            return Gender.MALE;
+            return Gender.M;
         }
         if ("여성".equals(gender)) {
-            return Gender.FEMALE;
+            return Gender.F;
         }
         throw new BusinessException(ErrorCode.INVALID_GENDER);
     }

@@ -7,7 +7,7 @@ import ifive.idrop.driver.dto.WorkHoursDto;
 import ifive.idrop.entity.PickUpInfo;
 import ifive.idrop.user.domain.User;
 import ifive.idrop.entity.WorkHours;
-import ifive.idrop.entity.enums.Gender;
+import ifive.idrop.common.enums.Gender;
 import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.exception.ErrorCode;
 import jakarta.persistence.*;
@@ -60,7 +60,7 @@ public class Driver extends User {
         return DriverSummary.builder()
                 .driverId(this.getId())
                 .name(this.getName())
-                .gender((this.gender != null) ? this.gender.getGender() : null)
+                .gender((this.gender != null) ? this.gender.getLabel() : null)
                 .image(this.getImage())
                 .introduction(this.getIntroduction())
                 .starRate(this.getStarRate())
@@ -73,7 +73,7 @@ public class Driver extends User {
                 .driverId(this.getId())
                 .name(this.getName())
                 .phoneNumber(this.getPhoneNumber())
-                .gender((this.gender != null) ? this.gender.getGender() : null)
+                .gender((this.gender != null) ? this.gender.getLabel() : null)
                 .birth(this.getBirth())
                 .image(this.getImage())
                 .career(this.getCareer())

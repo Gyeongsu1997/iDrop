@@ -55,6 +55,10 @@ public abstract class User {
         this.authentication.updateRefreshToken(refreshToken);
     }
 
+    public String getFcmToken() {
+        return this.authentication.getFcmToken();
+    }
+
     public void updateFcmToken(String fcmToken) {
         this.authentication.updateFcmToken(fcmToken);
     }
