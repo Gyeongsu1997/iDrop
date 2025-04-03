@@ -10,7 +10,7 @@ import ifive.idrop.auth.filter.VerifyUserFilter;
 import ifive.idrop.auth.utils.JwtProvider;
 import ifive.idrop.parent.domain.Parent;
 import ifive.idrop.pickup.domain.PickUp;
-import ifive.idrop.repository.UserRepository;
+import ifive.idrop.user.repository.UserRepository;
 import ifive.idrop.user.domain.User;
 import ifive.idrop.util.CustomObjectMapper;
 import ifive.idrop.websocket.PickUpInfoRepository;
@@ -31,8 +31,6 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-
-import static ifive.idrop.entity.enums.Role.*;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -155,7 +153,7 @@ public class LocationWebSocketHandler extends TextWebSocketHandler {
         String accessToken = String.valueOf(session.getHandshakeHeaders().get("Sec-Websocket-Protocol"));
         accessToken = accessToken.substring(1, accessToken.length() - 1);
         AuthenticateUser authenticateUser = getAuthenticateUser(accessToken);
-        return userRepository.findByUserId(authenticateUser.getUserId())
+        return userRepository.findByLoginId(authenticateUser.getUserId())
                 .orElseThrow(() -> new CommonException(ErrorCode.USER_NOT_FOUND));
     }
 

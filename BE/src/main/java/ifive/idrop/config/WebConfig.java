@@ -8,7 +8,7 @@ import ifive.idrop.auth.filter.JwtFilter;
 import ifive.idrop.auth.filter.VerifyUserFilter;
 import ifive.idrop.fcm.FCMFilter;
 import ifive.idrop.auth.utils.JwtProvider;
-import ifive.idrop.repository.UserRepository;
+import ifive.idrop.user.repository.UserRepository;
 import ifive.idrop.auth.resolver.LoginUsersArgumentResolver;
 import ifive.idrop.service.UserService;
 import jakarta.servlet.Filter;

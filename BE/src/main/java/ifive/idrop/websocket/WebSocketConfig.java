@@ -1,7 +1,7 @@
 package ifive.idrop.websocket;
 
 import ifive.idrop.auth.utils.JwtProvider;
-import ifive.idrop.repository.UserRepository;
+import ifive.idrop.user.repository.UserRepository;
 import ifive.idrop.websocket.direction.NaverDirectionFinder;
 import ifive.idrop.websocket.location.LocationWebSocketHandler;
 import lombok.RequiredArgsConstructor;

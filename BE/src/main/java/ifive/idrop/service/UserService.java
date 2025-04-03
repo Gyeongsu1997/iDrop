@@ -14,7 +14,7 @@ import ifive.idrop.auth.domain.AuthenticateUser;
 import ifive.idrop.auth.filter.VerifyUserFilter;
 import ifive.idrop.auth.dto.Jwt;
 import ifive.idrop.auth.utils.JwtProvider;
-import ifive.idrop.repository.UserRepository;
+import ifive.idrop.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,13 +41,13 @@ public class UserService {
     }
 
     public void checkDuplicateUserId(String userId) {
-        Optional<User> optional = userRepository.findByUserId(userId);
+        Optional<User> optional = userRepository.findByLoginId(userId);
         if (optional.isPresent())
             throw new CommonException(ErrorCode.DUPLICATE_USERID);
     }
 
     public Role verifyUser(LoginRequest loginRequest){
-        Optional<User> optional = userRepository.findByUserId(loginRequest.getUserId());
+        Optional<User> optional = userRepository.findByLoginId(loginRequest.getUserId());
         User user = optional.orElseThrow(() -> new CommonException(ErrorCode.USERID_NOT_EXIST));
         if (!user.verifyUser(loginRequest))
             throw new CommonException(ErrorCode.PASSWORD_NOT_MATCHED);
@@ -58,8 +58,8 @@ public class UserService {
     }
 
     @Transactional
-    public void updateRefreshToken(String userId, String refreshToken){
-        Optional<User> optional = userRepository.findByUserId(userId);
+    public void updateRefreshToken(String loginId, String refreshToken){
+        Optional<User> optional = userRepository.findByLoginId(loginId);
         if (optional.isEmpty())
             return;
         User user = optional.get();
@@ -95,14 +95,14 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public NameResponse getName(User user) {
-        User foundUser = userRepository.findByUserId(user.getLoginId())
+        User foundUser = userRepository.findByLoginId(user.getLoginId())
                 .orElseThrow(() -> new CommonException(ErrorCode.USER_NOT_FOUND));
         return new NameResponse(foundUser);
     }
 
     @Transactional
     public BaseResponse<String> updateFCMToken(String userId, String fcmToken) {
-        User foundUser = userRepository.findByUserId(userId)
+        User foundUser = userRepository.findByLoginId(userId)
                 .orElseThrow(() -> new CommonException(ErrorCode.USER_NOT_FOUND));
         foundUser.updateFcmToken(fcmToken);
         return BaseResponse.success();

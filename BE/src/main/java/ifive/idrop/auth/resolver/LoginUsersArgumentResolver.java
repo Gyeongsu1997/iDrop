@@ -8,7 +8,7 @@ import ifive.idrop.common.exception.ErrorCode;
 import ifive.idrop.auth.domain.AuthenticateUser;
 import ifive.idrop.auth.filter.VerifyUserFilter;
 import ifive.idrop.auth.utils.JwtProvider;
-import ifive.idrop.repository.UserRepository;
+import ifive.idrop.user.repository.UserRepository;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -38,7 +38,7 @@ public class LoginUsersArgumentResolver implements HandlerMethodArgumentResolver
         HttpServletRequest httpServletRequest = (HttpServletRequest) webRequest.getNativeRequest();
         String token = getToken(httpServletRequest);
         AuthenticateUser authenticateUser = getAuthenticateUser(token);
-        Optional<User> optional = userRepository.findByUserId(authenticateUser.getUserId());
+        Optional<User> optional = userRepository.findByLoginId(authenticateUser.getUserId());
         User user = optional.orElseThrow(() -> new CommonException(ErrorCode.USER_NOT_FOUND));
         return user;
     }

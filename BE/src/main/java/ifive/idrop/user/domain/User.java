@@ -1,5 +1,6 @@
 package ifive.idrop.user.domain;
 
+import ifive.idrop.auth.domain.Authentication;
 import ifive.idrop.auth.dto.LoginRequest;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -18,8 +19,12 @@ public abstract class User {
     private String password;
     private String name;
     private String phoneNumber;
-    private String refreshToken;
+
     private String fcmToken;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "authentication_id")
+    private Authentication authentication;
 
     public void setUserInfo(String loginId, String password, String name, String phoneNumber){
         this.loginId = loginId;
@@ -28,15 +33,15 @@ public abstract class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public void updateRefreshToken(String refreshToken) {
-        this.refreshToken = refreshToken;
-    }
-
     public void updateFcmToken(String fcmToken) {
         this.fcmToken = fcmToken;
     }
 
     public boolean verifyUser(LoginRequest loginRequest) {
         return this.loginId.equals(loginRequest.getUserId()) && this.password.equals(loginRequest.getPassword());
+    }
+
+    public void updateRefreshToken(String refreshToken) {
+        this.authentication.updateRefreshToken(refreshToken);
     }
 }

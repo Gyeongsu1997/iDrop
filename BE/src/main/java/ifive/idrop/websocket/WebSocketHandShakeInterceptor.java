@@ -5,7 +5,7 @@ import ifive.idrop.user.domain.User;
 import ifive.idrop.auth.domain.AuthenticateUser;
 import ifive.idrop.auth.filter.VerifyUserFilter;
 import ifive.idrop.auth.utils.JwtProvider;
-import ifive.idrop.repository.UserRepository;
+import ifive.idrop.user.repository.UserRepository;
 import ifive.idrop.util.CustomObjectMapper;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +33,7 @@ public class WebSocketHandShakeInterceptor implements HandshakeInterceptor {
 
         try {
             AuthenticateUser authenticateUser = getAuthenticateUser(accessToken);
-            Optional<User> user = userRepository.findByUserId(authenticateUser.getUserId());
+            Optional<User> user = userRepository.findByLoginId(authenticateUser.getUserId());
             return user.isPresent();
         } catch (Exception e) {
             response.setStatusCode(HttpStatus.UNAUTHORIZED);

@@ -1,6 +1,7 @@
-package ifive.idrop.repository;
+package ifive.idrop.user.repository;
 
 import ifive.idrop.driver.domain.Driver;
+import ifive.idrop.entity.PickUpInfo;
 import ifive.idrop.parent.domain.Parent;
 import ifive.idrop.user.domain.User;
 import jakarta.persistence.EntityManager;
@@ -20,18 +21,17 @@ public class UserRepository {
         em.persist(user);
     }
 
-    public Optional<User> findByUserId(String userId) {
-        List<Driver> driverResultList = em.createQuery("select d from Driver d where d.userId = :userId", Driver.class)
-                .setParameter("userId", userId)
-                .getResultList();
+    // todo: loginId index
+    public Optional<User> findByLoginId(String loginId) {
+        return em.createQuery("select u from User u where u.loginId = :loginId", User.class)
+                .setParameter("loginId", loginId)
+                .getResultList()
+                .stream()
+                .findAny();
+    }
 
-        List<Parent> parentResultList = em.createQuery("select p from Parent p where p.userId = :userId", Parent.class)
-                .setParameter("userId", userId)
-                .getResultList();
-
-        List<User> result = Stream.concat(driverResultList.stream(), parentResultList.stream()).toList();
-
-        return result.stream().findAny();
+    public Optional<PickUpInfo> findPickUpInfoById(Long pickUpInfoId) {
+        return Optional.ofNullable(em.find(PickUpInfo.class, pickUpInfoId));
     }
 
     public Optional<User> findByRefreshToken(String refreshToken) {
