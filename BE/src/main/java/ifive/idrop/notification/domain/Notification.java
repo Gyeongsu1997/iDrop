@@ -1,4 +1,4 @@
-package ifive.idrop.entity;
+package ifive.idrop.notification.domain;
 
 import ifive.idrop.driver.domain.Driver;
 import jakarta.persistence.*;

@@ -1,6 +1,6 @@
-package ifive.idrop.repository;
+package ifive.idrop.notification.repository;
 
-import ifive.idrop.entity.Notification;
+import ifive.idrop.notification.domain.Notification;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
