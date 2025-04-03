@@ -30,18 +30,16 @@ import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
-
 import static ifive.idrop.util.ScheduleUtils.*;
 
-
-@RequiredArgsConstructor
 @Service
+@Transactional(readOnly = true)
+@RequiredArgsConstructor
 public class DriverService {
     private final DriverRepository driverRepository;
     private final PickUpRepository pickUpRepository;
     private final NotificationRepository notificationRepository;
 
-    @Transactional(readOnly = true)
     public List<Driver> searchAvailableDrivers(DriverListRequest driverListRequest) {
         RequestSchedule requestSchedule = parseToList(driverListRequest.getSchedule());
 
@@ -68,7 +66,6 @@ public class DriverService {
         return BaseResponse.of("정보가 성공적으로 등록되었습니다.", driver.getName());
     }
 
-    @Transactional(readOnly = true)
     public DriverDetailResponse detail(Long driverId) {
         Driver driver = driverRepository.findById(driverId)
                 .orElseThrow(() -> new CommonException(ErrorCode.USER_NOT_FOUND));
@@ -76,7 +73,6 @@ public class DriverService {
     }
 
 
-    @Transactional(readOnly = true)
     public BaseResponse<List<CurrentPickUpResponse>> getAllChildRunningInfo(Driver driver) {
         List<Object[]> runningPickInfo = driverRepository.findAllRunningPickUpInfoOrderByreservedTimeASC(driver.getId());
         return BaseResponse.of("Data Successfully Proceed",
@@ -85,13 +81,11 @@ public class DriverService {
                         .toList());
     }
 
-    @Transactional(readOnly = true)
     public List<DriverSubscribeInfoResponse> subscribeList(Long driverId) {
         List<PickUpInfo> pickUpInfoList = pickUpRepository.findPickUpInfoByDriverIdTheLatestOrder(driverId);
         return pickUpInfoList.stream().map(DriverSubscribeInfoResponse::of).toList();
     }
 
-    @Transactional(readOnly = true)
     public BaseResponse<List<CurrentPickUpResponse>> getChildRunningInfo(Driver driver) {
         List<Object[]> runningPickInfo = driverRepository.findRunningPickUpInfo(driver.getId());
         return BaseResponse.of("Data Successfully Proceed",
@@ -141,7 +135,6 @@ public class DriverService {
         //TODO Alarm to Parent
     }
 
-    @Transactional(readOnly = true)
     public List<DriverTodayRemainingPickUpResponse> getTodayRemainingPickUpList(Long driverId) {
         List<Object[]> remainingPickUpInfo = driverRepository.findRemainingPickUpInfo(driverId);
 
