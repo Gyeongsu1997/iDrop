@@ -1,14 +1,13 @@
-package ifive.idrop.resolver;
+package ifive.idrop.auth.resolver;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import ifive.idrop.annotation.Login;
 import ifive.idrop.entity.Users;
 import ifive.idrop.exception.CommonException;
 import ifive.idrop.exception.ErrorCode;
-import ifive.idrop.filter.AuthenticateUser;
-import ifive.idrop.filter.VerifyUserFilter;
-import ifive.idrop.jwt.JwtProvider;
+import ifive.idrop.auth.domain.AuthenticateUser;
+import ifive.idrop.auth.filter.VerifyUserFilter;
+import ifive.idrop.auth.utils.JwtProvider;
 import ifive.idrop.repository.UserRepository;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;

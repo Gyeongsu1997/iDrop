@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import ifive.idrop.annotation.Login;
+import ifive.idrop.auth.resolver.Login;
 import ifive.idrop.dto.response.BaseResponse;
 import ifive.idrop.dto.request.SubscribeRequest;
 import ifive.idrop.parent.domain.Parent;

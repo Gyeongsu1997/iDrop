@@ -1,4 +1,4 @@
-package ifive.idrop.jwt;
+package ifive.idrop.auth.dto;
 
 import lombok.Builder;
 import lombok.Getter;

@@ -1,5 +1,6 @@
-package ifive.idrop.jwt;
+package ifive.idrop.auth.utils;
 
+import ifive.idrop.auth.dto.Jwt;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;

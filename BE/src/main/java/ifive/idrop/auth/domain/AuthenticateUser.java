@@ -1,4 +1,4 @@
-package ifive.idrop.filter;
+package ifive.idrop.auth.domain;
 
 import ifive.idrop.entity.enums.Role;
 import lombok.AllArgsConstructor;

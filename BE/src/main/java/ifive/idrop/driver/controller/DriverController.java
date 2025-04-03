@@ -1,6 +1,6 @@
 package ifive.idrop.driver.controller;
 
-import ifive.idrop.annotation.Login;
+import ifive.idrop.auth.resolver.Login;
 
 import ifive.idrop.dto.request.SubscribeCheckRequest;
 import ifive.idrop.dto.response.*;

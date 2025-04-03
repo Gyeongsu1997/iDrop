@@ -2,9 +2,9 @@ package ifive.idrop.websocket;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import ifive.idrop.entity.Users;
-import ifive.idrop.filter.AuthenticateUser;
-import ifive.idrop.filter.VerifyUserFilter;
-import ifive.idrop.jwt.JwtProvider;
+import ifive.idrop.auth.domain.AuthenticateUser;
+import ifive.idrop.auth.filter.VerifyUserFilter;
+import ifive.idrop.auth.utils.JwtProvider;
 import ifive.idrop.repository.UserRepository;
 import ifive.idrop.util.CustomObjectMapper;
 import io.jsonwebtoken.Claims;

@@ -1,4 +1,4 @@
-package ifive.idrop.filter;
+package ifive.idrop.auth.filter;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -7,7 +7,8 @@ import ifive.idrop.entity.enums.Role;
 import ifive.idrop.exception.CommonException;
 import ifive.idrop.exception.ErrorCode;
 import ifive.idrop.exception.ErrorResponse;
-import ifive.idrop.jwt.JwtProvider;
+import ifive.idrop.auth.domain.AuthenticateUser;
+import ifive.idrop.auth.utils.JwtProvider;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;

@@ -1,4 +1,4 @@
-package ifive.idrop.jwt;
+package ifive.idrop.auth.utils;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

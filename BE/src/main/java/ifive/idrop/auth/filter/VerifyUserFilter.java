@@ -1,10 +1,11 @@
-package ifive.idrop.filter;
+package ifive.idrop.auth.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ifive.idrop.dto.request.LoginRequest;
 import ifive.idrop.entity.enums.Role;
 import ifive.idrop.exception.CommonException;
 import ifive.idrop.exception.ErrorResponse;
+import ifive.idrop.auth.domain.AuthenticateUser;
 import ifive.idrop.service.UserService;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;

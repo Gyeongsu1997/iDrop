@@ -1,4 +1,4 @@
-package ifive.idrop.filter;
+package ifive.idrop.auth.filter;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;

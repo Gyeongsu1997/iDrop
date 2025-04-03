@@ -1,4 +1,4 @@
-package ifive.idrop.annotation;
+package ifive.idrop.auth.resolver;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

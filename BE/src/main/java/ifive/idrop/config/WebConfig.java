@@ -2,10 +2,14 @@ package ifive.idrop.config;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import ifive.idrop.filter.*;
-import ifive.idrop.jwt.JwtProvider;
+import ifive.idrop.auth.filter.CorsFilter;
+import ifive.idrop.auth.filter.JwtAuthorizationFilter;
+import ifive.idrop.auth.filter.JwtFilter;
+import ifive.idrop.auth.filter.VerifyUserFilter;
+import ifive.idrop.fcm.FCMFilter;
+import ifive.idrop.auth.utils.JwtProvider;
 import ifive.idrop.repository.UserRepository;
-import ifive.idrop.resolver.LoginUsersArgumentResolver;
+import ifive.idrop.auth.resolver.LoginUsersArgumentResolver;
 import ifive.idrop.service.UserService;
 import jakarta.servlet.Filter;
 import lombok.RequiredArgsConstructor;

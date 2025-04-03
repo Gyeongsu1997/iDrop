@@ -1,6 +1,7 @@
-package ifive.idrop.filter;
+package ifive.idrop.fcm;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import ifive.idrop.auth.filter.JwtAuthorizationFilter;
 import ifive.idrop.dto.request.TokenRequest;
 import ifive.idrop.exception.CommonException;
 import ifive.idrop.exception.ErrorResponse;
