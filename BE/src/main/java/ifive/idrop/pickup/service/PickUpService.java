@@ -2,7 +2,7 @@ package ifive.idrop.pickup.service;
 
 import ifive.idrop.parent.domain.Parent;
 import ifive.idrop.pickup.domain.PickUp;
-import ifive.idrop.common.exception.CommonException;
+import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.exception.ErrorCode;
 import ifive.idrop.notification.AlarmMessage;
 import ifive.idrop.notification.NotificationUtill;
@@ -31,7 +31,7 @@ public class PickUpService {
     @Transactional
     public void saveStartOrEndPickUp(Long pickUpId, MultipartFile image, String message) throws IOException, ExecutionException, InterruptedException {
         PickUp pickUp = pickUpRepository.findPickUpById(pickUpId)
-                .orElseThrow(() -> new CommonException(ErrorCode.PICKUP_NOT_FOUND));
+                .orElseThrow(() -> new BusinessException(ErrorCode.PICKUP_NOT_FOUND));
         Parent parent = pickUp.getParent();
         if (pickUp.getStartImage() == null) {
             String imageUrl = imageService.upload(image, PICKUP_IMAGE_PATH);
@@ -48,13 +48,13 @@ public class PickUpService {
             NotificationUtill.createNotification(parent, AlarmMessage.PICK_UP_END.getTitle(),
                     AlarmMessage.PICK_UP_END.getMessage());
         } else {
-            throw new CommonException(ErrorCode.PICKUP_ALREADY_END);
+            throw new BusinessException(ErrorCode.PICKUP_ALREADY_END);
         }
     }
 
     public PickUp findByPickUpId(Long pickUpId) {
         return pickUpRepository.findPickUpById(pickUpId)
-                .orElseThrow(() -> new CommonException(ErrorCode.PICKUP_NOT_FOUND));
+                .orElseThrow(() -> new BusinessException(ErrorCode.PICKUP_NOT_FOUND));
     }
 
     public Optional<PickUp> findCurrentPickUp(Long driverId, Long childId) {

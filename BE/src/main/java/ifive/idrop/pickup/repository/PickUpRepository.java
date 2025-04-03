@@ -1,7 +1,7 @@
 package ifive.idrop.pickup.repository;
 
 import ifive.idrop.entity.enums.PickUpStatus;
-import ifive.idrop.common.exception.CommonException;
+import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.exception.ErrorCode;
 import ifive.idrop.pickup.domain.PickUp;
 import jakarta.persistence.EntityManager;
@@ -119,7 +119,7 @@ public class PickUpRepository {
 
     public void savePickUpStartInfo(Long pickupId, String startImage, String startMessage) {
         PickUp pickUp = Optional.ofNullable(em.find(PickUp.class, pickupId))
-                .orElseThrow(() -> new CommonException(ErrorCode.PICKUP_NOT_FOUND));
+                .orElseThrow(() -> new BusinessException(ErrorCode.PICKUP_NOT_FOUND));
 
         pickUp.updateStartPickUpInfo(startImage, startMessage);
         em.merge(pickUp);
@@ -127,7 +127,7 @@ public class PickUpRepository {
 
     public void savePickUpEndInfo(Long pickupId, String endImage, String endMessage) {
         PickUp pickUp = Optional.ofNullable(em.find(PickUp.class, pickupId))
-                .orElseThrow(() -> new CommonException(ErrorCode.PICKUP_NOT_FOUND));
+                .orElseThrow(() -> new BusinessException(ErrorCode.PICKUP_NOT_FOUND));
 
         pickUp.updateEndPickUpInfo(endImage, endMessage);
         em.merge(pickUp);

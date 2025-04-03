@@ -5,7 +5,7 @@ import ifive.idrop.dto.CurrentPickUpResponse;
 import ifive.idrop.parent.dto.DriverListResponse;
 import ifive.idrop.parent.dto.ParentSubscribeInfoResponse;
 import ifive.idrop.driver.domain.Driver;
-import ifive.idrop.common.exception.CommonException;
+import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.exception.ErrorCode;
 import ifive.idrop.driver.service.DriverService;
 import ifive.idrop.user.domain.User;
@@ -65,7 +65,7 @@ public class ParentController {
     public BaseResponse hasCurrentPickUp(@Login Parent parent) {
         if(parentService.hasCurrentPickUp(parent.getId()))
             return BaseResponse.success();
-        throw new CommonException(ErrorCode.PICKUP_NOT_FOUND);
+        throw new BusinessException(ErrorCode.PICKUP_NOT_FOUND);
     }
 
     @GetMapping("/user/pickup/now")
@@ -78,6 +78,6 @@ public class ParentController {
             return driverService.getAllChildRunningInfo((Driver) user);
         }
 
-        throw new CommonException(ErrorCode.UNAUTHORIZED_USER);
+        throw new BusinessException(ErrorCode.UNAUTHORIZED_USER);
     }
 }

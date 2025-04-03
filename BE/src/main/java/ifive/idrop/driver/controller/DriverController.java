@@ -3,7 +3,7 @@ package ifive.idrop.driver.controller;
 import ifive.idrop.auth.resolver.Login;
 
 import ifive.idrop.common.dto.BaseResponse;
-import ifive.idrop.common.exception.CommonException;
+import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.exception.ErrorCode;
 import ifive.idrop.driver.dto.*;
 import ifive.idrop.dto.CurrentPickUpResponse;
@@ -58,7 +58,7 @@ public class DriverController {
     public DriverDetailResponse detailDriver(@Login User user, @PathVariable("driverId") Long driverId) {
         if (user instanceof Driver driver) {
             if (!driver.getId().equals(driverId)) {
-                throw new CommonException(ErrorCode.UNAUTHORIZED_USER);
+                throw new BusinessException(ErrorCode.UNAUTHORIZED_USER);
             }
         }
         return driverService.detail(driverId);

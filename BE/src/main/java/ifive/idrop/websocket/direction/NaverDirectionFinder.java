@@ -1,6 +1,6 @@
 package ifive.idrop.websocket.direction;
 
-import ifive.idrop.common.exception.CommonException;
+import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.exception.ErrorCode;
 import ifive.idrop.websocket.direction.dto.Direction;
 import ifive.idrop.websocket.direction.dto.NaverDirectionResponse;
@@ -41,7 +41,7 @@ public class NaverDirectionFinder {
                 .build();
         NaverDirectionResponse response = restTemplate.exchange(request, NaverDirectionResponse.class).getBody();
 
-        Direction direction = new Direction(response.getPath().orElseThrow(() -> new CommonException(ErrorCode.DIRECTION_NOT_FOUND)));
+        Direction direction = new Direction(response.getPath().orElseThrow(() -> new BusinessException(ErrorCode.DIRECTION_NOT_FOUND)));
         direction.pushStartPath(List.of(startLocation.getLongitude(), startLocation.getLatitude()));
         return direction;
     }

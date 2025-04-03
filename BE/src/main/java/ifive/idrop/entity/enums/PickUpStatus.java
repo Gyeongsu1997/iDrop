@@ -1,6 +1,6 @@
 package ifive.idrop.entity.enums;
 
-import ifive.idrop.common.exception.CommonException;
+import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.exception.ErrorCode;
 
 public enum PickUpStatus {
@@ -25,7 +25,7 @@ public enum PickUpStatus {
 
     public static PickUpStatus of(int statusCode) {
         if (statusCode < 0 || statusCode > 4) {
-            throw new CommonException(ErrorCode.INVALID_PICKUP_STATUS);
+            throw new BusinessException(ErrorCode.INVALID_PICKUP_STATUS);
         }
         return ENUMS[statusCode];
     }

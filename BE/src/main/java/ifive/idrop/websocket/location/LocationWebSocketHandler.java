@@ -3,7 +3,7 @@ package ifive.idrop.websocket.location;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import ifive.idrop.driver.domain.Driver;
 import ifive.idrop.entity.*;
-import ifive.idrop.common.exception.CommonException;
+import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.exception.ErrorCode;
 import ifive.idrop.auth.domain.AuthenticateUser;
 import ifive.idrop.auth.filter.VerifyUserFilter;
@@ -73,7 +73,7 @@ public class LocationWebSocketHandler extends TextWebSocketHandler {
                 CurrentPickUp currentPickUp = setCurrentPickUps(driverId);
                 Direction direction = directionFinder.getDirection(currentPickUp.getStartLocation(), currentPickUp.getEndLocation());
                 session.sendMessage(new TextMessage(CustomObjectMapper.getString(direction)));
-            } catch (CommonException e) {
+            } catch (BusinessException e) {
                 sendErrorMessage(session, e.getMessage());
                 session.close(CloseStatus.NORMAL); // 정상 종료 상태로 소켓 연결 종료
                 return; // 메소드 종료
@@ -154,13 +154,13 @@ public class LocationWebSocketHandler extends TextWebSocketHandler {
         accessToken = accessToken.substring(1, accessToken.length() - 1);
         AuthenticateUser authenticateUser = getAuthenticateUser(accessToken);
         return userRepository.findByLoginId(authenticateUser.getUserId())
-                .orElseThrow(() -> new CommonException(ErrorCode.USER_NOT_FOUND));
+                .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
     }
 
     //웹소켓 driver가 연결 시 currentPickUp 만들어서 세팅
     private CurrentPickUp setCurrentPickUps(Long driverId) {
         PickUp pickup = pickUpInfoRepository.findPickUpByDriverIdWithCurrentTimeInReservedWindow(driverId)
-                .orElseThrow(() -> new CommonException(ErrorCode.PICKUP_NOT_FOUND));
+                .orElseThrow(() -> new BusinessException(ErrorCode.PICKUP_NOT_FOUND));
         PickUpLocation pickUpLocation = pickUpInfoRepository.getPickUpLocation(pickup.getId());
 
         Object[] childIdAndParentId = pickUpInfoRepository.findChildAndParentIdByPickUp(pickup.getId());

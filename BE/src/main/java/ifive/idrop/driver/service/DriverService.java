@@ -6,7 +6,7 @@ import ifive.idrop.driver.dto.*;
 import ifive.idrop.dto.DriverListRequest;
 import ifive.idrop.entity.*;
 import ifive.idrop.entity.enums.PickUpStatus;
-import ifive.idrop.common.exception.CommonException;
+import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.exception.ErrorCode;
 import ifive.idrop.notification.AlarmMessage;
 import ifive.idrop.notification.NotificationUtill;
@@ -62,14 +62,14 @@ public class DriverService {
     @Transactional
     public BaseResponse<String> registerInfo(Long driverId, DriverInformation driverInformation) {
         Driver driver = driverRepository.findById(driverId)
-                .orElseThrow(() -> new CommonException(ErrorCode.USER_NOT_FOUND));
+                .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
         driver.addAdditionalInfo(driverInformation);
         return BaseResponse.of("정보가 성공적으로 등록되었습니다.", driver.getName());
     }
 
     public DriverDetailResponse detail(Long driverId) {
         Driver driver = driverRepository.findById(driverId)
-                .orElseThrow(() -> new CommonException(ErrorCode.USER_NOT_FOUND));
+                .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
         return driver.getDetail();
     }
 
@@ -99,14 +99,14 @@ public class DriverService {
     public BaseResponse subscribeCheck(Long driverId, SubscribeCheckRequest subscribeCheckRequest) throws ExecutionException, InterruptedException {
         Integer statusCode = subscribeCheckRequest.getStatusCode();
         if (statusCode == null || !(statusCode == 0 || statusCode == 1)) {
-            throw new CommonException(ErrorCode.INVALID_PICKUP_STATUS);
+            throw new BusinessException(ErrorCode.INVALID_PICKUP_STATUS);
         }
         Long pickUpInfoId = subscribeCheckRequest.getPickUpInfoId();
         PickUpInfo pickUpInfo = pickUpRepository.findPickUpInfoById(pickUpInfoId)
-                .orElseThrow(() -> new CommonException(ErrorCode.PICKUP_INFO_NOT_EXIST));
+                .orElseThrow(() -> new BusinessException(ErrorCode.PICKUP_INFO_NOT_EXIST));
 
         if (!Objects.equals(driverId, pickUpInfo.getDriver().getId())) {
-            throw new CommonException(ErrorCode.UNAUTHORIZED_USER);
+            throw new BusinessException(ErrorCode.UNAUTHORIZED_USER);
         }
 
         PickUpSubscribe pickUpSubscribe = pickUpInfo.getPickUpSubscribe();

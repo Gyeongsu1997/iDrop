@@ -1,6 +1,6 @@
 package ifive.idrop.util;
 
-import ifive.idrop.common.exception.CommonException;
+import ifive.idrop.common.exception.BusinessException;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -53,7 +53,7 @@ public class ScheduleUtils {
         try {
             scheduleJSON = (JSONObject)parser.parse(schedule);
         } catch (ParseException e) {
-            throw new CommonException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), "");
+            throw new BusinessException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), "");
         }
         return scheduleJSON;
     }

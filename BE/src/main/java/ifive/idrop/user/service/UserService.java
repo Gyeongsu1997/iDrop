@@ -8,7 +8,7 @@ import ifive.idrop.user.dto.NameResponse;
 import ifive.idrop.user.dto.SignUpRequest;
 import ifive.idrop.user.domain.User;
 import ifive.idrop.entity.enums.Role;
-import ifive.idrop.common.exception.CommonException;
+import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.exception.ErrorCode;
 import ifive.idrop.auth.domain.AuthenticateUser;
 import ifive.idrop.auth.filter.VerifyUserFilter;
@@ -22,8 +22,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashMap;
 import java.util.Optional;
 
-@RequiredArgsConstructor
 @Service
+@RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class UserService {
     private final UserRepository userRepository;
     private final JwtProvider jwtProvider;
@@ -31,7 +32,7 @@ public class UserService {
 
     @Transactional
     public BaseResponse<String> signUp(SignUpRequest signUpRequest){
-        checkDuplicateUserId(signUpRequest.getUserId());
+        checkDuplicateLoginId(signUpRequest.getLoginId());
         User user = signUpRequest.toEntity();
         userRepository.save(user);
         if (user instanceof Driver)
@@ -40,17 +41,17 @@ public class UserService {
             return BaseResponse.of("성공적으로 회원가입 되었습니다.", "부모");
     }
 
-    public void checkDuplicateUserId(String userId) {
-        Optional<User> optional = userRepository.findByLoginId(userId);
+    private void checkDuplicateLoginId(String loginId) {
+        Optional<User> optional = userRepository.findByLoginId(loginId);
         if (optional.isPresent())
-            throw new CommonException(ErrorCode.DUPLICATE_USERID);
+            throw new BusinessException(ErrorCode.DUPLICATE_USERID);
     }
 
     public Role verifyUser(LoginRequest loginRequest){
         Optional<User> optional = userRepository.findByLoginId(loginRequest.getUserId());
-        User user = optional.orElseThrow(() -> new CommonException(ErrorCode.USERID_NOT_EXIST));
+        User user = optional.orElseThrow(() -> new BusinessException(ErrorCode.USERID_NOT_EXIST));
         if (!user.verifyUser(loginRequest))
-            throw new CommonException(ErrorCode.PASSWORD_NOT_MATCHED);
+            throw new BusinessException(ErrorCode.PASSWORD_NOT_MATCHED);
         if (user instanceof Driver)
             return Role.DRIVER;
         else
@@ -93,17 +94,16 @@ public class UserService {
         }
     }
 
-    @Transactional(readOnly = true)
     public NameResponse getName(User user) {
         User foundUser = userRepository.findByLoginId(user.getLoginId())
-                .orElseThrow(() -> new CommonException(ErrorCode.USER_NOT_FOUND));
+                .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
         return new NameResponse(foundUser);
     }
 
     @Transactional
     public BaseResponse<String> updateFCMToken(String userId, String fcmToken) {
         User foundUser = userRepository.findByLoginId(userId)
-                .orElseThrow(() -> new CommonException(ErrorCode.USER_NOT_FOUND));
+                .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
         foundUser.updateFcmToken(fcmToken);
         return BaseResponse.success();
     }

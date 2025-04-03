@@ -11,7 +11,7 @@ import ifive.idrop.parent.dto.PickUpHistoryResponse;
 import ifive.idrop.parent.dto.ParentSubscribeInfoResponse;
 import ifive.idrop.entity.*;
 import ifive.idrop.entity.enums.PickUpStatus;
-import ifive.idrop.common.exception.CommonException;
+import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.exception.ErrorCode;
 import ifive.idrop.notification.AlarmMessage;
 import ifive.idrop.notification.NotificationUtill;
@@ -40,9 +40,9 @@ public class ParentService {
     @Transactional
     public BaseResponse<String> createSubscribe(Parent parent, SubscribeRequest subscribeRequest) throws JSONException, ExecutionException, InterruptedException {
         Driver driver = driverRepository.findById(subscribeRequest.getDriverId())
-                .orElseThrow(() -> new CommonException(ErrorCode.DRIVER_NOT_EXIST));
+                .orElseThrow(() -> new BusinessException(ErrorCode.DRIVER_NOT_EXIST));
         Child child = parentRepository.findChild(parent.getId())
-                .orElseThrow(() -> new CommonException(ErrorCode.CHILD_NOT_EXIST));
+                .orElseThrow(() -> new BusinessException(ErrorCode.CHILD_NOT_EXIST));
 
         PickUpSubscribe subscribe = createPickUpSubscribe();
         PickUpLocation location = createPickUpLocation(subscribeRequest);

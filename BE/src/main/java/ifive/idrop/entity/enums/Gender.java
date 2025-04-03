@@ -1,6 +1,6 @@
 package ifive.idrop.entity.enums;
 
-import ifive.idrop.common.exception.CommonException;
+import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.exception.ErrorCode;
 import lombok.Getter;
 
@@ -21,6 +21,6 @@ public enum Gender {
         if ("여성".equals(gender)) {
             return Gender.FEMALE;
         }
-        throw new CommonException(ErrorCode.INVALID_GENDER);
+        throw new BusinessException(ErrorCode.INVALID_GENDER);
     }
 }

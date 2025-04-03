@@ -3,7 +3,7 @@ package ifive.idrop.auth.filter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ifive.idrop.auth.dto.LoginRequest;
 import ifive.idrop.entity.enums.Role;
-import ifive.idrop.common.exception.CommonException;
+import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.dto.ErrorResponse;
 import ifive.idrop.auth.domain.AuthenticateUser;
 import ifive.idrop.user.service.UserService;
@@ -33,14 +33,14 @@ public class VerifyUserFilter implements Filter {
                 Role role = userService.verifyUser(loginRequest);
                 request.setAttribute(AUTHENTICATE_USER, new AuthenticateUser(loginRequest.getUserId(), role));
                 chain.doFilter(request, response);
-            } catch (CommonException e) {
+            } catch (BusinessException e) {
                 log.error("user verify failed");
                 httpServletResponseError((HttpServletResponse) response, e);
             }
         }
     }
 
-    private void httpServletResponseError(HttpServletResponse httpServletResponse, CommonException e) throws IOException {
+    private void httpServletResponseError(HttpServletResponse httpServletResponse, BusinessException e) throws IOException {
         httpServletResponse.setStatus(e.getHttpStatus().value());
         httpServletResponse.setContentType("application/json");
         httpServletResponse.setCharacterEncoding("utf-8");

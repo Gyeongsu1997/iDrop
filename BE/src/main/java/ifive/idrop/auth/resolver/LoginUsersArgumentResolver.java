@@ -3,7 +3,7 @@ package ifive.idrop.auth.resolver;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ifive.idrop.user.domain.User;
-import ifive.idrop.common.exception.CommonException;
+import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.exception.ErrorCode;
 import ifive.idrop.auth.domain.AuthenticateUser;
 import ifive.idrop.auth.filter.VerifyUserFilter;
@@ -39,7 +39,7 @@ public class LoginUsersArgumentResolver implements HandlerMethodArgumentResolver
         String token = getToken(httpServletRequest);
         AuthenticateUser authenticateUser = getAuthenticateUser(token);
         Optional<User> optional = userRepository.findByLoginId(authenticateUser.getUserId());
-        User user = optional.orElseThrow(() -> new CommonException(ErrorCode.USER_NOT_FOUND));
+        User user = optional.orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
         return user;
     }
 

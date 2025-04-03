@@ -8,7 +8,7 @@ import ifive.idrop.entity.PickUpInfo;
 import ifive.idrop.user.domain.User;
 import ifive.idrop.entity.WorkHours;
 import ifive.idrop.entity.enums.Gender;
-import ifive.idrop.common.exception.CommonException;
+import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.exception.ErrorCode;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -50,7 +50,7 @@ public class Driver extends User {
         List<WorkHoursDto> availableTime = info.getAvailableTime();
         for (WorkHoursDto workHoursDto : availableTime) {
             if (!DAY_OF_WEEKS.contains(workHoursDto.getDay())) {
-                throw new CommonException(ErrorCode.INVALID_DAY_OF_WEEK);
+                throw new BusinessException(ErrorCode.INVALID_DAY_OF_WEEK);
             }
             workHoursList.add(workHoursDto.toEntity(this));
         }

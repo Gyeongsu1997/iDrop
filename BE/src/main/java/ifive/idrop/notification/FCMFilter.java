@@ -3,7 +3,7 @@ package ifive.idrop.notification;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ifive.idrop.auth.filter.JwtAuthorizationFilter;
 import ifive.idrop.notification.dto.TokenRequest;
-import ifive.idrop.common.exception.CommonException;
+import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.dto.ErrorResponse;
 import ifive.idrop.user.service.UserService;
 import jakarta.servlet.*;
@@ -34,7 +34,7 @@ public class FCMFilter implements Filter {
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
                 response.getWriter().write(json);
-            } catch (CommonException e) {
+            } catch (BusinessException e) {
                 log.error("FCM token save fail");
                 httpServletResponseError((HttpServletResponse) response, e);
             }
@@ -43,7 +43,7 @@ public class FCMFilter implements Filter {
         chain.doFilter(request, response);
     }
 
-    private void httpServletResponseError(HttpServletResponse httpServletResponse, CommonException e) throws IOException {
+    private void httpServletResponseError(HttpServletResponse httpServletResponse, BusinessException e) throws IOException {
         httpServletResponse.setStatus(e.getHttpStatus().value());
         httpServletResponse.setContentType("application/json");
         httpServletResponse.setCharacterEncoding("utf-8");

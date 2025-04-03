@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ifive.idrop.entity.enums.Role;
-import ifive.idrop.common.exception.CommonException;
+import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.exception.ErrorCode;
 import ifive.idrop.common.dto.ErrorResponse;
 import ifive.idrop.auth.domain.AuthenticateUser;
@@ -42,7 +42,7 @@ public class JwtAuthorizationFilter implements Filter {
         }
         if (!isContainToken(httpServletRequest)){
             log.error("access token doesn't exist");
-            httpServletResponseError(httpServletResponse, new CommonException(ErrorCode.TOKEN_NOT_EXIST));
+            httpServletResponseError(httpServletResponse, new BusinessException(ErrorCode.TOKEN_NOT_EXIST));
             return;
         }
         try {
@@ -57,11 +57,11 @@ public class JwtAuthorizationFilter implements Filter {
             httpServletResponse.sendError(HttpStatus.INTERNAL_SERVER_ERROR.value());
         } catch (SignatureException | MalformedJwtException | UnsupportedJwtException e){
             log.error("invalid token");
-            httpServletResponseError(httpServletResponse, new CommonException(ErrorCode.INVALID_TOKEN));
+            httpServletResponseError(httpServletResponse, new BusinessException(ErrorCode.INVALID_TOKEN));
         } catch (ExpiredJwtException e){
             log.error("access token expired");
-            httpServletResponseError(httpServletResponse, new CommonException(ErrorCode.ACCESS_TOKEN_EXPIRED));
-        } catch (CommonException e){
+            httpServletResponseError(httpServletResponse, new BusinessException(ErrorCode.ACCESS_TOKEN_EXPIRED));
+        } catch (BusinessException e){
             log.error("unauthorized user");
             httpServletResponseError(httpServletResponse, e);
         }
@@ -89,14 +89,14 @@ public class JwtAuthorizationFilter implements Filter {
 
     private void verifyAuthorization(String uri, AuthenticateUser user) {
         if (PatternMatchUtils.simpleMatch("/driver/*",uri) && !user.getRole().equals(Role.DRIVER)){
-            throw new CommonException(ErrorCode.UNAUTHORIZED_USER);
+            throw new BusinessException(ErrorCode.UNAUTHORIZED_USER);
         }
         if (PatternMatchUtils.simpleMatch("/parent/*",uri) && !user.getRole().equals(Role.PARENT)){
-            throw new CommonException(ErrorCode.UNAUTHORIZED_USER);
+            throw new BusinessException(ErrorCode.UNAUTHORIZED_USER);
         }
     }
 
-    private void httpServletResponseError(HttpServletResponse httpServletResponse, CommonException e) throws IOException {
+    private void httpServletResponseError(HttpServletResponse httpServletResponse, BusinessException e) throws IOException {
         httpServletResponse.setStatus(e.getHttpStatus().value());
         httpServletResponse.setContentType("application/json");
         httpServletResponse.setCharacterEncoding("utf-8");
