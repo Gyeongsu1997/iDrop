@@ -1,6 +1,7 @@
 package ifive.idrop.entity;
 
 import ifive.idrop.entity.enums.Gender;
+import ifive.idrop.parent.domain.Parent;
 import jakarta.persistence.*;
 import lombok.Getter;
 

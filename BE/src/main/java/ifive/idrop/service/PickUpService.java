@@ -1,6 +1,6 @@
 package ifive.idrop.service;
 
-import ifive.idrop.entity.Parent;
+import ifive.idrop.parent.domain.Parent;
 import ifive.idrop.entity.PickUp;
 import ifive.idrop.exception.CommonException;
 import ifive.idrop.exception.ErrorCode;

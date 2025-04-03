@@ -1,4 +1,4 @@
-package ifive.idrop.service;
+package ifive.idrop.parent.service;
 
 
 import ifive.idrop.driver.domain.Driver;
@@ -15,7 +15,8 @@ import ifive.idrop.exception.ErrorCode;
 import ifive.idrop.fcm.AlarmMessage;
 import ifive.idrop.fcm.NotificationUtill;
 import ifive.idrop.driver.repository.DriverRepository;
-import ifive.idrop.repository.ParentRepository;
+import ifive.idrop.parent.domain.Parent;
+import ifive.idrop.parent.repository.ParentRepository;
 import ifive.idrop.repository.PickUpRepository;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONException;

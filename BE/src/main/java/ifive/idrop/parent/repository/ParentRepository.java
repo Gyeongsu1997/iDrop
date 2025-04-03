@@ -1,8 +1,7 @@
-package ifive.idrop.repository;
+package ifive.idrop.parent.repository;
 
 import ifive.idrop.entity.Child;
-import ifive.idrop.entity.Parent;
-import ifive.idrop.entity.PickUpInfo;
+import ifive.idrop.parent.domain.Parent;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;

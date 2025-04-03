@@ -1,7 +1,7 @@
 package ifive.idrop.dto.request;
 
 import ifive.idrop.driver.domain.Driver;
-import ifive.idrop.entity.Parent;
+import ifive.idrop.parent.domain.Parent;
 import ifive.idrop.entity.Users;
 import ifive.idrop.entity.enums.Role;
 import ifive.idrop.exception.CommonException;

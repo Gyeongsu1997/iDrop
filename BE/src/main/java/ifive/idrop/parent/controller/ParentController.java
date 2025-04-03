@@ -1,4 +1,4 @@
-package ifive.idrop.controller;
+package ifive.idrop.parent.controller;
 
 import ifive.idrop.dto.request.DriverListRequest;
 import ifive.idrop.dto.response.CurrentPickUpResponse;
@@ -16,8 +16,8 @@ import java.util.concurrent.ExecutionException;
 import ifive.idrop.annotation.Login;
 import ifive.idrop.dto.response.BaseResponse;
 import ifive.idrop.dto.request.SubscribeRequest;
-import ifive.idrop.entity.Parent;
-import ifive.idrop.service.ParentService;
+import ifive.idrop.parent.domain.Parent;
+import ifive.idrop.parent.service.ParentService;
 import org.json.JSONException;
 
 

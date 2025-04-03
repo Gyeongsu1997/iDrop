@@ -1,7 +1,7 @@
 package ifive.idrop.repository;
 
 import ifive.idrop.driver.domain.Driver;
-import ifive.idrop.entity.Parent;
+import ifive.idrop.parent.domain.Parent;
 import ifive.idrop.entity.Users;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
