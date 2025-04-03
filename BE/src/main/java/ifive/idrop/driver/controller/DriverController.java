@@ -1,14 +1,12 @@
-package ifive.idrop.controller;
+package ifive.idrop.driver.controller;
 
 import ifive.idrop.annotation.Login;
 
 import ifive.idrop.dto.request.SubscribeCheckRequest;
 import ifive.idrop.dto.response.*;
 import ifive.idrop.dto.request.DriverInformation;
-import ifive.idrop.entity.Driver;
-import ifive.idrop.exception.CommonException;
-import ifive.idrop.exception.ErrorCode;
-import ifive.idrop.service.DriverService;
+import ifive.idrop.driver.domain.Driver;
+import ifive.idrop.driver.service.DriverService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

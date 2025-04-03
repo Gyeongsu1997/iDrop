@@ -1,9 +1,12 @@
-package ifive.idrop.entity;
+package ifive.idrop.driver.domain;
 
 import ifive.idrop.dto.request.DriverInformation;
 import ifive.idrop.dto.response.DriverDetailResponse;
 import ifive.idrop.dto.response.DriverSummary;
 import ifive.idrop.dto.request.WorkHoursDto;
+import ifive.idrop.entity.PickUpInfo;
+import ifive.idrop.entity.Users;
+import ifive.idrop.entity.WorkHours;
 import ifive.idrop.entity.enums.Gender;
 import ifive.idrop.exception.CommonException;
 import ifive.idrop.exception.ErrorCode;

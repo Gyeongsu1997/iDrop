@@ -2,21 +2,18 @@ package ifive.idrop.controller;
 
 import ifive.idrop.annotation.Login;
 import ifive.idrop.dto.response.BaseResponse;
-import ifive.idrop.dto.response.CurrentPickUpResponse;
 import ifive.idrop.dto.response.DriverDetailResponse;
-import ifive.idrop.entity.Driver;
+import ifive.idrop.driver.domain.Driver;
 import ifive.idrop.entity.Parent;
 import ifive.idrop.entity.Users;
 import ifive.idrop.exception.CommonException;
 import ifive.idrop.exception.ErrorCode;
-import ifive.idrop.service.DriverService;
+import ifive.idrop.driver.service.DriverService;
 import ifive.idrop.service.ParentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @RestController

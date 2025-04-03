@@ -1,5 +1,6 @@
-package ifive.idrop.service;
+package ifive.idrop.driver.service;
 
+import ifive.idrop.driver.domain.Driver;
 import ifive.idrop.dto.request.SubscribeCheckRequest;
 import ifive.idrop.dto.response.*;
 import ifive.idrop.dto.request.DriverInformation;
@@ -10,7 +11,7 @@ import ifive.idrop.exception.CommonException;
 import ifive.idrop.exception.ErrorCode;
 import ifive.idrop.fcm.AlarmMessage;
 import ifive.idrop.fcm.NotificationUtill;
-import ifive.idrop.repository.DriverRepository;
+import ifive.idrop.driver.repository.DriverRepository;
 import ifive.idrop.repository.NotificationRepository;
 import ifive.idrop.repository.PickUpRepository;
 import ifive.idrop.util.RequestSchedule;

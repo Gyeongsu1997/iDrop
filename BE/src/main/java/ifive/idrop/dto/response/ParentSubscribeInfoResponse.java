@@ -1,6 +1,6 @@
 package ifive.idrop.dto.response;
 
-import ifive.idrop.entity.Driver;
+import ifive.idrop.driver.domain.Driver;
 import ifive.idrop.entity.PickUpInfo;
 import ifive.idrop.entity.PickUpLocation;
 import ifive.idrop.entity.PickUpSubscribe;

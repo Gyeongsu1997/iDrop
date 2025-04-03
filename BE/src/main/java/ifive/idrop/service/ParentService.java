@@ -1,6 +1,7 @@
 package ifive.idrop.service;
 
 
+import ifive.idrop.driver.domain.Driver;
 import ifive.idrop.dto.response.BaseResponse;
 import ifive.idrop.dto.request.SubscribeRequest;
 import ifive.idrop.dto.response.CurrentPickUpResponse;
@@ -13,24 +14,17 @@ import ifive.idrop.exception.CommonException;
 import ifive.idrop.exception.ErrorCode;
 import ifive.idrop.fcm.AlarmMessage;
 import ifive.idrop.fcm.NotificationUtill;
-import ifive.idrop.repository.DriverRepository;
+import ifive.idrop.driver.repository.DriverRepository;
 import ifive.idrop.repository.ParentRepository;
 import ifive.idrop.repository.PickUpRepository;
-import ifive.idrop.util.Parser;
-import ifive.idrop.util.ScheduleUtils;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
-
-import static ifive.idrop.util.ScheduleUtils.calculateEndDate;
-import static ifive.idrop.util.ScheduleUtils.calculateStartDate;
 
 @Service
 @RequiredArgsConstructor

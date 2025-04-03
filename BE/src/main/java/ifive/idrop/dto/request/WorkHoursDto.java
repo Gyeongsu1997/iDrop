@@ -1,6 +1,6 @@
 package ifive.idrop.dto.request;
 
-import ifive.idrop.entity.Driver;
+import ifive.idrop.driver.domain.Driver;
 import ifive.idrop.entity.WorkHours;
 import lombok.Getter;
 

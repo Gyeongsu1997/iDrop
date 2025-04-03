@@ -1,10 +1,11 @@
-package ifive.idrop.repository;
+package ifive.idrop.driver.repository;
 
 import ifive.idrop.dto.request.DriverListRequest;
 import ifive.idrop.entity.*;
+import ifive.idrop.repository.PickUpRepository;
 import ifive.idrop.util.RequestSchedule;
 import ifive.idrop.util.ScheduleUtils;
-import ifive.idrop.entity.Driver;
+import ifive.idrop.driver.domain.Driver;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;

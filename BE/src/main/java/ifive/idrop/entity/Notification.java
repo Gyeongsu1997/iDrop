@@ -1,5 +1,6 @@
 package ifive.idrop.entity;
 
+import ifive.idrop.driver.domain.Driver;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

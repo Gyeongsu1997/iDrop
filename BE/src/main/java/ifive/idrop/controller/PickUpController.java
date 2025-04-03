@@ -2,7 +2,7 @@ package ifive.idrop.controller;
 
 import ifive.idrop.annotation.Login;
 import ifive.idrop.dto.response.BaseResponse;
-import ifive.idrop.entity.Driver;
+import ifive.idrop.driver.domain.Driver;
 import ifive.idrop.entity.PickUp;
 import ifive.idrop.exception.CommonException;
 import ifive.idrop.exception.ErrorCode;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.concurrent.ExecutionException;
 
 @Slf4j

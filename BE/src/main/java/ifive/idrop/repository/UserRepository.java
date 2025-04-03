@@ -1,6 +1,6 @@
 package ifive.idrop.repository;
 
-import ifive.idrop.entity.Driver;
+import ifive.idrop.driver.domain.Driver;
 import ifive.idrop.entity.Parent;
 import ifive.idrop.entity.Users;
 import jakarta.persistence.EntityManager;
