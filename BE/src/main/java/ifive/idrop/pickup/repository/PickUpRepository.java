@@ -1,9 +1,9 @@
-package ifive.idrop.repository;
+package ifive.idrop.pickup.repository;
 
-import ifive.idrop.entity.*;
 import ifive.idrop.entity.enums.PickUpStatus;
 import ifive.idrop.exception.CommonException;
 import ifive.idrop.exception.ErrorCode;
+import ifive.idrop.pickup.domain.PickUp;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import lombok.RequiredArgsConstructor;

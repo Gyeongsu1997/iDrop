@@ -1,12 +1,12 @@
-package ifive.idrop.controller;
+package ifive.idrop.pickup.controller;
 
 import ifive.idrop.annotation.Login;
 import ifive.idrop.dto.response.BaseResponse;
 import ifive.idrop.driver.domain.Driver;
-import ifive.idrop.entity.PickUp;
+import ifive.idrop.pickup.domain.PickUp;
 import ifive.idrop.exception.CommonException;
 import ifive.idrop.exception.ErrorCode;
-import ifive.idrop.service.PickUpService;
+import ifive.idrop.pickup.service.PickUpService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ModelAttribute;

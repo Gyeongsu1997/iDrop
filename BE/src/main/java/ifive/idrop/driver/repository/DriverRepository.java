@@ -2,7 +2,8 @@ package ifive.idrop.driver.repository;
 
 import ifive.idrop.dto.request.DriverListRequest;
 import ifive.idrop.entity.*;
-import ifive.idrop.repository.PickUpRepository;
+import ifive.idrop.pickup.domain.PickUp;
+import ifive.idrop.pickup.repository.PickUpRepository;
 import ifive.idrop.util.RequestSchedule;
 import ifive.idrop.util.ScheduleUtils;
 import ifive.idrop.driver.domain.Driver;

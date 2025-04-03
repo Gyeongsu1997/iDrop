@@ -9,6 +9,7 @@ import ifive.idrop.filter.AuthenticateUser;
 import ifive.idrop.filter.VerifyUserFilter;
 import ifive.idrop.jwt.JwtProvider;
 import ifive.idrop.parent.domain.Parent;
+import ifive.idrop.pickup.domain.PickUp;
 import ifive.idrop.repository.UserRepository;
 import ifive.idrop.util.CustomObjectMapper;
 import ifive.idrop.websocket.PickUpInfoRepository;

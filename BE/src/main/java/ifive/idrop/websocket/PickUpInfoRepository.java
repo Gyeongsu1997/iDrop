@@ -1,6 +1,6 @@
 package ifive.idrop.websocket;
 
-import ifive.idrop.entity.PickUp;
+import ifive.idrop.pickup.domain.PickUp;
 import ifive.idrop.entity.PickUpLocation;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;

@@ -1,12 +1,13 @@
-package ifive.idrop.service;
+package ifive.idrop.pickup.service;
 
 import ifive.idrop.parent.domain.Parent;
-import ifive.idrop.entity.PickUp;
+import ifive.idrop.pickup.domain.PickUp;
 import ifive.idrop.exception.CommonException;
 import ifive.idrop.exception.ErrorCode;
 import ifive.idrop.fcm.AlarmMessage;
 import ifive.idrop.fcm.NotificationUtill;
-import ifive.idrop.repository.PickUpRepository;
+import ifive.idrop.pickup.repository.PickUpRepository;
+import ifive.idrop.service.ImageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
