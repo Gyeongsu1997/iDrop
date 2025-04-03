@@ -1,7 +1,7 @@
 package ifive.idrop.entity.enums;
 
-import ifive.idrop.exception.CommonException;
-import ifive.idrop.exception.ErrorCode;
+import ifive.idrop.common.exception.CommonException;
+import ifive.idrop.common.exception.ErrorCode;
 
 public enum PickUpStatus {
     //순서 수정하면 안됩니다.

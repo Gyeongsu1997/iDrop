@@ -1,4 +1,4 @@
-package ifive.idrop.dto.response;
+package ifive.idrop.common.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AccessLevel;

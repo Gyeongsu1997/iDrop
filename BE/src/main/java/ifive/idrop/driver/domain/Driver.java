@@ -8,8 +8,8 @@ import ifive.idrop.entity.PickUpInfo;
 import ifive.idrop.entity.Users;
 import ifive.idrop.entity.WorkHours;
 import ifive.idrop.entity.enums.Gender;
-import ifive.idrop.exception.CommonException;
-import ifive.idrop.exception.ErrorCode;
+import ifive.idrop.common.exception.CommonException;
+import ifive.idrop.common.exception.ErrorCode;
 import jakarta.persistence.*;
 import lombok.Getter;
 

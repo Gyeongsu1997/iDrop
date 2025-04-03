@@ -1,13 +1,13 @@
 package ifive.idrop.controller;
 
 import ifive.idrop.auth.resolver.Login;
-import ifive.idrop.dto.response.BaseResponse;
+import ifive.idrop.common.dto.BaseResponse;
 import ifive.idrop.dto.response.DriverDetailResponse;
 import ifive.idrop.driver.domain.Driver;
 import ifive.idrop.parent.domain.Parent;
 import ifive.idrop.entity.Users;
-import ifive.idrop.exception.CommonException;
-import ifive.idrop.exception.ErrorCode;
+import ifive.idrop.common.exception.CommonException;
+import ifive.idrop.common.exception.ErrorCode;
 import ifive.idrop.driver.service.DriverService;
 import ifive.idrop.parent.service.ParentService;
 import lombok.RequiredArgsConstructor;

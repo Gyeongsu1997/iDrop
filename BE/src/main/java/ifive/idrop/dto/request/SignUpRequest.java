@@ -4,8 +4,8 @@ import ifive.idrop.driver.domain.Driver;
 import ifive.idrop.parent.domain.Parent;
 import ifive.idrop.entity.Users;
 import ifive.idrop.entity.enums.Role;
-import ifive.idrop.exception.CommonException;
-import ifive.idrop.exception.ErrorCode;
+import ifive.idrop.common.exception.CommonException;
+import ifive.idrop.common.exception.ErrorCode;
 import lombok.Builder;
 import lombok.Getter;
 

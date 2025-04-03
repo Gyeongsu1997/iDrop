@@ -2,8 +2,8 @@ package ifive.idrop.pickup.service;
 
 import ifive.idrop.parent.domain.Parent;
 import ifive.idrop.pickup.domain.PickUp;
-import ifive.idrop.exception.CommonException;
-import ifive.idrop.exception.ErrorCode;
+import ifive.idrop.common.exception.CommonException;
+import ifive.idrop.common.exception.ErrorCode;
 import ifive.idrop.fcm.AlarmMessage;
 import ifive.idrop.fcm.NotificationUtill;
 import ifive.idrop.pickup.repository.PickUpRepository;

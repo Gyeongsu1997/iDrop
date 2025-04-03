@@ -1,5 +1,6 @@
-package ifive.idrop.exception;
+package ifive.idrop.common.dto;
 
+import ifive.idrop.common.exception.CommonException;
 import lombok.Getter;
 
 @Getter

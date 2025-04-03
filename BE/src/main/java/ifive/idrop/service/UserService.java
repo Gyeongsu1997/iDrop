@@ -1,14 +1,14 @@
 package ifive.idrop.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import ifive.idrop.dto.response.BaseResponse;
+import ifive.idrop.common.dto.BaseResponse;
 import ifive.idrop.dto.request.LoginRequest;
 import ifive.idrop.dto.response.NameResponse;
 import ifive.idrop.dto.request.SignUpRequest;
 import ifive.idrop.entity.Users;
 import ifive.idrop.entity.enums.Role;
-import ifive.idrop.exception.CommonException;
-import ifive.idrop.exception.ErrorCode;
+import ifive.idrop.common.exception.CommonException;
+import ifive.idrop.common.exception.ErrorCode;
 import ifive.idrop.auth.domain.AuthenticateUser;
 import ifive.idrop.auth.filter.VerifyUserFilter;
 import ifive.idrop.auth.dto.Jwt;

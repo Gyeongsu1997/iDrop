@@ -2,6 +2,7 @@ package ifive.idrop.driver.controller;
 
 import ifive.idrop.auth.resolver.Login;
 
+import ifive.idrop.common.dto.BaseResponse;
 import ifive.idrop.dto.request.SubscribeCheckRequest;
 import ifive.idrop.dto.response.*;
 import ifive.idrop.dto.request.DriverInformation;

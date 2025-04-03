@@ -1,6 +1,6 @@
 package ifive.idrop.util;
 
-import ifive.idrop.exception.CommonException;
+import ifive.idrop.common.exception.CommonException;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;

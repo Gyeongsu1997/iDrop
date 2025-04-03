@@ -1,4 +1,4 @@
-package ifive.idrop.exception;
+package ifive.idrop.common.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

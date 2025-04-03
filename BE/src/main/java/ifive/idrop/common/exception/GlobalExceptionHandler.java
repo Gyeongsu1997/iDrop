@@ -1,5 +1,6 @@
-package ifive.idrop.exception;
+package ifive.idrop.common.exception;
 
+import ifive.idrop.common.dto.ErrorResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
