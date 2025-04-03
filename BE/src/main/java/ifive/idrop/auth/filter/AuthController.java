@@ -2,7 +2,7 @@ package ifive.idrop.auth.filter;
 
 import ifive.idrop.auth.dto.TokenRefreshRequest;
 import ifive.idrop.auth.dto.Jwt;
-import ifive.idrop.service.UserService;
+import ifive.idrop.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import ifive.idrop.auth.domain.AuthenticateUser;
 import ifive.idrop.auth.dto.Jwt;
 import ifive.idrop.auth.utils.JwtProvider;
-import ifive.idrop.service.UserService;
+import ifive.idrop.user.service.UserService;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletRequest;

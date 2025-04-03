@@ -5,7 +5,7 @@ import ifive.idrop.child.domain.Child;
 import ifive.idrop.driver.domain.Driver;
 import ifive.idrop.common.dto.BaseResponse;
 import ifive.idrop.parent.dto.SubscribeRequest;
-import ifive.idrop.dto.response.CurrentPickUpResponse;
+import ifive.idrop.dto.CurrentPickUpResponse;
 
 import ifive.idrop.parent.dto.PickUpHistoryResponse;
 import ifive.idrop.parent.dto.ParentSubscribeInfoResponse;

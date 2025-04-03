@@ -1,11 +1,11 @@
-package ifive.idrop.controller;
+package ifive.idrop.user.controller;
 
 import ifive.idrop.auth.resolver.Login;
 import ifive.idrop.common.dto.BaseResponse;
-import ifive.idrop.dto.response.NameResponse;
-import ifive.idrop.dto.request.SignUpRequest;
+import ifive.idrop.user.dto.NameResponse;
+import ifive.idrop.user.dto.SignUpRequest;
 import ifive.idrop.user.domain.User;
-import ifive.idrop.service.UserService;
+import ifive.idrop.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

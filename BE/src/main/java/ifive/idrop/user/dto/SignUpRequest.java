@@ -1,4 +1,4 @@
-package ifive.idrop.dto.request;
+package ifive.idrop.user.dto;
 
 import ifive.idrop.driver.domain.Driver;
 import ifive.idrop.parent.domain.Parent;

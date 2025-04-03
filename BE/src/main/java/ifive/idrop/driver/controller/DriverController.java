@@ -6,7 +6,7 @@ import ifive.idrop.common.dto.BaseResponse;
 import ifive.idrop.common.exception.CommonException;
 import ifive.idrop.common.exception.ErrorCode;
 import ifive.idrop.driver.dto.*;
-import ifive.idrop.dto.response.*;
+import ifive.idrop.dto.CurrentPickUpResponse;
 import ifive.idrop.driver.domain.Driver;
 import ifive.idrop.driver.service.DriverService;
 import ifive.idrop.user.domain.User;

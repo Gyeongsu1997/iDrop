@@ -2,10 +2,10 @@ package ifive.idrop.notification;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ifive.idrop.auth.filter.JwtAuthorizationFilter;
-import ifive.idrop.dto.request.TokenRequest;
+import ifive.idrop.notification.dto.TokenRequest;
 import ifive.idrop.common.exception.CommonException;
 import ifive.idrop.common.dto.ErrorResponse;
-import ifive.idrop.service.UserService;
+import ifive.idrop.user.service.UserService;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

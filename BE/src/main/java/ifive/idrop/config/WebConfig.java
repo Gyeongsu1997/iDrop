@@ -10,7 +10,7 @@ import ifive.idrop.notification.FCMFilter;
 import ifive.idrop.auth.utils.JwtProvider;
 import ifive.idrop.user.repository.UserRepository;
 import ifive.idrop.auth.resolver.LoginUsersArgumentResolver;
-import ifive.idrop.service.UserService;
+import ifive.idrop.user.service.UserService;
 import jakarta.servlet.Filter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;

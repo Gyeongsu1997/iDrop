@@ -6,7 +6,7 @@ import ifive.idrop.entity.enums.Role;
 import ifive.idrop.common.exception.CommonException;
 import ifive.idrop.common.dto.ErrorResponse;
 import ifive.idrop.auth.domain.AuthenticateUser;
-import ifive.idrop.service.UserService;
+import ifive.idrop.user.service.UserService;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

@@ -3,7 +3,7 @@ package ifive.idrop.driver.service;
 import ifive.idrop.common.dto.BaseResponse;
 import ifive.idrop.driver.domain.Driver;
 import ifive.idrop.driver.dto.*;
-import ifive.idrop.dto.request.DriverListRequest;
+import ifive.idrop.dto.DriverListRequest;
 import ifive.idrop.entity.*;
 import ifive.idrop.entity.enums.PickUpStatus;
 import ifive.idrop.common.exception.CommonException;
@@ -23,7 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import ifive.idrop.dto.response.CurrentPickUpResponse;
+import ifive.idrop.dto.CurrentPickUpResponse;
 import ifive.idrop.entity.PickUpInfo;
 
 import java.util.List;

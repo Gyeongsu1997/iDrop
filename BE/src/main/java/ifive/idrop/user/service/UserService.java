@@ -1,11 +1,11 @@
-package ifive.idrop.service;
+package ifive.idrop.user.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ifive.idrop.common.dto.BaseResponse;
 import ifive.idrop.auth.dto.LoginRequest;
 import ifive.idrop.driver.domain.Driver;
-import ifive.idrop.dto.response.NameResponse;
-import ifive.idrop.dto.request.SignUpRequest;
+import ifive.idrop.user.dto.NameResponse;
+import ifive.idrop.user.dto.SignUpRequest;
 import ifive.idrop.user.domain.User;
 import ifive.idrop.entity.enums.Role;
 import ifive.idrop.common.exception.CommonException;
