@@ -46,6 +46,7 @@ public abstract class User {
         user.password = signUpRequest.getPassword();
         user.name = signUpRequest.getName();
         user.phoneNumber = signUpRequest.getPhoneNumber();
+        user.authentication = new Authentication();
         return user;
     }
 
