@@ -1,5 +1,6 @@
 package ifive.idrop.entity;
 
+import ifive.idrop.child.domain.Child;
 import ifive.idrop.driver.domain.Driver;
 import ifive.idrop.parent.domain.Parent;
 import ifive.idrop.pickup.domain.PickUp;

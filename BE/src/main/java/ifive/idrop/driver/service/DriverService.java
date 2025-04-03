@@ -33,8 +33,8 @@ import java.util.stream.Collectors;
 import static ifive.idrop.util.ScheduleUtils.*;
 
 @Service
-@Transactional(readOnly = true)
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class DriverService {
     private final DriverRepository driverRepository;
     private final PickUpRepository pickUpRepository;

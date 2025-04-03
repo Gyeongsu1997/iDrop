@@ -1,6 +1,7 @@
 package ifive.idrop.parent.service;
 
 
+import ifive.idrop.child.domain.Child;
 import ifive.idrop.driver.domain.Driver;
 import ifive.idrop.common.dto.BaseResponse;
 import ifive.idrop.parent.dto.SubscribeRequest;
@@ -30,6 +31,7 @@ import java.util.concurrent.ExecutionException;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class ParentService {
     private final DriverRepository driverRepository;
     private final ParentRepository parentRepository;
@@ -52,7 +54,6 @@ public class ParentService {
         return BaseResponse.success();
     }
 
-    @Transactional(readOnly = true)
     public BaseResponse<List<CurrentPickUpResponse>> getChildRunningInfo(Parent parent) {
         List<Object[]> runningPickInfo = parentRepository.findRunningPickUpInfo(parent.getId());
         return BaseResponse.of("Data Successfully Proceed",
@@ -96,7 +97,6 @@ public class ParentService {
         return location;
     }
 
-    @Transactional(readOnly = true)
     public BaseResponse<List<PickUpHistoryResponse>> getPickUpHistoryInfo(Parent parent, long pickInfoId) {
         List<PickUp> pickUpList = pickUpRepository.findPickUpByPickUpInfoIdAndParentIdOrderByReservedTime(parent.getId(), pickInfoId);
         return BaseResponse.of("Data Successfully Proceed",
@@ -104,13 +104,11 @@ public class ParentService {
                         .toList());
     }
 
-    @Transactional(readOnly = true)
     public List<ParentSubscribeInfoResponse> subscribeList(Long parentId) {
         List<PickUpInfo> pickUpInfoList = pickUpRepository.findPickUpInfoByParentIdInTheLatestOrder(parentId);
         return pickUpInfoList.stream().map(ParentSubscribeInfoResponse::of).toList();
     }
 
-    @Transactional(readOnly = true)
     public boolean hasCurrentPickUp(Long parentId) {
         return pickUpRepository.getCurrentPickUpSize(parentId) != 0;
     }

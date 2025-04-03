@@ -1,7 +1,7 @@
 package ifive.idrop.pickup.domain;
 
 import ifive.idrop.driver.domain.Driver;
-import ifive.idrop.entity.Child;
+import ifive.idrop.child.domain.Child;
 import ifive.idrop.entity.PickUpInfo;
 import ifive.idrop.parent.domain.Parent;
 import jakarta.persistence.*;

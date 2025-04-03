@@ -1,6 +1,6 @@
 package ifive.idrop.parent.repository;
 
-import ifive.idrop.entity.Child;
+import ifive.idrop.child.domain.Child;
 import ifive.idrop.parent.domain.Parent;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;

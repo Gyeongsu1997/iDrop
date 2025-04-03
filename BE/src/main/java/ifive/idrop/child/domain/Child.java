@@ -1,5 +1,6 @@
-package ifive.idrop.entity;
+package ifive.idrop.child.domain;
 
+import ifive.idrop.entity.PickUpInfo;
 import ifive.idrop.entity.enums.Gender;
 import ifive.idrop.parent.domain.Parent;
 import jakarta.persistence.*;
