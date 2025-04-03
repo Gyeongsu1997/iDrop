@@ -2,9 +2,7 @@ package ifive.idrop.driver.service;
 
 import ifive.idrop.common.dto.BaseResponse;
 import ifive.idrop.driver.domain.Driver;
-import ifive.idrop.dto.request.SubscribeCheckRequest;
-import ifive.idrop.dto.response.*;
-import ifive.idrop.dto.request.DriverInformation;
+import ifive.idrop.driver.dto.*;
 import ifive.idrop.dto.request.DriverListRequest;
 import ifive.idrop.entity.*;
 import ifive.idrop.entity.enums.PickUpStatus;

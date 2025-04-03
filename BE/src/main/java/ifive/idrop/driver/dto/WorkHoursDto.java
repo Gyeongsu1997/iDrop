@@ -1,4 +1,4 @@
-package ifive.idrop.dto.request;
+package ifive.idrop.driver.dto;
 
 import ifive.idrop.driver.domain.Driver;
 import ifive.idrop.entity.WorkHours;

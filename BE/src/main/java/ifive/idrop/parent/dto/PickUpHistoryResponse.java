@@ -1,4 +1,4 @@
-package ifive.idrop.dto.response;
+package ifive.idrop.parent.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import ifive.idrop.pickup.domain.PickUp;

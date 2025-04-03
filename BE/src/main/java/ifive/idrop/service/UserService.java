@@ -2,7 +2,7 @@ package ifive.idrop.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ifive.idrop.common.dto.BaseResponse;
-import ifive.idrop.dto.request.LoginRequest;
+import ifive.idrop.auth.dto.LoginRequest;
 import ifive.idrop.dto.response.NameResponse;
 import ifive.idrop.dto.request.SignUpRequest;
 import ifive.idrop.entity.Users;

@@ -1,9 +1,9 @@
 package ifive.idrop.driver.domain;
 
-import ifive.idrop.dto.request.DriverInformation;
-import ifive.idrop.dto.response.DriverDetailResponse;
-import ifive.idrop.dto.response.DriverSummary;
-import ifive.idrop.dto.request.WorkHoursDto;
+import ifive.idrop.driver.dto.DriverInformation;
+import ifive.idrop.driver.dto.DriverDetailResponse;
+import ifive.idrop.driver.dto.DriverSummary;
+import ifive.idrop.driver.dto.WorkHoursDto;
 import ifive.idrop.entity.PickUpInfo;
 import ifive.idrop.entity.Users;
 import ifive.idrop.entity.WorkHours;

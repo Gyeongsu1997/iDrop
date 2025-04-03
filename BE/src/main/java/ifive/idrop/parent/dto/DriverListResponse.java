@@ -1,5 +1,6 @@
-package ifive.idrop.dto.response;
+package ifive.idrop.parent.dto;
 
+import ifive.idrop.driver.dto.DriverSummary;
 import lombok.Getter;
 
 import java.util.ArrayList;

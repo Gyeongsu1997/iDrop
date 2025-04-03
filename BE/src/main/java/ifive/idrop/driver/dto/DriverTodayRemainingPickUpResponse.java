@@ -1,4 +1,4 @@
-package ifive.idrop.dto.response;
+package ifive.idrop.driver.dto;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import ifive.idrop.entity.PickUpInfo;

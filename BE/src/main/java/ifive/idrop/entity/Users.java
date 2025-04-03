@@ -1,6 +1,6 @@
 package ifive.idrop.entity;
 
-import ifive.idrop.dto.request.LoginRequest;
+import ifive.idrop.auth.dto.LoginRequest;
 import ifive.idrop.entity.enums.Role;
 import jakarta.persistence.*;
 import lombok.Getter;

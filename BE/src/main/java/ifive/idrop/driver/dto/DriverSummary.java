@@ -1,4 +1,4 @@
-package ifive.idrop.dto.response;
+package ifive.idrop.driver.dto;
 
 import lombok.Builder;
 import lombok.Getter;

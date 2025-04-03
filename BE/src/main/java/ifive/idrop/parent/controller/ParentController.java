@@ -2,8 +2,8 @@ package ifive.idrop.parent.controller;
 
 import ifive.idrop.dto.request.DriverListRequest;
 import ifive.idrop.dto.response.CurrentPickUpResponse;
-import ifive.idrop.dto.response.DriverListResponse;
-import ifive.idrop.dto.response.ParentSubscribeInfoResponse;
+import ifive.idrop.parent.dto.DriverListResponse;
+import ifive.idrop.parent.dto.ParentSubscribeInfoResponse;
 import ifive.idrop.driver.domain.Driver;
 import ifive.idrop.common.exception.CommonException;
 import ifive.idrop.common.exception.ErrorCode;
@@ -16,7 +16,7 @@ import java.util.concurrent.ExecutionException;
 
 import ifive.idrop.auth.resolver.Login;
 import ifive.idrop.common.dto.BaseResponse;
-import ifive.idrop.dto.request.SubscribeRequest;
+import ifive.idrop.parent.dto.SubscribeRequest;
 import ifive.idrop.parent.domain.Parent;
 import ifive.idrop.parent.service.ParentService;
 import org.json.JSONException;

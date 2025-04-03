@@ -1,9 +1,7 @@
-package ifive.idrop.dto.response;
+package ifive.idrop.driver.dto;
 
-import ifive.idrop.driver.domain.Driver;
-import ifive.idrop.entity.PickUpInfo;
-import ifive.idrop.entity.PickUpLocation;
-import ifive.idrop.entity.PickUpSubscribe;
+import ifive.idrop.entity.*;
+import ifive.idrop.parent.domain.Parent;
 import lombok.Builder;
 import lombok.Getter;
 import org.json.simple.JSONObject;
@@ -11,15 +9,17 @@ import org.json.simple.JSONObject;
 import java.time.LocalDate;
 
 import static ifive.idrop.util.ScheduleUtils.*;
-import static ifive.idrop.util.ScheduleUtils.calculateEndDate;
-import static ifive.idrop.util.ScheduleUtils.calculateStartDate;
 
 @Builder
 @Getter
-public class ParentSubscribeInfoResponse {
+public class DriverSubscribeInfoResponse {
     private Long pickUpInfoId;
-    private String driverName;
-    private String driverImage;
+    private String parentName;
+    private String parentPhoneNumber;
+    private String childName;
+    private LocalDate childBirth;
+    private String childGender;
+    private String childImage;
     private LocalDate startDate;
     private LocalDate endDate;
     private String startAddress; //출발지 주소
@@ -27,18 +27,23 @@ public class ParentSubscribeInfoResponse {
     private String status;
     private JSONObject schedule;
 
-    public static ParentSubscribeInfoResponse of(PickUpInfo pickUpInfo) {
-        Driver driver = pickUpInfo.getDriver();
+    public static DriverSubscribeInfoResponse of(PickUpInfo pickUpInfo) {
+        Child child = pickUpInfo.getChild();
+        Parent parent = child.getParent();
         PickUpSubscribe pickUpSubscribe = pickUpInfo.getPickUpSubscribe();
         PickUpLocation pickUpLocation = pickUpInfo.getPickUpLocation();
 
         LocalDate startDate = calculateStartDate(pickUpSubscribe.getModifiedDate());
         LocalDate endDate = calculateEndDate(pickUpSubscribe.getModifiedDate());
 
-        return ParentSubscribeInfoResponse.builder()
+        return DriverSubscribeInfoResponse.builder()
                 .pickUpInfoId(pickUpInfo.getId())
-                .driverName(driver.getName())
-                .driverImage(driver.getImage())
+                .parentName(parent.getName())
+                .parentPhoneNumber(parent.getPhoneNumber())
+                .childName(child.getName())
+                .childBirth(child.getBirth())
+                .childGender(child.getGender().getGender())
+                .childImage(child.getImage())
                 .startDate(startDate)
                 .endDate(endDate)
                 .startAddress(pickUpLocation.getStartAddress())
