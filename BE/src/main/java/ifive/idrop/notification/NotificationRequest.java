@@ -1,4 +1,4 @@
-package ifive.idrop.fcm;
+package ifive.idrop.notification;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

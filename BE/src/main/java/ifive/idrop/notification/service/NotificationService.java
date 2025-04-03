@@ -1,8 +1,8 @@
 package ifive.idrop.notification.service;
 
 import ifive.idrop.notification.domain.Notification;
-import ifive.idrop.fcm.AlarmMessage;
-import ifive.idrop.fcm.NotificationUtill;
+import ifive.idrop.notification.AlarmMessage;
+import ifive.idrop.notification.NotificationUtill;
 import ifive.idrop.notification.repository.NotificationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;

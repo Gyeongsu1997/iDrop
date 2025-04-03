@@ -1,4 +1,4 @@
-package ifive.idrop.fcm;
+package ifive.idrop.notification;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ifive.idrop.auth.filter.JwtAuthorizationFilter;
