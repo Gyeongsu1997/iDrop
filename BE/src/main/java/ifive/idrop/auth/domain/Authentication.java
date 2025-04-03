@@ -8,23 +8,26 @@ import lombok.Getter;
 @Getter
 public class Authentication {
     @Id
-    @Column(name = "users_id")
-    private Long id;
-
+    private Long userId;
     private String refreshToken;
+    private String fcmToken;
 
-    @MapsId
+    @MapsId("userId")
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "users_id")
     private User user;
-
-    public void updateRefreshToken(String refreshToken) {
-        this.refreshToken = refreshToken;
-    }
 
     public static Authentication of(User user) {
         Authentication authentication = new Authentication();
         authentication.user = user;
         return authentication;
+    }
+
+    public void updateRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
+    }
+
+    public void updateFcmToken(String fcmToken) {
+        this.fcmToken = fcmToken;
     }
 }

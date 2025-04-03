@@ -25,8 +25,6 @@ public abstract class User {
     private String name;
     private String phoneNumber;
 
-    private String fcmToken;
-
     @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Authentication authentication;
 
@@ -49,15 +47,15 @@ public abstract class User {
         return user;
     }
 
-    public void updateFcmToken(String fcmToken) {
-        this.fcmToken = fcmToken;
-    }
-
     public boolean verifyUser(LoginRequest loginRequest) {
         return this.loginId.equals(loginRequest.getUserId()) && this.password.equals(loginRequest.getPassword());
     }
 
     public void updateRefreshToken(String refreshToken) {
         this.authentication.updateRefreshToken(refreshToken);
+    }
+
+    public void updateFcmToken(String fcmToken) {
+        this.authentication.updateFcmToken(fcmToken);
     }
 }
