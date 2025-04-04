@@ -1,4 +1,4 @@
-package ifive.idrop.service;
+package ifive.idrop.pickup.service;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
