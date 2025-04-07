@@ -7,7 +7,7 @@ import ifive.idrop.driver.domain.Driver;
 import ifive.idrop.user.dto.NameResponse;
 import ifive.idrop.user.dto.SignUpRequest;
 import ifive.idrop.user.domain.User;
-import ifive.idrop.entity.enums.Role;
+import ifive.idrop.common.enums.Role;
 import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.exception.ErrorCode;
 import ifive.idrop.auth.domain.AuthenticateUser;

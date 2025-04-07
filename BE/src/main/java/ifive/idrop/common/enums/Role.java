@@ -1,4 +1,4 @@
-package ifive.idrop.entity.enums;
+package ifive.idrop.common.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

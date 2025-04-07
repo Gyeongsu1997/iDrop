@@ -2,7 +2,7 @@ package ifive.idrop.auth.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ifive.idrop.auth.dto.LoginRequest;
-import ifive.idrop.entity.enums.Role;
+import ifive.idrop.common.enums.Role;
 import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.dto.ErrorResponse;
 import ifive.idrop.auth.domain.AuthenticateUser;

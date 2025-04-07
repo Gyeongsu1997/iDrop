@@ -2,6 +2,7 @@ package ifive.idrop.user.domain;
 
 import ifive.idrop.auth.domain.Authentication;
 import ifive.idrop.auth.dto.LoginRequest;
+import ifive.idrop.common.enums.Gender;
 import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.exception.ErrorCode;
 import ifive.idrop.driver.domain.Driver;
@@ -9,6 +10,8 @@ import ifive.idrop.parent.domain.Parent;
 import ifive.idrop.user.dto.SignUpRequest;
 import jakarta.persistence.*;
 import lombok.Getter;
+
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -19,11 +22,14 @@ public abstract class User {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "users_id")
     private Long id;
-
     private String loginId;
     private String password;
     private String name;
+    protected LocalDate birthDate;
+    @Enumerated(EnumType.STRING)
+    protected Gender gender;
     private String phoneNumber;
+    protected String avatar;
 
     @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Authentication authentication;

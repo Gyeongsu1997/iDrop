@@ -11,9 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class WorkHours {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "work_hours_id")
-    private Long id;
     private String day;
     private int startHour;
     private int startMinute;

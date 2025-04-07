@@ -20,7 +20,7 @@ public class Child {
     private LocalDate birthDate;
     @Enumerated(EnumType.STRING)
     private Gender gender;
-    private String image;
+    private String avatar;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")

@@ -3,7 +3,7 @@ package ifive.idrop.auth.filter;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import ifive.idrop.entity.enums.Role;
+import ifive.idrop.common.enums.Role;
 import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.exception.ErrorCode;
 import ifive.idrop.common.dto.ErrorResponse;

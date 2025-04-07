@@ -38,7 +38,7 @@ public class ParentSubscribeInfoResponse {
         return ParentSubscribeInfoResponse.builder()
                 .pickUpInfoId(pickUpInfo.getId())
                 .driverName(driver.getName())
-                .driverImage(driver.getImage())
+                .driverImage(driver.getAvatar())
                 .startDate(startDate)
                 .endDate(endDate)
                 .startAddress(pickUpLocation.getStartAddress())

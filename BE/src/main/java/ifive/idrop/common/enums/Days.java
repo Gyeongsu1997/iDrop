@@ -1,5 +1,10 @@
-package ifive.idrop.entity.enums;
+package ifive.idrop.common.enums;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+@Getter
+@RequiredArgsConstructor
 public enum Days {
     SUN("Sun", "SUNDAY"),
     MON("Mon", "MONDAY"),
@@ -11,19 +16,6 @@ public enum Days {
 
     private final String day;
     private final String fullDate;
-
-    Days(String day, String fullDate) {
-        this.day = day;
-        this.fullDate = fullDate;
-    }
-
-    public String getDay() {
-        return day;
-    }
-
-    public String getFullDate() {
-        return fullDate;
-    }
 
     public static String getDayEnum(String day) {
         for (Days d : Days.values()) {

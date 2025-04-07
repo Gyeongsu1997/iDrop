@@ -23,15 +23,10 @@ import static ifive.idrop.util.ScheduleUtils.*;
 @Getter
 @DiscriminatorValue("D")
 public class Driver extends User {
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
-    private LocalDate birth;
-    private String image;
     @Lob
     private String career;
     @Lob
     private String introduction;
-    private Double drivingScore;
     private Double starRate;
 
     @OneToMany(mappedBy = "driver")
@@ -42,8 +37,8 @@ public class Driver extends User {
 
     public void addAdditionalInfo(DriverInformation info) {
         this.gender = (info.getGender() != null) ? Gender.of(info.getGender()) : this.gender;
-        this.birth = (info.getBirth() != null) ? info.getBirth() : this.birth;
-        this.image = (info.getImage() != null) ? info.getImage() : this.image;
+        this.birthDate = (info.getBirth() != null) ? info.getBirth() : this.birthDate;
+        this.avatar = (info.getImage() != null) ? info.getImage() : this.avatar;
         this.career = (info.getCareer() != null) ? info.getCareer() : this.career;
         this.introduction = (info.getIntroduction() != null) ? info.getIntroduction() : this.introduction;
 
@@ -61,7 +56,7 @@ public class Driver extends User {
                 .driverId(this.getId())
                 .name(this.getName())
                 .gender((this.gender != null) ? this.gender.getLabel() : null)
-                .image(this.getImage())
+                .image(this.getAvatar())
                 .introduction(this.getIntroduction())
                 .starRate(this.getStarRate())
                 .numberOfReviews(100) //TODO 후기 개수, 나중에 후기 테이블을 만들면 실제 개수로 수정 예정
@@ -74,11 +69,10 @@ public class Driver extends User {
                 .name(this.getName())
                 .phoneNumber(this.getPhoneNumber())
                 .gender((this.gender != null) ? this.gender.getLabel() : null)
-                .birth(this.getBirth())
-                .image(this.getImage())
+                .birth(this.getBirthDate())
+                .image(this.getAvatar())
                 .career(this.getCareer())
                 .introduction(this.getIntroduction())
-                .drivingScore(this.getDrivingScore())
                 .starRate(this.getStarRate())
                 .numberOfReviews(100) //TODO 후기 개수, 나중에 후기 테이블을 만들면 실제 개수로 수정 예정
                 .build();

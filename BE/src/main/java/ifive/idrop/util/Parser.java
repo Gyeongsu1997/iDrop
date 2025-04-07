@@ -1,6 +1,6 @@
 package ifive.idrop.util;
 
-import ifive.idrop.entity.enums.Days;
+import ifive.idrop.common.enums.Days;
 import org.json.JSONException;
 import org.json.simple.JSONObject;
 
