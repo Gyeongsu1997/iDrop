@@ -36,7 +36,7 @@ public class Driver extends User {
     public void addAdditionalInfo(DriverInformation info) {
         this.gender = (info.getGender() != null) ? Gender.of(info.getGender()) : this.gender;
         this.birthDate = (info.getBirth() != null) ? info.getBirth() : this.birthDate;
-        this.avatar = (info.getImage() != null) ? info.getImage() : this.avatar;
+        this.imageUrl = (info.getImage() != null) ? info.getImage() : this.imageUrl;
         this.career = (info.getCareer() != null) ? info.getCareer() : this.career;
         this.introduction = (info.getIntroduction() != null) ? info.getIntroduction() : this.introduction;
 
@@ -54,7 +54,7 @@ public class Driver extends User {
                 .driverId(this.getId())
                 .name(this.getName())
                 .gender((this.gender != null) ? this.gender.getLabel() : null)
-                .image(this.getAvatar())
+                .image(this.getImageUrl())
                 .introduction(this.getIntroduction())
                 .starRate(this.getStarRate())
                 .numberOfReviews(100) //TODO 후기 개수, 나중에 후기 테이블을 만들면 실제 개수로 수정 예정
@@ -68,7 +68,7 @@ public class Driver extends User {
                 .phoneNumber(this.getPhoneNumber())
                 .gender((this.gender != null) ? this.gender.getLabel() : null)
                 .birth(this.getBirthDate())
-                .image(this.getAvatar())
+                .image(this.getImageUrl())
                 .career(this.getCareer())
                 .introduction(this.getIntroduction())
                 .starRate(this.getStarRate())

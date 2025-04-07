@@ -29,7 +29,7 @@ public abstract class User {
     @Enumerated(EnumType.STRING)
     protected Gender gender;
     private String phoneNumber;
-    protected String avatar;
+    protected String imageUrl;
 
     @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Authentication authentication;

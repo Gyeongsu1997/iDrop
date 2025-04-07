@@ -44,7 +44,7 @@ public class DriverSubscribeInfoResponse {
                 .childName(child.getName())
                 .childBirth(child.getBirthDate())
                 .childGender(child.getGender().getLabel())
-                .childImage(child.getAvatar())
+                .childImage(child.getImageUrl())
                 .startDate(startDate)
                 .endDate(endDate)
                 .startAddress(pickUpLocation.getStartAddress())

@@ -27,7 +27,7 @@ public class CurrentPickUpResponse {
         return CurrentPickUpResponse.builder()
                 .childId(pickUpInfo.getChild().getId())
                 .childName(pickUpInfo.getChild().getName())
-                .childImage(pickUpInfo.getChild().getAvatar())
+                .childImage(pickUpInfo.getChild().getImageUrl())
                 .startDate(pickUpInfo.getPickUpSubscribe().getModifiedDate().plusDays(1))
                 .endDate(pickUpInfo.getPickUpSubscribe().getExpiredDate().minusDays(1))
                 .destination(Destination.of(pickUpInfo.getPickUpLocation()))

@@ -28,7 +28,7 @@ public class DriverTodayRemainingPickUpResponse {
         return DriverTodayRemainingPickUpResponse.builder()
                 .childId(pickUpInfo.getChild().getId())
                 .childName(pickUpInfo.getChild().getName())
-                .childImage(pickUpInfo.getChild().getAvatar())
+                .childImage(pickUpInfo.getChild().getImageUrl())
                 .destination(DriverTodayRemainingPickUpResponse.Destination.of(pickUpInfo.getPickUpLocation()))
                 .timeInfo(DriverTodayRemainingPickUpResponse.TimeInfo.of(reservedTime))
                 .build();
