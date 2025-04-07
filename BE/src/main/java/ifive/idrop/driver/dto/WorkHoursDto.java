@@ -1,7 +1,7 @@
 package ifive.idrop.driver.dto;
 
 import ifive.idrop.driver.domain.Driver;
-import ifive.idrop.entity.WorkHours;
+import ifive.idrop.driver.domain.WorkHours;
 import lombok.Getter;
 
 @Getter
@@ -13,6 +13,6 @@ public class WorkHoursDto {
     private int endMinute;
 
     public WorkHours toEntity(Driver driver) {
-        return new WorkHours(day, startHour, startMinute, endHour, endMinute, driver);
+        return WorkHours.createWorkHours(driver, day, startHour, startMinute, endHour, endMinute);
     }
 }

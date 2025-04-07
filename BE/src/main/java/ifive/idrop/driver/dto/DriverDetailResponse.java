@@ -16,7 +16,6 @@ public class DriverDetailResponse { //TODO 후에 차량 정보, 구체적인 �
     private String image;
     private String career;
     private String introduction;
-    private Double drivingScore;
     private Double starRate;
     private Integer numberOfReviews;
 }

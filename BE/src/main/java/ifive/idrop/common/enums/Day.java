@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum Days {
+public enum Day {
     SUN("Sun", "SUNDAY"),
     MON("Mon", "MONDAY"),
     TUE("Tue", "THUESDAY"),
@@ -17,10 +17,19 @@ public enum Days {
     private final String day;
     private final String fullDate;
 
-    public static String getDayEnum(String day) {
-        for (Days d : Days.values()) {
+    public static String toFullName(String day) {
+        for (Day d : Day.values()) {
             if (d.getDay().equalsIgnoreCase(day)) {
                 return d.getFullDate();
+            }
+        }
+        return null;
+    }
+
+    public static Day getDayEnum(String day) {
+        for (Day d : Day.values()) {
+            if (d.getDay().equalsIgnoreCase(day)) {
+                return d;
             }
         }
         return null;

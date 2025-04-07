@@ -1,6 +1,6 @@
 package ifive.idrop.parent.controller;
 
-import ifive.idrop.dto.DriverListRequest;
+import ifive.idrop.parent.dto.DriverListRequest;
 import ifive.idrop.dto.CurrentPickUpResponse;
 import ifive.idrop.parent.dto.DriverListResponse;
 import ifive.idrop.parent.dto.ParentSubscribeInfoResponse;

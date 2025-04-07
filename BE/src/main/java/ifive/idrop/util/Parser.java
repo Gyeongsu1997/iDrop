@@ -1,6 +1,6 @@
 package ifive.idrop.util;
 
-import ifive.idrop.common.enums.Days;
+import ifive.idrop.common.enums.Day;
 import org.json.JSONException;
 import org.json.simple.JSONObject;
 
@@ -21,7 +21,7 @@ public class Parser {
         Iterator<String> keys = schedule.keySet().iterator();
         while (keys.hasNext()) {
             String key = keys.next();
-            DayOfWeek dayOfWeek = DayOfWeek.valueOf(Days.getDayEnum(key));   // 날짜를 DayOfWeek 타입으로 변환
+            DayOfWeek dayOfWeek = DayOfWeek.valueOf(Day.toFullName(key));   // 날짜를 DayOfWeek 타입으로 변환
             Map<String, Integer> timeMap = (Map<String, Integer>) schedule.get(key);
             LocalDate date = findNearDateByday(dayOfWeek);  // 가장 인접한 날짜 탐색
 

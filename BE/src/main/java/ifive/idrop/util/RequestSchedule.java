@@ -1,6 +1,6 @@
 package ifive.idrop.util;
 
-import ifive.idrop.entity.WorkHours;
+import ifive.idrop.driver.domain.WorkHours;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -41,15 +41,15 @@ public class RequestSchedule {
 
             String requestDayOfWeek = DAY_OF_WEEKS.get(schedule.getDayOfWeek().getValue() - 1);
             List<WorkHours> WorkHoursOfSpecificDayOfWeek = workHoursList.stream()
-                    .filter(w -> w.getDay().equals(requestDayOfWeek))
+                    .filter(w -> w.getId().getDay().getDay().equals(requestDayOfWeek))
                     .toList(); //특정 요일의 업무 시간이 오전, 오후 등 여러개가 있을 수 있으므로 리스트로 변환함
 
             if (WorkHoursOfSpecificDayOfWeek.isEmpty())
                 return false;
             boolean available = false;
             for (WorkHours workHours : WorkHoursOfSpecificDayOfWeek) {
-                LocalTime startTime = LocalTime.of(workHours.getStartHour(), workHours.getStartMinute());
-                LocalTime endTime = LocalTime.of(workHours.getEndHour(), workHours.getEndMinute());
+                LocalTime startTime = workHours.getStartTime();
+                LocalTime endTime = workHours.getEndTime();
 
                 if ((requestTime.equals(startTime) || requestTime.isAfter(startTime))
                         && (requestTime.equals(endTime.minusHours(1)) || requestTime.isBefore(endTime.minusHours(1))))

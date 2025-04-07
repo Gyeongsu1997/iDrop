@@ -6,14 +6,12 @@ import ifive.idrop.driver.dto.DriverSummary;
 import ifive.idrop.driver.dto.WorkHoursDto;
 import ifive.idrop.entity.PickUpInfo;
 import ifive.idrop.user.domain.User;
-import ifive.idrop.entity.WorkHours;
 import ifive.idrop.common.enums.Gender;
 import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.exception.ErrorCode;
 import jakarta.persistence.*;
 import lombok.Getter;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package ifive.idrop.dto;
+package ifive.idrop.parent.dto;
 
 import lombok.Getter;
 import org.json.simple.JSONObject;
