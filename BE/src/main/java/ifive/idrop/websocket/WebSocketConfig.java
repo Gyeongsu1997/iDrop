@@ -1,6 +1,7 @@
 package ifive.idrop.websocket;
 
 import ifive.idrop.auth.utils.JwtProvider;
+import ifive.idrop.pickup.repository.PickUpRepository;
 import ifive.idrop.user.repository.UserRepository;
 import ifive.idrop.websocket.direction.NaverDirectionFinder;
 import ifive.idrop.websocket.location.LocationWebSocketHandler;
@@ -18,7 +19,7 @@ public class WebSocketConfig implements WebSocketConfigurer {
 
     private final JwtProvider jwtProvider;
     private final UserRepository userRepository;
-    private final PickUpInfoRepository pickUpInfoRepository;
+    private final PickUpRepository pickUpRepository;
     private final NaverDirectionFinder naverDirectionFinder;
 
     @Override
@@ -30,7 +31,7 @@ public class WebSocketConfig implements WebSocketConfigurer {
 
     @Bean
     public LocationWebSocketHandler locationWebSocketHandler() {
-        return new LocationWebSocketHandler(jwtProvider, userRepository, pickUpInfoRepository, naverDirectionFinder);
+        return new LocationWebSocketHandler(jwtProvider, userRepository, pickUpRepository, naverDirectionFinder);
     }
 
     @Bean

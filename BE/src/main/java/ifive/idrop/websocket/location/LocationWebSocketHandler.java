@@ -10,10 +10,10 @@ import ifive.idrop.auth.utils.JwtProvider;
 import ifive.idrop.parent.domain.Parent;
 import ifive.idrop.pickup.domain.PickUpHistory;
 import ifive.idrop.pickup.domain.PickUpLocation;
+import ifive.idrop.pickup.repository.PickUpRepository;
 import ifive.idrop.user.repository.UserRepository;
 import ifive.idrop.user.domain.User;
 import ifive.idrop.websocket.CustomObjectMapper;
-import ifive.idrop.websocket.PickUpInfoRepository;
 import ifive.idrop.websocket.location.dto.ChildGeoLocation;
 import ifive.idrop.websocket.location.dto.CurrentPickUp;
 import ifive.idrop.websocket.direction.dto.Direction;
@@ -38,7 +38,7 @@ public class LocationWebSocketHandler extends TextWebSocketHandler {
 
     private final JwtProvider jwtProvider;
     private final UserRepository userRepository;
-    private final PickUpInfoRepository pickUpInfoRepository;
+    private final PickUpRepository pickUpRepository;
     private final NaverDirectionFinder directionFinder;
 
     private static final Map<String, WebSocketSession> sessions; //세션아이디, 세션
@@ -159,13 +159,13 @@ public class LocationWebSocketHandler extends TextWebSocketHandler {
 
     //웹소켓 driver가 연결 시 currentPickUp 만들어서 세팅
     private CurrentPickUp setCurrentPickUps(Long driverId) {
-        PickUpHistory pickup = pickUpInfoRepository.findPickUpByDriverIdWithCurrentTimeInReservedWindow(driverId)
+        PickUpHistory pickup = pickUpRepository.findPickUpByDriverIdWithCurrentTimeInReservedWindow(driverId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.PICKUP_NOT_FOUND));
-        PickUpLocation pickUpLocation = pickUpInfoRepository.findPickUpLocationById(pickup.getId().getSubscriptionId())
+        PickUpLocation pickUpLocation = pickUpRepository.findPickUpLocationById(pickup.getId().getSubscriptionId())
                 .orElseThrow(() -> new BusinessException(ErrorCode.TOKEN_NOT_EXIST)); // todo: ErrorCode 변경
 
 //        Object[] childIdAndParentId = pickUpInfoRepository.findChildAndParentIdByPickUp(pickup.getId());
-        Object[] childIdAndParentId = pickUpInfoRepository.findChildAndParentIdByPickUp(1L);
+        Object[] childIdAndParentId = pickUpRepository.findChildAndParentIdByPickUp(1L);
         CurrentPickUp currentPickUp = CurrentPickUp.builder()
                 .childId((Long) childIdAndParentId[0])
                 .parentId((Long) childIdAndParentId[1])

@@ -5,6 +5,7 @@ import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.exception.ErrorCode;
 import ifive.idrop.pickup.domain.PickUpHistory;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -163,4 +164,48 @@ public class PickUpRepository {
         return query.getSingleResult();
     }
 
+    public Optional<PickUpLocation> findPickUpLocationById(Long id) {
+        PickUpLocation pickUpLocation = em.find(PickUpLocation.class, id);
+        return Optional.ofNullable(pickUpLocation);
+    }
+
+    /**
+     * driverId로 현재 해당 기사의 업무 시간에 해당하는 PickUp 찾기
+     * @param driverId
+     * @return PickUp
+     */
+    public Optional<PickUpHistory> findPickUpByDriverIdWithCurrentTimeInReservedWindow(Long driverId) {
+        LocalDateTime now = LocalDateTime.now();
+
+        //현재 시간이 reservedTime ~ reservedTime+1시간 에 해당하는 PickUp 찾기
+        String jpql = "SELECT p FROM PickUpHistory p WHERE p.pickUpInfo.driver.id = :driverId " +
+                "AND (p.reservedTime) <= :now AND :now < (p.reservedTime + 1 HOUR)";
+
+        TypedQuery<PickUpHistory> query = em.createQuery(jpql, PickUpHistory.class);
+        query.setParameter("driverId", driverId);
+        query.setParameter("now", now);
+
+        try {
+            return Optional.ofNullable(query.getSingleResult());
+        } catch (NoResultException e) {
+            return Optional.empty();
+        }
+    }
+
+    /**
+     * pickUpId로 해당 픽업의 child id, parent id 찾기
+     * @param pickUpId
+     * @return Object[]  [0]: childId, [1]: parentId
+     */
+    public Object[] findChildAndParentIdByPickUp(Long pickUpId) {
+        String jpql = "SELECT c.id, p.id FROM PickUpHistory pu " +
+                "JOIN pu.pickUpInfo.child c " +
+                "JOIN c.parent p " +
+                "WHERE pu.id = :pickUpId";
+
+        TypedQuery<Object[]> query = em.createQuery(jpql, Object[].class);
+        query.setParameter("pickUpId", pickUpId);
+
+        return query.getSingleResult();
+    }
 }
