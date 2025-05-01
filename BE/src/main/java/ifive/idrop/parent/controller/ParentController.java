@@ -16,7 +16,7 @@ import java.util.concurrent.ExecutionException;
 
 import ifive.idrop.auth.resolver.Login;
 import ifive.idrop.common.dto.BaseResponse;
-import ifive.idrop.parent.dto.SubscribeRequest;
+import ifive.idrop.parent.dto.SubscriptionRequest;
 import ifive.idrop.parent.domain.Parent;
 import ifive.idrop.parent.service.ParentService;
 import org.json.JSONException;
@@ -42,7 +42,7 @@ public class ParentController {
     }
 
     @PostMapping("/subscribe")
-    public BaseResponse<String> subscribe(@Login Parent parent, @RequestBody SubscribeRequest request) throws JSONException, ExecutionException, InterruptedException {
+    public BaseResponse<String> subscribe(@Login Parent parent, @RequestBody SubscriptionRequest request) throws JSONException, ExecutionException, InterruptedException {
         return parentService.subscribe(parent, request);
     }
 

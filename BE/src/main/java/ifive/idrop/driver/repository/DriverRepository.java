@@ -2,7 +2,7 @@ package ifive.idrop.driver.repository;
 
 import ifive.idrop.driver.domain.WorkHours;
 import ifive.idrop.parent.dto.DriverListRequest;
-import ifive.idrop.pickup.domain.PickUp;
+import ifive.idrop.pickup.domain.PickUpHistory;
 import ifive.idrop.pickup.repository.PickUpRepository;
 import ifive.idrop.util.RequestSchedule;
 import ifive.idrop.util.ScheduleUtils;
@@ -41,9 +41,9 @@ public class DriverRepository {
         List<Driver> availableDrivers = new ArrayList<>();
         List<Driver> drivers = findAllDrivers();
         for (Driver driver : drivers) {
-            List<PickUp> pickUpList = pickUpRepository.findReservedPickUpsByDriver(driver.getId());
-            List<LocalDateTime> reservedSchedule = pickUpList.stream()
-                    .map(PickUp::getReservedTime)
+            List<PickUpHistory> pickUpHistoryList = pickUpRepository.findReservedPickUpsByDriver(driver.getId());
+            List<LocalDateTime> reservedSchedule = pickUpHistoryList.stream()
+                    .map(PickUpHistory::getReservedTime)
                     .toList();
             List<WorkHours> workHoursList = driver.getWorkHoursList();
             if (requestSchedule.isAvailable(workHoursList, reservedSchedule)) {
@@ -55,7 +55,7 @@ public class DriverRepository {
     public List<Object[]> findAllRunningPickUpInfoOrderByreservedTimeASC(Long driverId) {
         String query = "SELECT pui, pu.reservedTime\n" +
                 "FROM PickUpSubscription pui\n" +
-                "JOIN PickUp pu ON pui.id = pu.pickUpInfo.id\n" +
+                "JOIN PickUpHistory pu ON pui.id = pu.pickUpInfo.id\n" +
                 "WHERE pui.driver.id =: driverId\n" +
                 "AND FUNCTION('DATE', pu.reservedTime) = :currentDate\n"+
                 "AND pu.endTime IS NULL\n" +
@@ -69,7 +69,7 @@ public class DriverRepository {
     public List<Object[]> findRunningPickUpInfo(Long driverId) {
         String query = "SELECT pui, pu.reservedTime\n" +
                 "FROM PickUpSubscription pui\n" +
-                "JOIN PickUp pu ON pui.id = pu.pickUpInfo.id\n" +
+                "JOIN PickUpHistory pu ON pui.id = pu.pickUpInfo.id\n" +
                 "WHERE pui.driver.id =: driverId\n" +
                 "AND pu.startTime IS NOT NULL\n" +
                 "AND pu.endTime IS NULL\n" +
@@ -83,7 +83,7 @@ public class DriverRepository {
     public List<Object[]> findRemainingPickUpInfo(Long driverId) {
         String query = "SELECT pui, pu.reservedTime " +
                 "FROM PickUpSubscription pui " +
-                "JOIN PickUp pu ON pui.id = pu.pickUpInfo.id " +
+                "JOIN PickUpHistory pu ON pui.id = pu.pickUpInfo.id " +
                 "WHERE pui.driver.id = :driverId " +
                 "AND FUNCTION('DATE', pu.reservedTime) = :currentDate " +
                 "AND pu.endTime IS NULL " +

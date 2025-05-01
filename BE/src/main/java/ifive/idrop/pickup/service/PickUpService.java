@@ -1,7 +1,7 @@
 package ifive.idrop.pickup.service;
 
 import ifive.idrop.parent.domain.Parent;
-import ifive.idrop.pickup.domain.PickUp;
+import ifive.idrop.pickup.domain.PickUpHistory;
 import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.exception.ErrorCode;
 import ifive.idrop.notification.AlarmMessage;
@@ -29,20 +29,20 @@ public class PickUpService {
 
     @Transactional
     public void saveStartOrEndPickUp(Long pickUpId, MultipartFile image, String message) throws IOException, ExecutionException, InterruptedException {
-        PickUp pickUp = pickUpRepository.findPickUpById(pickUpId)
+        PickUpHistory pickUpHistory = pickUpRepository.findPickUpById(pickUpId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.PICKUP_NOT_FOUND));
-        Parent parent = pickUp.getParent();
-        if (pickUp.getStartImage() == null) {
+        Parent parent = pickUpHistory.getParent();
+        if (pickUpHistory.getStartImage() == null) {
             String imageUrl = imageService.upload(image, PICKUP_IMAGE_PATH);
             pickUpRepository.savePickUpStartInfo(pickUpId, imageUrl, message);
-            log.info("pickUp Start - driverId = {}, pickUpId = {}", pickUp.getDriver().getId(), pickUp.getId());
+            log.info("pickUp Start - driverId = {}, pickUpId = {}", pickUpHistory.getDriver().getId(), pickUpHistory.getId());
 
             NotificationUtill.createNotification(parent, AlarmMessage.PICK_UP_START.getTitle(),
                     AlarmMessage.PICK_UP_START.getMessage());
-        } else if (pickUp.getEndImage() == null) {
+        } else if (pickUpHistory.getEndImage() == null) {
             String imageUrl = imageService.upload(image, PICKUP_IMAGE_PATH);
             pickUpRepository.savePickUpEndInfo(pickUpId, imageUrl, message);
-            log.info("pickUp End - driverId = {}, pickUpId = {}", pickUp.getDriver().getId(), pickUp.getId());
+            log.info("pickUp End - driverId = {}, pickUpId = {}", pickUpHistory.getDriver().getId(), pickUpHistory.getId());
 
             NotificationUtill.createNotification(parent, AlarmMessage.PICK_UP_END.getTitle(),
                     AlarmMessage.PICK_UP_END.getMessage());
@@ -51,14 +51,14 @@ public class PickUpService {
         }
     }
 
-    public PickUp findByPickUpId(Long pickUpId) {
+    public PickUpHistory findByPickUpId(Long pickUpId) {
         return pickUpRepository.findPickUpById(pickUpId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.PICKUP_NOT_FOUND));
     }
 
-    public Optional<PickUp> findCurrentPickUp(Long driverId, Long childId) {
-        List<PickUp> pickUps = pickUpRepository.findPickUpsByDriverIdWithCurrentTimeInReservedRange(driverId);
-        Optional<PickUp> result = pickUps.stream()
+    public Optional<PickUpHistory> findCurrentPickUp(Long driverId, Long childId) {
+        List<PickUpHistory> pickUpHistories = pickUpRepository.findPickUpsByDriverIdWithCurrentTimeInReservedRange(driverId);
+        Optional<PickUpHistory> result = pickUpHistories.stream()
                 .filter(p -> p.getChild().getId().equals(childId))
                 .findFirst();
         return result;

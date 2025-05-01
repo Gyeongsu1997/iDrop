@@ -3,7 +3,7 @@ package ifive.idrop.pickup.repository;
 import ifive.idrop.pickup.domain.enums.PickUpStatus;
 import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.exception.ErrorCode;
-import ifive.idrop.pickup.domain.PickUp;
+import ifive.idrop.pickup.domain.PickUpHistory;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import lombok.RequiredArgsConstructor;
@@ -21,23 +21,23 @@ import ifive.idrop.pickup.domain.PickUpLocation;
 public class PickUpRepository {
     private final EntityManager em;
 
-    public Optional<PickUp> findPickUpById(Long pickUpId) {
-        return Optional.ofNullable(em.find(PickUp.class, pickUpId));
+    public Optional<PickUpHistory> findPickUpById(Long pickUpId) {
+        return Optional.ofNullable(em.find(PickUpHistory.class, pickUpId));
     }
 
     public Optional<PickUpSubscription> findPickUpInfoById(Long pickUpInfoId) {
         return Optional.ofNullable(em.find(PickUpSubscription.class, pickUpInfoId));
     }
 
-    public List<PickUp> findReservedPickUpsByDriver(Long driverId) {
-        TypedQuery<PickUp> query = em.createQuery(
-                "SELECT p FROM PickUp p " +
+    public List<PickUpHistory> findReservedPickUpsByDriver(Long driverId) {
+        TypedQuery<PickUpHistory> query = em.createQuery(
+                "SELECT p FROM PickUpHistory p " +
                         "JOIN p.pickUpInfo pi " +
                         "JOIN pi.pickUpSubscribe ps " +
                         "JOIN pi.driver d " +
                         "WHERE ps.status = :status " +
                         "AND d.id = :driverId " +
-                        "AND p.reservedTime >= CURRENT_TIMESTAMP", PickUp.class);
+                        "AND p.reservedTime >= CURRENT_TIMESTAMP", PickUpHistory.class);
         query.setParameter("status", PickUpStatus.ACCEPT)
                 .setParameter("driverId", driverId);
         return query.getResultList();
@@ -51,24 +51,24 @@ public class PickUpRepository {
         em.persist(pickUpSubscription);
     }
 
-    public void savePickUp(PickUp pick) {
+    public void savePickUp(PickUpHistory pick) {
         em.persist(pick);
     }
 
-    public List<PickUp> findPickUpByPickUpInfoIdAndParentIdOrderByReservedTime(Long parentId, Long pickInfoId) {
-        String query = "SELECT p FROM PickUp p\n" +
+    public List<PickUpHistory> findPickUpByPickUpInfoIdAndParentIdOrderByReservedTime(Long parentId, Long pickInfoId) {
+        String query = "SELECT p FROM PickUpHistory p\n" +
                 "WHERE p.pickUpInfo.id =: pickInfoId\n" +
                 "AND p.pickUpInfo.child.parent.id =: parentId\n" +
                 "AND p.startTime IS NOT NULL\n" +
                 "ORDER BY p.reservedTime DESC";
-        return em.createQuery(query, PickUp.class)
+        return em.createQuery(query, PickUpHistory.class)
                 .setParameter("pickInfoId", pickInfoId)
                 .setParameter("parentId", parentId)
                 .getResultList();
     }
 
-    public Optional<PickUp> findById(Long pickUpId) {
-        return Optional.ofNullable(em.find(PickUp.class, pickUpId));
+    public Optional<PickUpHistory> findById(Long pickUpId) {
+        return Optional.ofNullable(em.find(PickUpHistory.class, pickUpId));
     }
 
     public List<PickUpSubscription> findWaitingPickUpInfoByDriverId(Long driverId) {
@@ -112,19 +112,19 @@ public class PickUpRepository {
     }
 
     public void savePickUpStartInfo(Long pickupId, String startImage, String startMessage) {
-        PickUp pickUp = Optional.ofNullable(em.find(PickUp.class, pickupId))
+        PickUpHistory pickUpHistory = Optional.ofNullable(em.find(PickUpHistory.class, pickupId))
                 .orElseThrow(() -> new BusinessException(ErrorCode.PICKUP_NOT_FOUND));
 
-        pickUp.updateStartPickUpInfo(startImage, startMessage);
-        em.merge(pickUp);
+        pickUpHistory.updateStartPickUpInfo(startImage, startMessage);
+        em.merge(pickUpHistory);
     }
 
     public void savePickUpEndInfo(Long pickupId, String endImage, String endMessage) {
-        PickUp pickUp = Optional.ofNullable(em.find(PickUp.class, pickupId))
+        PickUpHistory pickUpHistory = Optional.ofNullable(em.find(PickUpHistory.class, pickupId))
                 .orElseThrow(() -> new BusinessException(ErrorCode.PICKUP_NOT_FOUND));
 
-        pickUp.updateEndPickUpInfo(endImage, endMessage);
-        em.merge(pickUp);
+        pickUpHistory.updateEndPickUpInfo(endImage, endMessage);
+        em.merge(pickUpHistory);
     }
 
     /**
@@ -132,14 +132,14 @@ public class PickUpRepository {
      * @param driverId
      * @return List<PickUp>
      */
-    public List<PickUp> findPickUpsByDriverIdWithCurrentTimeInReservedRange(Long driverId) {
+    public List<PickUpHistory> findPickUpsByDriverIdWithCurrentTimeInReservedRange(Long driverId) {
         LocalDateTime now = LocalDateTime.now();
 
         // 현재 시간이 reservedTime ~ reservedTime+1시간에 해당하는 PickUp들 찾기
-        String jpql = "SELECT p FROM PickUp p WHERE p.pickUpInfo.driver.id = :driverId " +
+        String jpql = "SELECT p FROM PickUpHistory p WHERE p.pickUpInfo.driver.id = :driverId " +
                 "AND (p.reservedTime - 10 MINUTE) <= :now AND :now <= (p.reservedTime + 1 HOUR)";
 
-        TypedQuery<PickUp> query = em.createQuery(jpql, PickUp.class);
+        TypedQuery<PickUpHistory> query = em.createQuery(jpql, PickUpHistory.class);
         query.setParameter("driverId", driverId);
         query.setParameter("now", now);
 
@@ -150,7 +150,7 @@ public class PickUpRepository {
         LocalDateTime now = LocalDateTime.now();
 
         TypedQuery<Long> query = em.createQuery(
-                "SELECT COUNT(p) FROM PickUp p " +
+                "SELECT COUNT(p) FROM PickUpHistory p " +
                         "JOIN p.pickUpInfo pi " +
                         "JOIN pi.child c " +
                         "WHERE c.parent.id = :parentId " +

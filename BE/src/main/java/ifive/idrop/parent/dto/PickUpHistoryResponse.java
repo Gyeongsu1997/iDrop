@@ -1,7 +1,7 @@
 package ifive.idrop.parent.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import ifive.idrop.pickup.domain.PickUp;
+import ifive.idrop.pickup.domain.PickUpHistory;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -15,12 +15,12 @@ public class PickUpHistoryResponse {
     private String day;
     private Info info;
 
-    public static PickUpHistoryResponse toEntity(PickUp pickUp) {
-        String time = pickUp.getReservedTime().toLocalTime().toString();
+    public static PickUpHistoryResponse toEntity(PickUpHistory pickUpHistory) {
+        String time = pickUpHistory.getReservedTime().toLocalTime().toString();
         return PickUpHistoryResponse.builder()
-                .date(pickUp.getReservedTime().toLocalDate())
-                .day(time + " " + pickUp.getReservedTime().getDayOfWeek())
-                .info(Info.toEntity(pickUp))
+                .date(pickUpHistory.getReservedTime().toLocalDate())
+                .day(time + " " + pickUpHistory.getReservedTime().getDayOfWeek())
+                .info(Info.toEntity(pickUpHistory))
                 .build();
     }
     @Builder
@@ -46,22 +46,22 @@ public class PickUpHistoryResponse {
         @JsonInclude(JsonInclude.Include.NON_NULL)
         private String endAddress;
 
-        static Info toEntity(PickUp pickUp) {
-            if (pickUp.getEndTime() == null) {
+        static Info toEntity(PickUpHistory pickUpHistory) {
+            if (pickUpHistory.getEndTime() == null) {
                 return Info.builder()
                         .status("픽업 시작")
-                        .startTime(pickUp.getStartTime())
-                        .startImage(pickUp.getStartImage())
-                        .startAddress(pickUp.getPickUpSubscription().getPickUpLocation().getStartAddress())
-                        .endAddress(pickUp.getPickUpSubscription().getPickUpLocation().getEndAddress())
+                        .startTime(pickUpHistory.getStartTime())
+                        .startImage(pickUpHistory.getStartImage())
+                        .startAddress(pickUpHistory.getPickUpSubscription().getPickUpLocation().getStartAddress())
+                        .endAddress(pickUpHistory.getPickUpSubscription().getPickUpLocation().getEndAddress())
                         .build();
             }
 
             return Info.builder()
-                    .endTime(pickUp.getEndTime())
-                    .endImage(pickUp.getEndImage())
-                    .startAddress(pickUp.getPickUpSubscription().getPickUpLocation().getStartAddress())
-                    .endAddress(pickUp.getPickUpSubscription().getPickUpLocation().getEndAddress())
+                    .endTime(pickUpHistory.getEndTime())
+                    .endImage(pickUpHistory.getEndImage())
+                    .startAddress(pickUpHistory.getPickUpSubscription().getPickUpLocation().getStartAddress())
+                    .endAddress(pickUpHistory.getPickUpSubscription().getPickUpLocation().getEndAddress())
                     .status("픽업 종료")
                     .build();
         }

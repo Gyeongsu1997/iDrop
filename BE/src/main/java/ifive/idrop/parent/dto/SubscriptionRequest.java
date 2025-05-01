@@ -6,7 +6,7 @@ import lombok.Getter;
 import java.util.Map;
 
 @Getter
-public class SubscribeRequest {
+public class SubscriptionRequest {
     private Long driverId;
     private String startAddress;
     private Double startLongitude;

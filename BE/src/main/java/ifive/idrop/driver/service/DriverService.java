@@ -13,7 +13,7 @@ import ifive.idrop.notification.NotificationUtill;
 import ifive.idrop.driver.repository.DriverRepository;
 import ifive.idrop.notification.domain.Notification;
 import ifive.idrop.parent.domain.Parent;
-import ifive.idrop.pickup.domain.PickUp;
+import ifive.idrop.pickup.domain.PickUpHistory;
 import ifive.idrop.notification.repository.NotificationRepository;
 import ifive.idrop.pickup.repository.PickUpRepository;
 import ifive.idrop.util.RequestSchedule;
@@ -47,9 +47,9 @@ public class DriverService {
         List<Driver> availableDrivers = new ArrayList<>();
         List<Driver> drivers = driverRepository.findAllDrivers();
         for (Driver driver : drivers) {
-            List<PickUp> pickUpList = pickUpRepository.findReservedPickUpsByDriver(driver.getId());
-            List<LocalDateTime> reservedSchedule = pickUpList.stream()
-                    .map(PickUp::getReservedTime)
+            List<PickUpHistory> pickUpHistoryList = pickUpRepository.findReservedPickUpsByDriver(driver.getId());
+            List<LocalDateTime> reservedSchedule = pickUpHistoryList.stream()
+                    .map(PickUpHistory::getReservedTime)
                     .toList();
             List<WorkHours> workHoursList = driver.getWorkHoursList();
             if (requestSchedule.isAvailable(workHoursList, reservedSchedule)) {
@@ -150,11 +150,11 @@ public class DriverService {
 
 
     private void createPickUp(LocalDateTime localDateTime, PickUpSubscription pickUpSubscription) {
-        PickUp pickUp = PickUp.builder()
+        PickUpHistory pickUpHistory = PickUpHistory.builder()
                 .reservedTime(localDateTime)
                 .build();
-        pickUp.updatePickUpInfo(pickUpSubscription);
-        pickUpRepository.savePickUp(pickUp);
+        pickUpHistory.updatePickUpInfo(pickUpSubscription);
+        pickUpRepository.savePickUp(pickUpHistory);
 
         // Notifiaciton 생성
         Notification notification = Notification.builder()

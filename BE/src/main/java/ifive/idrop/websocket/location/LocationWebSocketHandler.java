@@ -8,7 +8,7 @@ import ifive.idrop.auth.domain.AuthenticateUser;
 import ifive.idrop.auth.filter.VerifyUserFilter;
 import ifive.idrop.auth.utils.JwtProvider;
 import ifive.idrop.parent.domain.Parent;
-import ifive.idrop.pickup.domain.PickUp;
+import ifive.idrop.pickup.domain.PickUpHistory;
 import ifive.idrop.pickup.domain.PickUpLocation;
 import ifive.idrop.user.repository.UserRepository;
 import ifive.idrop.user.domain.User;
@@ -159,7 +159,7 @@ public class LocationWebSocketHandler extends TextWebSocketHandler {
 
     //웹소켓 driver가 연결 시 currentPickUp 만들어서 세팅
     private CurrentPickUp setCurrentPickUps(Long driverId) {
-        PickUp pickup = pickUpInfoRepository.findPickUpByDriverIdWithCurrentTimeInReservedWindow(driverId)
+        PickUpHistory pickup = pickUpInfoRepository.findPickUpByDriverIdWithCurrentTimeInReservedWindow(driverId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.PICKUP_NOT_FOUND));
         PickUpLocation pickUpLocation = pickUpInfoRepository.getPickUpLocation(pickup.getId());
 

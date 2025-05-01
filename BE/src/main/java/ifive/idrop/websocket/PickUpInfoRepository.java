@@ -1,6 +1,6 @@
 package ifive.idrop.websocket;
 
-import ifive.idrop.pickup.domain.PickUp;
+import ifive.idrop.pickup.domain.PickUpHistory;
 import ifive.idrop.pickup.domain.PickUpLocation;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
@@ -24,14 +24,14 @@ public class PickUpInfoRepository {
      * @param driverId
      * @return PickUp
      */
-    public Optional<PickUp> findPickUpByDriverIdWithCurrentTimeInReservedWindow(Long driverId) {
+    public Optional<PickUpHistory> findPickUpByDriverIdWithCurrentTimeInReservedWindow(Long driverId) {
         LocalDateTime now = LocalDateTime.now();
 
         //현재 시간이 reservedTime ~ reservedTime+1시간 에 해당하는 PickUp 찾기
-        String jpql = "SELECT p FROM PickUp p WHERE p.pickUpInfo.driver.id = :driverId " +
+        String jpql = "SELECT p FROM PickUpHistory p WHERE p.pickUpInfo.driver.id = :driverId " +
                 "AND (p.reservedTime) <= :now AND :now < (p.reservedTime + 1 HOUR)";
 
-        TypedQuery<PickUp> query = em.createQuery(jpql, PickUp.class);
+        TypedQuery<PickUpHistory> query = em.createQuery(jpql, PickUpHistory.class);
         query.setParameter("driverId", driverId);
         query.setParameter("now", now);
 
@@ -48,7 +48,7 @@ public class PickUpInfoRepository {
      * @return Object[]  [0]: childId, [1]: parentId
      */
     public Object[] findChildAndParentIdByPickUp(Long pickUpId) {
-        String jpql = "SELECT c.id, p.id FROM PickUp pu " +
+        String jpql = "SELECT c.id, p.id FROM PickUpHistory pu " +
                 "JOIN pu.pickUpInfo.child c " +
                 "JOIN c.parent p " +
                 "WHERE pu.id = :pickUpId";
@@ -60,7 +60,7 @@ public class PickUpInfoRepository {
     }
 
     public PickUpLocation getPickUpLocation(Long pickUpId) {
-        String jpql = "SELECT pi.pickUpLocation FROM PickUp p " +
+        String jpql = "SELECT pi.pickUpLocation FROM PickUpHistory p " +
                 "JOIN p.pickUpInfo pi " +
                 "WHERE p.id = :pickUpId";
 

@@ -41,7 +41,7 @@ public class PickUpSubscription {
     @JoinColumn(name = "child_id")
     private Child child;
 
-    @OneToMany(mappedBy = "pickUpSubscription")
+    @OneToMany(mappedBy = "pickUpSubscription", cascade = CascadeType.ALL)
     private List<PickUpSchedule> pickUpScheduleList;
 
     public void updatePickUpLocation(PickUpLocation location) {
@@ -50,7 +50,7 @@ public class PickUpSubscription {
 
     @OneToMany(mappedBy = "pickUpSubscription")
     @Builder.Default
-    private List<PickUp> pickUpList = new ArrayList<>();
+    private List<PickUpHistory> pickUpHistoryList = new ArrayList<>();
 
     public Parent getParent() {
         return this.child.getParent();

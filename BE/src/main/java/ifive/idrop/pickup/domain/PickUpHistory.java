@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Getter
-public class PickUp {
+public class PickUpHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pickup_id")
@@ -35,7 +35,7 @@ public class PickUp {
 
     public void updatePickUpInfo(PickUpSubscription pickUpSubscription) {
         this.pickUpSubscription = pickUpSubscription;
-        pickUpSubscription.getPickUpList().add(this);
+        pickUpSubscription.getPickUpHistoryList().add(this);
     }
 
     public void updateStartPickUpInfo(String startImage, String startMessage) {
