@@ -16,8 +16,8 @@ public class PickUpSchedule {
     private PickUpScheduleId id;
     private LocalTime startTime;
 
-    @MapsId("pickUpSubscriptionId")
+    @MapsId("subscriptionId")
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "pick_up_subscription_id")
+    @JoinColumn(name = "subscription_id")
     private Subscription subscription;
 }

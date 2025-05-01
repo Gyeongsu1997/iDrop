@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PickUpLocation {
     @Id
-    private Long pickUpSubscriptionId;
+    private Long subscriptionId;
     private String startAddress;
     private Double startLongitude;
     private Double startLatitude;
@@ -23,6 +23,6 @@ public class PickUpLocation {
 
     @MapsId
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "pick_up_subscription_id")
+    @JoinColumn(name = "subscription_id")
     private Subscription subscription;
 }

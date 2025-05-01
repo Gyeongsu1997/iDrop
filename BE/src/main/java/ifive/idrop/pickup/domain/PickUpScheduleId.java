@@ -17,7 +17,7 @@ import java.io.Serializable;
 @EqualsAndHashCode
 @Embeddable
 public class PickUpScheduleId implements Serializable {
-    private Long pickUpSubscriptionId;
+    private Long subscriptionId;
     @Enumerated(EnumType.STRING)
     private Day day;
 }

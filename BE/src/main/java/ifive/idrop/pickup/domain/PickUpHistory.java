@@ -28,7 +28,7 @@ public class PickUpHistory {
     private String endMessage;
 
     @ManyToOne
-    @JoinColumn(name = "pick_up_subscription_id")
+    @JoinColumn(name = "subscription_id")
     private Subscription subscription;
 
     public void updatePickUpInfo(Subscription subscription) {

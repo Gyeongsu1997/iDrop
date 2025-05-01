@@ -21,17 +21,13 @@ import java.util.List;
 @Getter
 public class Subscription {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pick_up_subscription_id")
+    @Column(name = "subscription_id")
     private Long id;
     @Enumerated(EnumType.STRING)
     private PickUpStatus status;
     private LocalDateTime requestDate;
     private LocalDateTime modifiedDate;
     private LocalDateTime expiredDate;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "pickup_location_id")
-    private PickUpLocation pickUpLocation;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "driver_id")
@@ -41,15 +37,17 @@ public class Subscription {
     @JoinColumn(name = "child_id")
     private Child child;
 
-    @OneToMany(mappedBy = "pickUpSubscription", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "subscription", cascade = CascadeType.ALL)
     private List<PickUpSchedule> pickUpScheduleList;
+
+    @OneToOne(mappedBy = "subscription", fetch = FetchType.LAZY)
+    private PickUpLocation pickUpLocation;
 
     public void updatePickUpLocation(PickUpLocation location) {
         this.pickUpLocation = location;
     }
 
-    @OneToMany(mappedBy = "pickUpSubscription")
-    @Builder.Default
+    @OneToMany(mappedBy = "subscription")
     private List<PickUpHistory> pickUpHistoryList = new ArrayList<>();
 
     public Parent getParent() {
