@@ -4,7 +4,7 @@ import ifive.idrop.driver.dto.DriverInformation;
 import ifive.idrop.driver.dto.DriverDetailResponse;
 import ifive.idrop.driver.dto.DriverSummary;
 import ifive.idrop.driver.dto.WorkHoursDto;
-import ifive.idrop.entity.PickUpInfo;
+import ifive.idrop.entity.PickUpSubscription;
 import ifive.idrop.user.domain.User;
 import ifive.idrop.common.enums.Gender;
 import ifive.idrop.common.exception.BusinessException;
@@ -28,7 +28,7 @@ public class Driver extends User {
     private Double starRate;
 
     @OneToMany(mappedBy = "driver")
-    private List<PickUpInfo> pickUpInfoList = new ArrayList<>();
+    private List<PickUpSubscription> pickUpSubscriptionList = new ArrayList<>();
 
     @OneToMany(mappedBy = "driver", cascade = CascadeType.ALL)
     private List<WorkHours> workHoursList = new ArrayList<>();

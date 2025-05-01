@@ -1,7 +1,7 @@
 package ifive.idrop.user.repository;
 
 import ifive.idrop.driver.domain.Driver;
-import ifive.idrop.entity.PickUpInfo;
+import ifive.idrop.entity.PickUpSubscription;
 import ifive.idrop.parent.domain.Parent;
 import ifive.idrop.user.domain.User;
 import jakarta.persistence.EntityManager;
@@ -30,8 +30,8 @@ public class UserRepository {
                 .findAny();
     }
 
-    public Optional<PickUpInfo> findPickUpInfoById(Long pickUpInfoId) {
-        return Optional.ofNullable(em.find(PickUpInfo.class, pickUpInfoId));
+    public Optional<PickUpSubscription> findPickUpInfoById(Long pickUpInfoId) {
+        return Optional.ofNullable(em.find(PickUpSubscription.class, pickUpInfoId));
     }
 
     public Optional<User> findByRefreshToken(String refreshToken) {

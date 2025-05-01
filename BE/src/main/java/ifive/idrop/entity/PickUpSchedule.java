@@ -1,0 +1,21 @@
+package ifive.idrop.entity;
+
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalTime;
+
+@Entity
+@Getter
+@NoArgsConstructor
+public class PickUpSchedule {
+    @EmbeddedId
+    private PickUpScheduleId id;
+    private LocalTime startTime;
+
+    @MapsId("pickUpSubscriptionId")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pick_up_subscription_id")
+    private PickUpSubscription pickUpSubscription;
+}

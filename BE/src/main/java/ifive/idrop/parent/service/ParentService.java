@@ -58,7 +58,7 @@ public class ParentService {
         List<Object[]> runningPickInfo = parentRepository.findRunningPickUpInfo(parent.getId());
         return BaseResponse.of("Data Successfully Proceed",
                 runningPickInfo.stream()
-                        .map(o -> CurrentPickUpResponse.of((PickUpInfo) o[0], (LocalDateTime) o[1]))
+                        .map(o -> CurrentPickUpResponse.of((PickUpSubscription) o[0], (LocalDateTime) o[1]))
                         .toList());
     }
 
@@ -72,16 +72,16 @@ public class ParentService {
         return subscribe;
     }
 
-    private PickUpInfo createPickUpInfo(SubscribeRequest subscribeRequest, Child child, Driver driver, PickUpLocation location, PickUpSubscribe subscribe) {
-        PickUpInfo pickUpInfo = PickUpInfo.builder()
+    private PickUpSubscription createPickUpInfo(SubscribeRequest subscribeRequest, Child child, Driver driver, PickUpLocation location, PickUpSubscribe subscribe) {
+        PickUpSubscription pickUpSubscription = PickUpSubscription.builder()
                 .child(child)
                 .driver(driver)
                 .schedule(subscribeRequest.getSchedule().toJSONString())
                 .build();
-        pickUpInfo.updatePickUpSubscribe(subscribe);
-        pickUpInfo.updatePickUpLocation(location);
-        pickUpRepository.savePickUpInfo(pickUpInfo);
-        return pickUpInfo;
+        pickUpSubscription.updatePickUpSubscribe(subscribe);
+        pickUpSubscription.updatePickUpLocation(location);
+        pickUpRepository.savePickUpInfo(pickUpSubscription);
+        return pickUpSubscription;
     }
 
     private PickUpLocation createPickUpLocation(SubscribeRequest subscribeRequest) {
@@ -105,8 +105,8 @@ public class ParentService {
     }
 
     public List<ParentSubscribeInfoResponse> subscribeList(Long parentId) {
-        List<PickUpInfo> pickUpInfoList = pickUpRepository.findPickUpInfoByParentIdInTheLatestOrder(parentId);
-        return pickUpInfoList.stream().map(ParentSubscribeInfoResponse::of).toList();
+        List<PickUpSubscription> pickUpSubscriptionList = pickUpRepository.findPickUpInfoByParentIdInTheLatestOrder(parentId);
+        return pickUpSubscriptionList.stream().map(ParentSubscribeInfoResponse::of).toList();
     }
 
     public boolean hasCurrentPickUp(Long parentId) {

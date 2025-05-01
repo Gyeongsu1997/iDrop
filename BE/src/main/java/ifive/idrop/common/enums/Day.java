@@ -6,13 +6,13 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum Day {
-    SUN("Sun", "SUNDAY"),
     MON("Mon", "MONDAY"),
     TUE("Tue", "THUESDAY"),
     WED("Wed", "WEDNESDAY"),
     THU("Thu", "THURSDAY"),
     FRI("Fri", "FRIDAY"),
-    SAT("Sat", "SATURDAY");
+    SAT("Sat", "SATURDAY"),
+    SUN("Sun", "SUNDAY");
 
     private final String day;
     private final String fullDate;

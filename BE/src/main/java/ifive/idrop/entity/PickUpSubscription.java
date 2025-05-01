@@ -1,9 +1,15 @@
 package ifive.idrop.entity;
 
+import ifive.idrop.auth.domain.Authentication;
 import ifive.idrop.child.domain.Child;
+import ifive.idrop.common.exception.BusinessException;
+import ifive.idrop.common.exception.ErrorCode;
 import ifive.idrop.driver.domain.Driver;
 import ifive.idrop.parent.domain.Parent;
+import ifive.idrop.parent.dto.SubscribeRequest;
 import ifive.idrop.pickup.domain.PickUp;
+import ifive.idrop.user.domain.User;
+import ifive.idrop.user.dto.SignUpRequest;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.AllArgsConstructor;
@@ -18,7 +24,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Getter
-public class PickUpInfo {
+public class PickUpSubscription {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pickup_info_id")
@@ -41,9 +47,12 @@ public class PickUpInfo {
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "pickUpInfo")
     private PickUpSubscribe pickUpSubscribe;
 
+    @OneToMany(mappedBy = "pickUpSubscription", cascade = CascadeType.ALL)
+    private List<PickUpSchedule> pickUpScheduleList = new ArrayList<>();
+
     public void updatePickUpSubscribe(PickUpSubscribe pickUpSubscribe) {
         this.pickUpSubscribe = pickUpSubscribe;
-        pickUpSubscribe.setPickUpInfo(this);
+        pickUpSubscribe.setPickUpSubscription(this);
     }
 
     public void updatePickUpLocation(PickUpLocation location) {

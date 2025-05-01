@@ -53,16 +53,16 @@ public class PickUpHistoryResponse {
                         .status(PickUpInfoStatus.START.getStatus())
                         .startTime(pickUp.getStartTime())
                         .startImage(pickUp.getStartImage())
-                        .startAddress(pickUp.getPickUpInfo().getPickUpLocation().getStartAddress())
-                        .endAddress(pickUp.getPickUpInfo().getPickUpLocation().getEndAddress())
+                        .startAddress(pickUp.getPickUpSubscription().getPickUpLocation().getStartAddress())
+                        .endAddress(pickUp.getPickUpSubscription().getPickUpLocation().getEndAddress())
                         .build();
             }
 
             return Info.builder()
                     .endTime(pickUp.getEndTime())
                     .endImage(pickUp.getEndImage())
-                    .startAddress(pickUp.getPickUpInfo().getPickUpLocation().getStartAddress())
-                    .endAddress(pickUp.getPickUpInfo().getPickUpLocation().getEndAddress())
+                    .startAddress(pickUp.getPickUpSubscription().getPickUpLocation().getStartAddress())
+                    .endAddress(pickUp.getPickUpSubscription().getPickUpLocation().getEndAddress())
                     .status(PickUpInfoStatus.DONE.getStatus())
                     .build();
         }

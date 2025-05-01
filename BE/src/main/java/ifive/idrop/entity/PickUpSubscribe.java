@@ -27,10 +27,10 @@ public class PickUpSubscribe {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pickup_info_id")
-    private PickUpInfo pickUpInfo;
+    private PickUpSubscription pickUpSubscription;
 
-    public void setPickUpInfo(PickUpInfo pickUpInfo) {
-        this.pickUpInfo = pickUpInfo;
+    public void setPickUpSubscription(PickUpSubscription pickUpSubscription) {
+        this.pickUpSubscription = pickUpSubscription;
     }
 
     public PickUpStatus modify(PickUpStatus newStatus) {

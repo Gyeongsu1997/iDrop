@@ -2,7 +2,7 @@ package ifive.idrop.pickup.domain;
 
 import ifive.idrop.driver.domain.Driver;
 import ifive.idrop.child.domain.Child;
-import ifive.idrop.entity.PickUpInfo;
+import ifive.idrop.entity.PickUpSubscription;
 import ifive.idrop.parent.domain.Parent;
 import jakarta.persistence.*;
 import lombok.*;
@@ -32,11 +32,11 @@ public class PickUp {
 
     @ManyToOne
     @JoinColumn(name = "pickup_info_id")
-    private PickUpInfo pickUpInfo;
+    private PickUpSubscription pickUpSubscription;
 
-    public void updatePickUpInfo(PickUpInfo pickUpInfo) {
-        this.pickUpInfo = pickUpInfo;
-        pickUpInfo.getPickUpList().add(this);
+    public void updatePickUpInfo(PickUpSubscription pickUpSubscription) {
+        this.pickUpSubscription = pickUpSubscription;
+        pickUpSubscription.getPickUpList().add(this);
     }
 
     public void updateStartPickUpInfo(String startImage, String startMessage) {
@@ -52,18 +52,18 @@ public class PickUp {
     }
 
     public boolean isDriver(Driver driver) {
-        return pickUpInfo.getDriver().getId().equals(driver.getId());
+        return pickUpSubscription.getDriver().getId().equals(driver.getId());
     }
 
     public Child getChild() {
-        return pickUpInfo.getChild();
+        return pickUpSubscription.getChild();
     }
 
     public Driver getDriver() {
-        return pickUpInfo.getDriver();
+        return pickUpSubscription.getDriver();
     }
 
     public Parent getParent() {
-        return pickUpInfo.getChild().getParent();
+        return pickUpSubscription.getChild().getParent();
     }
 }

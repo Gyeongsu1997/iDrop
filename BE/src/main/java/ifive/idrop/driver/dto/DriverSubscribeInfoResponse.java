@@ -28,17 +28,17 @@ public class DriverSubscribeInfoResponse {
     private String status;
     private JSONObject schedule;
 
-    public static DriverSubscribeInfoResponse of(PickUpInfo pickUpInfo) {
-        Child child = pickUpInfo.getChild();
+    public static DriverSubscribeInfoResponse of(PickUpSubscription pickUpSubscription) {
+        Child child = pickUpSubscription.getChild();
         Parent parent = child.getParent();
-        PickUpSubscribe pickUpSubscribe = pickUpInfo.getPickUpSubscribe();
-        PickUpLocation pickUpLocation = pickUpInfo.getPickUpLocation();
+        PickUpSubscribe pickUpSubscribe = pickUpSubscription.getPickUpSubscribe();
+        PickUpLocation pickUpLocation = pickUpSubscription.getPickUpLocation();
 
         LocalDate startDate = calculateStartDate(pickUpSubscribe.getModifiedDate());
         LocalDate endDate = calculateEndDate(pickUpSubscribe.getModifiedDate());
 
         return DriverSubscribeInfoResponse.builder()
-                .pickUpInfoId(pickUpInfo.getId())
+                .pickUpInfoId(pickUpSubscription.getId())
                 .parentName(parent.getName())
                 .parentPhoneNumber(parent.getPhoneNumber())
                 .childName(child.getName())
@@ -50,7 +50,7 @@ public class DriverSubscribeInfoResponse {
                 .startAddress(pickUpLocation.getStartAddress())
                 .endAddress(pickUpLocation.getEndAddress())
                 .status(pickUpSubscribe.getStatus().getStatus())
-                .schedule(toJSONObject(pickUpInfo.getSchedule()))
+                .schedule(toJSONObject(pickUpSubscription.getSchedule()))
                 .build();
     }
 }

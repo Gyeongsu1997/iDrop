@@ -1,7 +1,7 @@
 package ifive.idrop.dto;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
-import ifive.idrop.entity.PickUpInfo;
+import ifive.idrop.entity.PickUpSubscription;
 import ifive.idrop.entity.PickUpLocation;
 import lombok.*;
 
@@ -23,14 +23,14 @@ public class CurrentPickUpResponse {
     @JsonUnwrapped
     private TimeInfo timeInfo;
 
-    static public CurrentPickUpResponse of(PickUpInfo pickUpInfo, LocalDateTime reservedTime) {
+    static public CurrentPickUpResponse of(PickUpSubscription pickUpSubscription, LocalDateTime reservedTime) {
         return CurrentPickUpResponse.builder()
-                .childId(pickUpInfo.getChild().getId())
-                .childName(pickUpInfo.getChild().getName())
-                .childImage(pickUpInfo.getChild().getImageUrl())
-                .startDate(pickUpInfo.getPickUpSubscribe().getModifiedDate().plusDays(1))
-                .endDate(pickUpInfo.getPickUpSubscribe().getExpiredDate().minusDays(1))
-                .destination(Destination.of(pickUpInfo.getPickUpLocation()))
+                .childId(pickUpSubscription.getChild().getId())
+                .childName(pickUpSubscription.getChild().getName())
+                .childImage(pickUpSubscription.getChild().getImageUrl())
+                .startDate(pickUpSubscription.getPickUpSubscribe().getModifiedDate().plusDays(1))
+                .endDate(pickUpSubscription.getPickUpSubscribe().getExpiredDate().minusDays(1))
+                .destination(Destination.of(pickUpSubscription.getPickUpLocation()))
                 .timeInfo(TimeInfo.of(reservedTime))
                 .build();
     }
