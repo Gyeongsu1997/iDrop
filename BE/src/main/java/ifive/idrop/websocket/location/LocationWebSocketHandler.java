@@ -161,9 +161,8 @@ public class LocationWebSocketHandler extends TextWebSocketHandler {
     private CurrentPickUp setCurrentPickUps(Long driverId) {
         PickUpHistory pickup = pickUpInfoRepository.findPickUpByDriverIdWithCurrentTimeInReservedWindow(driverId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.PICKUP_NOT_FOUND));
-//        PickUpLocation pickUpLocation = pickUpInfoRepository.getPickUpLocation(pickup.getId());
-        PickUpLocation pickUpLocation = pickUpInfoRepository.getPickUpLocation(1L);
-
+        PickUpLocation pickUpLocation = pickUpInfoRepository.findPickUpLocationById(pickup.getId().getSubscriptionId())
+                .orElseThrow(() -> new BusinessException(ErrorCode.TOKEN_NOT_EXIST)); // todo: ErrorCode 변경
 
 //        Object[] childIdAndParentId = pickUpInfoRepository.findChildAndParentIdByPickUp(pickup.getId());
         Object[] childIdAndParentId = pickUpInfoRepository.findChildAndParentIdByPickUp(1L);

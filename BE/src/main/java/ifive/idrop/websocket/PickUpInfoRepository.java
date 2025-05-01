@@ -6,17 +6,14 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-@Slf4j
 @Repository
 @RequiredArgsConstructor
 public class PickUpInfoRepository {
-
     private final EntityManager em;
 
     /**
@@ -59,16 +56,8 @@ public class PickUpInfoRepository {
         return query.getSingleResult();
     }
 
-    public PickUpLocation getPickUpLocation(Long pickUpId) {
-        String jpql = "SELECT pi.pickUpLocation FROM PickUpHistory p " +
-                "JOIN p.pickUpInfo pi " +
-                "WHERE p.id = :pickUpId";
-
-        TypedQuery<PickUpLocation> query = em.createQuery(jpql, PickUpLocation.class);
-        query.setParameter("pickUpId", pickUpId);
-
-        return query.getSingleResult();
-
+    public Optional<PickUpLocation> findPickUpLocationById(Long id) {
+        PickUpLocation pickUpLocation = em.find(PickUpLocation.class, id);
+        return Optional.ofNullable(pickUpLocation);
     }
-
 }

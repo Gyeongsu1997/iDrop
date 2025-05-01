@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 public class PickUpHistory {
     @EmbeddedId
     PickUpHistoryId id;
+    @Column(nullable = false)
     private LocalDateTime reservedTime;
     private LocalDateTime startTime;
     private String startImage;
