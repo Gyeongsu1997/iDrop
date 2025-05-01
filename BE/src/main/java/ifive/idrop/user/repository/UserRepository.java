@@ -1,5 +1,6 @@
 package ifive.idrop.user.repository;
 
+import ifive.idrop.auth.domain.Auth;
 import ifive.idrop.driver.domain.Driver;
 import ifive.idrop.entity.PickUpSubscription;
 import ifive.idrop.parent.domain.Parent;
@@ -19,6 +20,10 @@ public class UserRepository {
 
     public void save(User user) {
         em.persist(user);
+    }
+
+    public void save(Auth auth) {
+        em.persist(auth);
     }
 
     // todo: loginId index

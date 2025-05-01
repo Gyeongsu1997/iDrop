@@ -28,8 +28,8 @@ public class CurrentPickUpResponse {
                 .childId(pickUpSubscription.getChild().getId())
                 .childName(pickUpSubscription.getChild().getName())
                 .childImage(pickUpSubscription.getChild().getImageUrl())
-                .startDate(pickUpSubscription.getPickUpSubscribe().getModifiedDate().plusDays(1))
-                .endDate(pickUpSubscription.getPickUpSubscribe().getExpiredDate().minusDays(1))
+                .startDate(pickUpSubscription.getModifiedDate().plusDays(1))
+                .endDate(pickUpSubscription.getExpiredDate().minusDays(1))
                 .destination(Destination.of(pickUpSubscription.getPickUpLocation()))
                 .timeInfo(TimeInfo.of(reservedTime))
                 .build();

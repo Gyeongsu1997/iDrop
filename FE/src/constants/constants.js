@@ -14,15 +14,15 @@ export const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
 export const PARENT_TOKEN = import.meta.env.VITE_PARENT_TOKEN;
 
 export const SEARCH_PAGE = (function () {
-    const WEEK = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    const WEEK = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
     const WEEK_MAP = {
-        Sun: "일요일",
-        Mon: "월요일",
-        Tue: "화요일",
-        Wed: "수요일",
-        Thu: "목요일",
-        Fri: "금요일",
-        Sat: "토요일"
+        SUN: "일요일",
+        MON: "월요일",
+        TUE: "화요일",
+        WED: "수요일",
+        THU: "목요일",
+        FRI: "금요일",
+        SAT: "토요일"
     };
 
     return {

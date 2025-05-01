@@ -1,6 +1,6 @@
 package ifive.idrop.user.domain;
 
-import ifive.idrop.auth.domain.Authentication;
+import ifive.idrop.auth.domain.Auth;
 import ifive.idrop.auth.dto.LoginRequest;
 import ifive.idrop.common.enums.Gender;
 import ifive.idrop.common.exception.BusinessException;
@@ -31,8 +31,8 @@ public abstract class User {
     private String phoneNumber;
     protected String imageUrl;
 
-    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Authentication authentication;
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
+    private Auth auth;
 
     public static User createUser(SignUpRequest signUpRequest) {
         String role = signUpRequest.getRole();
@@ -49,7 +49,6 @@ public abstract class User {
         user.password = signUpRequest.getPassword();
         user.name = signUpRequest.getName();
         user.phoneNumber = signUpRequest.getPhoneNumber();
-        user.authentication = Authentication.of(user);
         return user;
     }
 
@@ -58,14 +57,14 @@ public abstract class User {
     }
 
     public void updateRefreshToken(String refreshToken) {
-        this.authentication.updateRefreshToken(refreshToken);
+        this.auth.updateRefreshToken(refreshToken);
     }
 
     public String getFcmToken() {
-        return this.authentication.getFcmToken();
+        return this.auth.getFcmToken();
     }
 
     public void updateFcmToken(String fcmToken) {
-        this.authentication.updateFcmToken(fcmToken);
+        this.auth.updateFcmToken(fcmToken);
     }
 }

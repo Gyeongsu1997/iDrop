@@ -113,7 +113,8 @@ public class DriverService {
         PickUpStatus pickUpStatus =  pickUpSubscription.modify(PickUpStatus.of(statusCode));
 
         if (pickUpStatus.equals(PickUpStatus.ACCEPT)) {
-            RequestSchedule requestSchedule = parseToList(toJSONObject(pickUpSubscription.getSchedule()));
+//            RequestSchedule requestSchedule = parseToList(toJSONObject(pickUpSubscription.getSchedule()));
+            RequestSchedule requestSchedule = parseToList(toJSONObject("pickUpSubscription.getSchedule()"));
             List<LocalDateTime> requestScheduleList = requestSchedule.getRequestSchedule();
             for (LocalDateTime reservedTime : requestScheduleList) {
                 createPickUp(reservedTime, pickUpSubscription);
@@ -167,7 +168,7 @@ public class DriverService {
     private void removeOverlappedSubscribe(Long driverId, PickUpSubscription pickUpSubscription) {
         List<PickUpSubscription> waitingPickUpSubscriptionList = pickUpRepository.findWaitingPickUpInfoByDriverId(driverId);
         for (PickUpSubscription waitingPickUpSubscription : waitingPickUpSubscriptionList) {
-            if (isOverlapped(pickUpSubscription.getSchedule(), waitingPickUpSubscription.getSchedule())) {
+            if (isOverlapped("pickUpSubscription.getSchedule()", "waitingPickUpSubscription.getSchedule()")) {
                 waitingPickUpSubscription.modify(PickUpStatus.DECLINE);
 
                 // 거절 알람

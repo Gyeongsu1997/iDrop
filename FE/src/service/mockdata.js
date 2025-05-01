@@ -44,11 +44,11 @@ export const fakeHistoryData = [
         endAddress: "서울특별시 강남구 학동로31길 15 코마츠",
         status: "픽업중",
         schedule: {
-            Wed: {
+            WED: {
                 min: 30,
                 hour: 8
             },
-            Mon: {
+            MON: {
                 min: 30,
                 hour: 8
             }
@@ -64,11 +64,11 @@ export const fakeHistoryData = [
         endAddress: "서울특별시 강남구 학동로31길 15 코마츠",
         status: "대기중",
         schedule: {
-            Wed: {
+            WED: {
                 min: 30,
                 hour: 8
             },
-            Mon: {
+            MON: {
                 min: 30,
                 hour: 8
             }
@@ -84,11 +84,11 @@ export const fakeHistoryData = [
         endAddress: "서울특별시 강남구 학동로31길 15 코마츠",
         status: "만료됨",
         schedule: {
-            Wed: {
+            WED: {
                 min: 30,
                 hour: 8
             },
-            Mon: {
+            MON: {
                 min: 30,
                 hour: 8
             }
@@ -104,11 +104,11 @@ export const fakeHistoryData = [
         endAddress: "서울특별시 강남구 학동로31길 15 코마츠",
         status: "만료됨",
         schedule: {
-            Wed: {
+            WED: {
                 min: 30,
                 hour: 8
             },
-            Mon: {
+            MON: {
                 min: 30,
                 hour: 8
             }

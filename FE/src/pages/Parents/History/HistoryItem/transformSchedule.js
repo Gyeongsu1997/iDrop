@@ -1,12 +1,12 @@
 export function transformSchedule(schedule) {
     const daysInfo = {
-        Mon: { order: 1, translation: "월" },
-        Tue: { order: 2, translation: "화" },
-        Wed: { order: 3, translation: "수" },
-        Thu: { order: 4, translation: "목" },
-        Fri: { order: 5, translation: "금" },
-        Sat: { order: 6, translation: "토" },
-        Sun: { order: 7, translation: "일" }
+        MON: { order: 1, translation: "월" },
+        TUE: { order: 2, translation: "화" },
+        WED: { order: 3, translation: "수" },
+        THU: { order: 4, translation: "목" },
+        FRI: { order: 5, translation: "금" },
+        SAT: { order: 6, translation: "토" },
+        SUN: { order: 7, translation: "일" }
     };
 
     const makeScheduleObject = (day) => ({

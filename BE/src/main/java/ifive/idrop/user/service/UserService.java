@@ -1,6 +1,7 @@
 package ifive.idrop.user.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import ifive.idrop.auth.domain.Auth;
 import ifive.idrop.common.dto.BaseResponse;
 import ifive.idrop.auth.dto.LoginRequest;
 import ifive.idrop.driver.domain.Driver;
@@ -35,6 +36,8 @@ public class UserService {
         checkDuplicateLoginId(signUpRequest.getLoginId());
         User user = signUpRequest.toEntity();
         userRepository.save(user);
+        Auth auth = Auth.of(user);
+        userRepository.save(auth);
         if (user instanceof Driver)
             return BaseResponse.of("성공적으로 회원가입 되었습니다.", "기사");
         else

@@ -42,8 +42,8 @@ public class ParentController {
     }
 
     @PostMapping("/subscribe")
-    public BaseResponse<String> subscribeDriver(@Login Parent parent, @RequestBody SubscribeRequest request) throws JSONException, ExecutionException, InterruptedException {
-        return parentService.createSubscribe(parent, request);
+    public BaseResponse<String> subscribe(@Login Parent parent, @RequestBody SubscribeRequest request) throws JSONException, ExecutionException, InterruptedException {
+        return parentService.subscribe(parent, request);
     }
 
     @GetMapping("/pickup/now")

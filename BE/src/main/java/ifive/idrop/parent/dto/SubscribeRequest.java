@@ -1,7 +1,9 @@
 package ifive.idrop.parent.dto;
 
+import ifive.idrop.common.enums.Day;
 import lombok.Getter;
-import org.json.simple.JSONObject;
+
+import java.util.Map;
 
 @Getter
 public class SubscribeRequest {
@@ -12,5 +14,5 @@ public class SubscribeRequest {
     private String endAddress;
     private Double endLongitude;
     private Double endLatitude;
-    private JSONObject schedule;
+    private Map<Day, Map<String, Integer>> schedule;
 }

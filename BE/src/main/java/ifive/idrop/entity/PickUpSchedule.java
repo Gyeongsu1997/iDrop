@@ -1,6 +1,7 @@
 package ifive.idrop.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -9,6 +10,7 @@ import java.time.LocalTime;
 @Entity
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 public class PickUpSchedule {
     @EmbeddedId
     private PickUpScheduleId id;

@@ -49,7 +49,7 @@ public class DriverSubscribeInfoResponse {
                 .startAddress(pickUpLocation.getStartAddress())
                 .endAddress(pickUpLocation.getEndAddress())
                 .status(pickUpSubscription.getStatus().getStatus())
-                .schedule(toJSONObject(pickUpSubscription.getSchedule()))
+//                .schedule(toJSONObject(pickUpSubscription.getSchedule()))
                 .build();
     }
 }

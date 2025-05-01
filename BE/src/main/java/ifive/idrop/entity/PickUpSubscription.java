@@ -1,16 +1,10 @@
 package ifive.idrop.entity;
 
-import ifive.idrop.auth.domain.Authentication;
 import ifive.idrop.child.domain.Child;
-import ifive.idrop.common.exception.BusinessException;
-import ifive.idrop.common.exception.ErrorCode;
 import ifive.idrop.driver.domain.Driver;
 import ifive.idrop.entity.enums.PickUpStatus;
 import ifive.idrop.parent.domain.Parent;
-import ifive.idrop.parent.dto.SubscribeRequest;
 import ifive.idrop.pickup.domain.PickUp;
-import ifive.idrop.user.domain.User;
-import ifive.idrop.user.dto.SignUpRequest;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.AllArgsConstructor;
@@ -48,9 +42,7 @@ public class PickUpSubscription {
     @JoinColumn(name = "child_id")
     private Child child;
 
-    private String schedule;
-
-    @OneToMany(mappedBy = "pickUpSubscription", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "pickUpSubscription")
     private List<PickUpSchedule> pickUpScheduleList = new ArrayList<>();
 
     public void updatePickUpLocation(PickUpLocation location) {
@@ -63,6 +55,10 @@ public class PickUpSubscription {
 
     public Parent getParent() {
         return this.child.getParent();
+    }
+
+    public void addPickUpSchedule(PickUpSchedule schedule) {
+        pickUpScheduleList.add(schedule);
     }
 
     public PickUpStatus modify(PickUpStatus newStatus) {

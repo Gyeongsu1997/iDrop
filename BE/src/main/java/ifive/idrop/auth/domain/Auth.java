@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @Entity
 @Getter
-public class Authentication {
+public class Auth {
     @Id
     private Long userId;
     private String refreshToken;
@@ -17,10 +17,11 @@ public class Authentication {
     @JoinColumn(name = "users_id")
     private User user;
 
-    public static Authentication of(User user) {
-        Authentication authentication = new Authentication();
-        authentication.user = user;
-        return authentication;
+    public static Auth of(User user) {
+        Auth auth = new Auth();
+        auth.userId = user.getId();
+        auth.user = user;
+        return auth;
     }
 
     public void updateRefreshToken(String refreshToken) {
