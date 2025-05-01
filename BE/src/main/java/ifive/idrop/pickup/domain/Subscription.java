@@ -37,7 +37,7 @@ public class Subscription {
     @JoinColumn(name = "child_id")
     private Child child;
 
-    @OneToOne(mappedBy = "subscription", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "subscription", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private PickUpLocation pickUpLocation;
 
     @OneToMany(mappedBy = "subscription", cascade = CascadeType.ALL)
@@ -48,6 +48,7 @@ public class Subscription {
 
     public void updatePickUpLocation(PickUpLocation location) {
         this.pickUpLocation = location;
+        location.subscription = this;
     }
 
     public Parent getParent() {

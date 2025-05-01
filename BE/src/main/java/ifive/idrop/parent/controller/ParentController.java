@@ -41,11 +41,6 @@ public class ParentController {
         return driverListResponse;
     }
 
-    @PostMapping("/subscribe")
-    public BaseResponse<String> subscribe(@Login Parent parent, @RequestBody SubscriptionRequest request) throws JSONException, ExecutionException, InterruptedException {
-        return parentService.subscribe(parent, request);
-    }
-
     @GetMapping("/pickup/now")
     public BaseResponse<List<CurrentPickUpResponse>> checkPickUpInfo(@Login Parent parent) {
         return parentService.getChildRunningInfo(parent);

@@ -1,16 +1,11 @@
 package ifive.idrop.pickup.domain;
 
+import ifive.idrop.parent.dto.SubscriptionRequest;
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.RequiredArgsConstructor;
 
 @Entity
 @Getter
-@Builder
-@AllArgsConstructor
-@RequiredArgsConstructor
 public class PickUpLocation {
     @Id
     private Long subscriptionId;
@@ -36,5 +31,16 @@ public class PickUpLocation {
     @MapsId
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "subscription_id")
-    private Subscription subscription;
+    Subscription subscription;
+
+    public static PickUpLocation createPickUpLocation(SubscriptionRequest subscriptionRequest) {
+        PickUpLocation pickUpLocation = new PickUpLocation();
+        pickUpLocation.startAddress = subscriptionRequest.getStartAddress();
+        pickUpLocation.startLatitude = subscriptionRequest.getStartLatitude();
+        pickUpLocation.startLongitude = subscriptionRequest.getStartLongitude();
+        pickUpLocation.endAddress = subscriptionRequest.getEndAddress();
+        pickUpLocation.endLatitude = subscriptionRequest.getEndLatitude();
+        pickUpLocation.endLongitude = subscriptionRequest.getEndLongitude();
+        return pickUpLocation;
+    }
 }

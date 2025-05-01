@@ -12,6 +12,7 @@ import java.util.Optional;
 public class AuthRepository {
     private final EntityManager em;
 
+    // todo: refreshToken 인덱스
     public Optional<Auth> findByRefreshToken(String refreshToken) {
         return em.createQuery("select a from Auth a where a.refreshToken = :refreshToken", Auth.class)
                 .setParameter("refreshToken", refreshToken)

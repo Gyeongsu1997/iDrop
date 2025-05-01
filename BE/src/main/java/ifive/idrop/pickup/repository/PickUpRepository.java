@@ -44,10 +44,6 @@ public class PickUpRepository {
         return query.getResultList();
     }
 
-    public void savePickUpLocation(PickUpLocation location) {
-        em.persist(location);
-    }
-
     public void savePickUpInfo(Subscription subscription) {
         em.persist(subscription);
     }
