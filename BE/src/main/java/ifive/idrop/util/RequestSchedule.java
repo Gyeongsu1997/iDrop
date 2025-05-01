@@ -10,8 +10,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static ifive.idrop.util.ScheduleUtils.*;
-
 @Getter
 public class RequestSchedule {
     private List<LocalDateTime> requestSchedule = new ArrayList<>();
@@ -39,9 +37,9 @@ public class RequestSchedule {
             LocalDateTime schedule = requestSchedule.get(i);
             LocalTime requestTime = LocalTime.of(schedule.getHour(), schedule.getMinute());
 
-            String requestDayOfWeek = DAY_OF_WEEKS.get(schedule.getDayOfWeek().getValue() - 1);
+            int requestDayOfWeek = schedule.getDayOfWeek().getValue() - 1;
             List<WorkHours> WorkHoursOfSpecificDayOfWeek = workHoursList.stream()
-                    .filter(w -> w.getId().getDay().getDay().equals(requestDayOfWeek))
+                    .filter(w -> w.getId().getDay().ordinal() == requestDayOfWeek)
                     .toList(); //특정 요일의 업무 시간이 오전, 오후 등 여러개가 있을 수 있으므로 리스트로 변환함
 
             if (WorkHoursOfSpecificDayOfWeek.isEmpty())

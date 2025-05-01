@@ -29,11 +29,11 @@ public class PickUpHistory {
 
     @ManyToOne
     @JoinColumn(name = "pick_up_subscription_id")
-    private PickUpSubscription pickUpSubscription;
+    private Subscription subscription;
 
-    public void updatePickUpInfo(PickUpSubscription pickUpSubscription) {
-        this.pickUpSubscription = pickUpSubscription;
-        pickUpSubscription.getPickUpHistoryList().add(this);
+    public void updatePickUpInfo(Subscription subscription) {
+        this.subscription = subscription;
+        subscription.getPickUpHistoryList().add(this);
     }
 
     public void startPickUp(String startImage, String startMessage) {
@@ -49,14 +49,14 @@ public class PickUpHistory {
     }
 
     public Child getChild() {
-        return pickUpSubscription.getChild();
+        return subscription.getChild();
     }
 
     public Driver getDriver() {
-        return pickUpSubscription.getDriver();
+        return subscription.getDriver();
     }
 
     public Parent getParent() {
-        return pickUpSubscription.getChild().getParent();
+        return subscription.getChild().getParent();
     }
 }

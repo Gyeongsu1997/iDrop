@@ -5,7 +5,6 @@ import ifive.idrop.driver.domain.Driver;
 import ifive.idrop.driver.domain.WorkHours;
 import ifive.idrop.driver.dto.*;
 import ifive.idrop.parent.dto.DriverListRequest;
-import ifive.idrop.pickup.domain.PickUpSchedule;
 import ifive.idrop.pickup.domain.enums.PickUpStatus;
 import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.exception.ErrorCode;
@@ -25,11 +24,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import ifive.idrop.dto.CurrentPickUpResponse;
-import ifive.idrop.pickup.domain.PickUpSubscription;
+import ifive.idrop.pickup.domain.Subscription;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 import static ifive.idrop.util.ScheduleUtils.*;
@@ -79,20 +77,20 @@ public class DriverService {
         List<Object[]> runningPickInfo = driverRepository.findAllRunningPickUpInfoOrderByreservedTimeASC(driver.getId());
         return BaseResponse.of("Data Successfully Proceed",
                 runningPickInfo.stream()
-                        .map(o -> CurrentPickUpResponse.of((PickUpSubscription) o[0], (LocalDateTime) o[1]))
+                        .map(o -> CurrentPickUpResponse.of((Subscription) o[0], (LocalDateTime) o[1]))
                         .toList());
     }
 
     public List<DriverSubscribeInfoResponse> subscribeList(Long driverId) {
-        List<PickUpSubscription> pickUpSubscriptionList = pickUpRepository.findPickUpInfoByDriverIdTheLatestOrder(driverId);
-        return pickUpSubscriptionList.stream().map(DriverSubscribeInfoResponse::of).toList();
+        List<Subscription> subscriptionList = pickUpRepository.findPickUpInfoByDriverIdTheLatestOrder(driverId);
+        return subscriptionList.stream().map(DriverSubscribeInfoResponse::of).toList();
     }
 
     public BaseResponse<List<CurrentPickUpResponse>> getChildRunningInfo(Driver driver) {
         List<Object[]> runningPickInfo = driverRepository.findRunningPickUpInfo(driver.getId());
         return BaseResponse.of("Data Successfully Proceed",
                 runningPickInfo.stream()
-                        .map(o -> CurrentPickUpResponse.of((PickUpSubscription) o[0], (LocalDateTime) o[1]))
+                        .map(o -> CurrentPickUpResponse.of((Subscription) o[0], (LocalDateTime) o[1]))
                         .toList());
     }
 
@@ -103,22 +101,22 @@ public class DriverService {
             throw new BusinessException(ErrorCode.INVALID_PICKUP_STATUS);
         }
         Long pickUpInfoId = subscribeCheckRequest.getPickUpInfoId();
-        PickUpSubscription pickUpSubscription = pickUpRepository.findPickUpInfoById(pickUpInfoId)
+        Subscription subscription = pickUpRepository.findPickUpInfoById(pickUpInfoId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.PICKUP_INFO_NOT_EXIST));
 
-        if (!Objects.equals(driverId, pickUpSubscription.getDriver().getId())) {
+        if (!Objects.equals(driverId, subscription.getDriver().getId())) {
             throw new BusinessException(ErrorCode.UNAUTHORIZED_USER);
         }
 
-        PickUpStatus pickUpStatus = pickUpSubscription.modify(PickUpStatus.of(statusCode));
+        PickUpStatus pickUpStatus = subscription.modify(PickUpStatus.of(statusCode));
 
         if (pickUpStatus.equals(PickUpStatus.ACCEPT)) {
-            RequestSchedule requestSchedule = parseToList(pickUpSubscription.getPickUpScheduleList());
+            RequestSchedule requestSchedule = parseToList(subscription.getPickUpScheduleList());
             List<LocalDateTime> requestScheduleList = requestSchedule.getRequestSchedule();
             for (LocalDateTime reservedTime : requestScheduleList) {
-                createPickUp(reservedTime, pickUpSubscription);
+                createPickUp(reservedTime, subscription);
             }
-            removeOverlappedSubscribe(driverId, pickUpSubscription); // 승인한 구독 요청과 시간이 겹치는 다른 구독 요청을 거절로 처리함
+            removeOverlappedSubscribe(driverId, subscription); // 승인한 구독 요청과 시간이 겹치는 다른 구독 요청을 거절로 처리함
 
             // 알림 보내기
 //            Parent parent = pickUpSubscription.getChild().getParent();
@@ -127,7 +125,7 @@ public class DriverService {
 
             return BaseResponse.from("요청을 성공적으로 승인했습니다.");
         } else {
-            Parent parent = pickUpSubscription.getChild().getParent();
+            Parent parent = subscription.getChild().getParent();
             NotificationUtill.createNotification(parent,
                     AlarmMessage.DECLINE.getTitle(), AlarmMessage.DECLINE.getMessage());
 
@@ -141,7 +139,7 @@ public class DriverService {
 
         return remainingPickUpInfo.stream()
                 .map(o -> {
-                    PickUpSubscription po = (PickUpSubscription) o[0];
+                    Subscription po = (Subscription) o[0];
                     LocalDateTime reservedTime = (LocalDateTime) o[1];
                     return DriverTodayRemainingPickUpResponse.of(po, reservedTime);
                 })
@@ -149,29 +147,29 @@ public class DriverService {
     }
 
 
-    private void createPickUp(LocalDateTime localDateTime, PickUpSubscription pickUpSubscription) {
+    private void createPickUp(LocalDateTime localDateTime, Subscription subscription) {
         PickUpHistory pickUpHistory = PickUpHistory.builder()
                 .reservedTime(localDateTime)
                 .build();
-        pickUpHistory.updatePickUpInfo(pickUpSubscription);
+        pickUpHistory.updatePickUpInfo(subscription);
         pickUpRepository.savePickUp(pickUpHistory);
 
         // Notifiaciton 생성
         Notification notification = Notification.builder()
-                .driver(pickUpSubscription.getDriver())
+                .driver(subscription.getDriver())
                 .pickUpAlarmTime(localDateTime.minusHours(1))
                 .build();
         notificationRepository.save(notification);
     }
 
-    private void removeOverlappedSubscribe(Long driverId, PickUpSubscription pickUpSubscription) {
-        List<PickUpSubscription> waitingPickUpSubscriptionList = pickUpRepository.findWaitingPickUpInfoByDriverId(driverId);
-        for (PickUpSubscription waitingPickUpSubscription : waitingPickUpSubscriptionList) {
+    private void removeOverlappedSubscribe(Long driverId, Subscription subscription) {
+        List<Subscription> waitingSubscriptionList = pickUpRepository.findWaitingPickUpInfoByDriverId(driverId);
+        for (Subscription waitingSubscription : waitingSubscriptionList) {
             if (isOverlapped("pickUpSubscription.getSchedule()", "waitingPickUpSubscription.getSchedule()")) {
-                waitingPickUpSubscription.modify(PickUpStatus.DECLINE);
+                waitingSubscription.modify(PickUpStatus.DECLINE);
 
                 // 거절 알람
-                Parent parent = pickUpSubscription.getParent();
+                Parent parent = subscription.getParent();
                 NotificationUtill.createNotification(parent, AlarmMessage.DECLINE.getTitle(),
                         AlarmMessage.DECLINE.getMessage());
             }

@@ -59,31 +59,31 @@ public class ParentService {
         List<Object[]> runningPickInfo = parentRepository.findRunningPickUpInfo(parent.getId());
         return BaseResponse.of("Data Successfully Proceed",
                 runningPickInfo.stream()
-                        .map(o -> CurrentPickUpResponse.of((PickUpSubscription) o[0], (LocalDateTime) o[1]))
+                        .map(o -> CurrentPickUpResponse.of((Subscription) o[0], (LocalDateTime) o[1]))
                         .toList());
     }
 
-    private PickUpSubscription createPickUpInfo(SubscriptionRequest subscriptionRequest, Child child, Driver driver, PickUpLocation location) {
+    private Subscription createPickUpInfo(SubscriptionRequest subscriptionRequest, Child child, Driver driver, PickUpLocation location) {
 //        PickUpSubscription pickUpSubscription = PickUpSubscription.createPickUpSubscription();
 
-        PickUpSubscription pickUpSubscription = PickUpSubscription.builder()
+        Subscription subscription = Subscription.builder()
                 .child(child)
                 .driver(driver)
                 .status(PickUpStatus.WAIT)
                 .requestDate(LocalDateTime.now())
                 .pickUpScheduleList(new ArrayList<>())
                 .build();
-        pickUpSubscription.updatePickUpLocation(location);
-        pickUpRepository.savePickUpInfo(pickUpSubscription);
+        subscription.updatePickUpLocation(location);
+        pickUpRepository.savePickUpInfo(subscription);
 
         Map<Day, Map<String, Integer>> schedule = subscriptionRequest.getSchedule();
         for (Map.Entry<Day, Map<String, Integer>> entry : schedule.entrySet()) {
             Day day = entry.getKey();
             int hour = entry.getValue().get("hour");
             int min = entry.getValue().get("min");
-            pickUpSubscription.addPickUpSchedule(new PickUpSchedule(new PickUpScheduleId(pickUpSubscription.getId(), day), LocalTime.of(hour, min), pickUpSubscription));
+            subscription.addPickUpSchedule(new PickUpSchedule(new PickUpScheduleId(subscription.getId(), day), LocalTime.of(hour, min), subscription));
         }
-        return pickUpSubscription;
+        return subscription;
     }
 
     private PickUpLocation createPickUpLocation(SubscriptionRequest subscriptionRequest) {
@@ -107,8 +107,8 @@ public class ParentService {
     }
 
     public List<ParentSubscribeInfoResponse> subscribeList(Long parentId) {
-        List<PickUpSubscription> pickUpSubscriptionList = pickUpRepository.findPickUpInfoByParentIdInTheLatestOrder(parentId);
-        return pickUpSubscriptionList.stream().map(ParentSubscribeInfoResponse::of).toList();
+        List<Subscription> subscriptionList = pickUpRepository.findPickUpInfoByParentIdInTheLatestOrder(parentId);
+        return subscriptionList.stream().map(ParentSubscribeInfoResponse::of).toList();
     }
 
     public boolean hasCurrentPickUp(Long parentId) {

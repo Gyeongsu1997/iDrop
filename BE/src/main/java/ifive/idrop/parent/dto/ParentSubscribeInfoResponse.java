@@ -1,7 +1,7 @@
 package ifive.idrop.parent.dto;
 
 import ifive.idrop.driver.domain.Driver;
-import ifive.idrop.pickup.domain.PickUpSubscription;
+import ifive.idrop.pickup.domain.Subscription;
 import ifive.idrop.pickup.domain.PickUpLocation;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,22 +26,22 @@ public class ParentSubscribeInfoResponse {
     private String status;
     private JSONObject schedule;
 
-    public static ParentSubscribeInfoResponse of(PickUpSubscription pickUpSubscription) {
-        Driver driver = pickUpSubscription.getDriver();
-        PickUpLocation pickUpLocation = pickUpSubscription.getPickUpLocation();
+    public static ParentSubscribeInfoResponse of(Subscription subscription) {
+        Driver driver = subscription.getDriver();
+        PickUpLocation pickUpLocation = subscription.getPickUpLocation();
 
-        LocalDate startDate = calculateStartDate(pickUpSubscription.getModifiedDate());
-        LocalDate endDate = calculateEndDate(pickUpSubscription.getModifiedDate());
+        LocalDate startDate = calculateStartDate(subscription.getModifiedDate());
+        LocalDate endDate = calculateEndDate(subscription.getModifiedDate());
 
         return ParentSubscribeInfoResponse.builder()
-                .pickUpInfoId(pickUpSubscription.getId())
+                .pickUpInfoId(subscription.getId())
                 .driverName(driver.getName())
                 .driverImage(driver.getImageUrl())
                 .startDate(startDate)
                 .endDate(endDate)
                 .startAddress(pickUpLocation.getStartAddress())
                 .endAddress(pickUpLocation.getEndAddress())
-                .status(pickUpSubscription.getStatus().getStatus())
+                .status(subscription.getStatus().getStatus())
                 .schedule(toJSONObject("pickUpSubscription.getSchedule()"))
                 .build();
     }

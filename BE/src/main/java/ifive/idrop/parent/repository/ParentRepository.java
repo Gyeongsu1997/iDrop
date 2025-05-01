@@ -28,7 +28,7 @@ public class ParentRepository {
 
     public List<Object[]> findRunningPickUpInfo(Long parentId) {
         String query = "SELECT pui, pu.reservedTime\n" +
-                "FROM PickUpSubscription pui\n" +
+                "FROM Subscription pui\n" +
                 "JOIN Child c ON pui.child.id = c.id\n" +
                 "JOIN PickUpHistory pu ON pui.id = pu.pickUpInfo.id\n" +
                 "WHERE c.parent.id =: parentId\n" +

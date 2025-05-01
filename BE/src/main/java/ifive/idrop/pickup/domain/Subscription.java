@@ -19,7 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Getter
-public class PickUpSubscription {
+public class Subscription {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pick_up_subscription_id")
     private Long id;

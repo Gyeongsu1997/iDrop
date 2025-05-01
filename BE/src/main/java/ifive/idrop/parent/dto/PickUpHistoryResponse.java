@@ -52,16 +52,16 @@ public class PickUpHistoryResponse {
                         .status("픽업 시작")
                         .startTime(pickUpHistory.getStartTime())
                         .startImage(pickUpHistory.getStartImage())
-                        .startAddress(pickUpHistory.getPickUpSubscription().getPickUpLocation().getStartAddress())
-                        .endAddress(pickUpHistory.getPickUpSubscription().getPickUpLocation().getEndAddress())
+                        .startAddress(pickUpHistory.getSubscription().getPickUpLocation().getStartAddress())
+                        .endAddress(pickUpHistory.getSubscription().getPickUpLocation().getEndAddress())
                         .build();
             }
 
             return Info.builder()
                     .endTime(pickUpHistory.getEndTime())
                     .endImage(pickUpHistory.getEndImage())
-                    .startAddress(pickUpHistory.getPickUpSubscription().getPickUpLocation().getStartAddress())
-                    .endAddress(pickUpHistory.getPickUpSubscription().getPickUpLocation().getEndAddress())
+                    .startAddress(pickUpHistory.getSubscription().getPickUpLocation().getStartAddress())
+                    .endAddress(pickUpHistory.getSubscription().getPickUpLocation().getEndAddress())
                     .status("픽업 종료")
                     .build();
         }

@@ -21,9 +21,9 @@ public class WorkHours {
     @JoinColumn(name = "driver_id")
     private Driver driver;
 
-    public static WorkHours createWorkHours(Driver driver, String day, int startHour, int startMinute, int endHour, int endMinute) {
+    public static WorkHours createWorkHours(Driver driver, Day day, int startHour, int startMinute, int endHour, int endMinute) {
         WorkHours workHours = new WorkHours();
-        workHours.id = new WorkHoursId(driver.getId(), Day.getDayEnum(day));
+        workHours.id = new WorkHoursId(driver.getId(), day);
         workHours.startTime = LocalTime.of(startHour, startMinute);
         workHours.endTime = LocalTime.of(endHour, endMinute);
         workHours.driver = driver;

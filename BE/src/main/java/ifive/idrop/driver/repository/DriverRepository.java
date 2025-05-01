@@ -29,7 +29,7 @@ public class DriverRepository {
 
     public List<Object[]> findAllRunningPickUpInfoOrderByreservedTimeASC(Long driverId) {
         String query = "SELECT pui, pu.reservedTime\n" +
-                "FROM PickUpSubscription pui\n" +
+                "FROM Subscription pui\n" +
                 "JOIN PickUpHistory pu ON pui.id = pu.pickUpInfo.id\n" +
                 "WHERE pui.driver.id =: driverId\n" +
                 "AND FUNCTION('DATE', pu.reservedTime) = :currentDate\n"+
@@ -43,7 +43,7 @@ public class DriverRepository {
 
     public List<Object[]> findRunningPickUpInfo(Long driverId) {
         String query = "SELECT pui, pu.reservedTime\n" +
-                "FROM PickUpSubscription pui\n" +
+                "FROM Subscription pui\n" +
                 "JOIN PickUpHistory pu ON pui.id = pu.pickUpInfo.id\n" +
                 "WHERE pui.driver.id =: driverId\n" +
                 "AND pu.startTime IS NOT NULL\n" +
@@ -57,7 +57,7 @@ public class DriverRepository {
 
     public List<Object[]> findRemainingPickUpInfo(Long driverId) {
         String query = "SELECT pui, pu.reservedTime " +
-                "FROM PickUpSubscription pui " +
+                "FROM Subscription pui " +
                 "JOIN PickUpHistory pu ON pui.id = pu.pickUpInfo.id " +
                 "WHERE pui.driver.id = :driverId " +
                 "AND FUNCTION('DATE', pu.reservedTime) = :currentDate " +

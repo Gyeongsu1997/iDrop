@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import ifive.idrop.pickup.domain.PickUpSubscription;
+import ifive.idrop.pickup.domain.Subscription;
 import ifive.idrop.pickup.domain.PickUpLocation;
 
 @Repository
@@ -25,8 +25,8 @@ public class PickUpRepository {
         return Optional.ofNullable(em.find(PickUpHistory.class, pickUpId));
     }
 
-    public Optional<PickUpSubscription> findPickUpInfoById(Long pickUpInfoId) {
-        return Optional.ofNullable(em.find(PickUpSubscription.class, pickUpInfoId));
+    public Optional<Subscription> findPickUpInfoById(Long pickUpInfoId) {
+        return Optional.ofNullable(em.find(Subscription.class, pickUpInfoId));
     }
 
     public List<PickUpHistory> findReservedPickUpsByDriver(Long driverId) {
@@ -47,8 +47,8 @@ public class PickUpRepository {
         em.persist(location);
     }
 
-    public void savePickUpInfo(PickUpSubscription pickUpSubscription) {
-        em.persist(pickUpSubscription);
+    public void savePickUpInfo(Subscription subscription) {
+        em.persist(subscription);
     }
 
     public void savePickUp(PickUpHistory pick) {
@@ -71,40 +71,40 @@ public class PickUpRepository {
         return Optional.ofNullable(em.find(PickUpHistory.class, pickUpId));
     }
 
-    public List<PickUpSubscription> findWaitingPickUpInfoByDriverId(Long driverId) {
-        TypedQuery<PickUpSubscription> query = em.createQuery(
-                "SELECT pui FROM PickUpSubscription pui " +
+    public List<Subscription> findWaitingPickUpInfoByDriverId(Long driverId) {
+        TypedQuery<Subscription> query = em.createQuery(
+                "SELECT pui FROM Subscription pui " +
                         "JOIN pui.pickUpSubscribe ps " +
                         "JOIN pui.driver d " +
                         "WHERE d.id = :driverId " +
-                        "AND ps.status = :status", PickUpSubscription.class);
+                        "AND ps.status = :status", Subscription.class);
         query.setParameter("driverId", driverId)
                 .setParameter("status", PickUpStatus.WAIT);
         return query.getResultList();
     }
 
-    public List<PickUpSubscription> findPickUpInfoByParentIdInTheLatestOrder(Long parentId) {
-        TypedQuery<PickUpSubscription> query = em.createQuery(
-                "SELECT pui FROM PickUpSubscription pui " +
+    public List<Subscription> findPickUpInfoByParentIdInTheLatestOrder(Long parentId) {
+        TypedQuery<Subscription> query = em.createQuery(
+                "SELECT pui FROM Subscription pui " +
                         "JOIN pui.pickUpSubscribe ps " +
                         "JOIN pui.child c " +
                         "JOIN c.parent p " +
                         "WHERE p.id = :parentId " +
                         "ORDER BY CASE WHEN ps.expiredDate IS NULL THEN 1 ELSE 0 END, " +
-                        "ps.expiredDate DESC", PickUpSubscription.class);
+                        "ps.expiredDate DESC", Subscription.class);
         query.setParameter("parentId", parentId);
         return query.getResultList();
     }
 
-    public List<PickUpSubscription> findPickUpInfoByDriverIdTheLatestOrder(Long driverId) {
-        TypedQuery<PickUpSubscription> query = em.createQuery(
-                "SELECT pui FROM PickUpSubscription pui " +
+    public List<Subscription> findPickUpInfoByDriverIdTheLatestOrder(Long driverId) {
+        TypedQuery<Subscription> query = em.createQuery(
+                "SELECT pui FROM Subscription pui " +
                         "JOIN pui.pickUpSubscribe ps " +
                         "JOIN pui.driver d " +
                         "WHERE d.id = :driverId " +
                         "AND ps.status <> :cancel " +
                         "AND ps.status <> :decline " +
-                        "ORDER BY ps.requestDate DESC", PickUpSubscription.class);
+                        "ORDER BY ps.requestDate DESC", Subscription.class);
         query.setParameter("driverId", driverId)
                 .setParameter("cancel", PickUpStatus.CANCEL)
                 .setParameter("decline", PickUpStatus.DECLINE);

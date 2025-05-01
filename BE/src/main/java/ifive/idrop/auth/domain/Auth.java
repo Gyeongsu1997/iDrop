@@ -12,7 +12,7 @@ public class Auth {
     private String refreshToken;
     private String fcmToken;
 
-    @MapsId("userId")
+    @MapsId
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "users_id")
     private User user;

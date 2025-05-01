@@ -4,18 +4,14 @@ import ifive.idrop.driver.dto.DriverInformation;
 import ifive.idrop.driver.dto.DriverDetailResponse;
 import ifive.idrop.driver.dto.DriverSummary;
 import ifive.idrop.driver.dto.WorkHoursDto;
-import ifive.idrop.pickup.domain.PickUpSubscription;
+import ifive.idrop.pickup.domain.Subscription;
 import ifive.idrop.user.domain.User;
 import ifive.idrop.common.enums.Gender;
-import ifive.idrop.common.exception.BusinessException;
-import ifive.idrop.common.exception.ErrorCode;
 import jakarta.persistence.*;
 import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static ifive.idrop.util.ScheduleUtils.*;
 
 @Entity
 @Getter
@@ -28,7 +24,7 @@ public class Driver extends User {
     private Double starRate;
 
     @OneToMany(mappedBy = "driver")
-    private List<PickUpSubscription> pickUpSubscriptionList = new ArrayList<>();
+    private List<Subscription> subscriptionList = new ArrayList<>();
 
     @OneToMany(mappedBy = "driver", cascade = CascadeType.ALL)
     private List<WorkHours> workHoursList = new ArrayList<>();
@@ -42,9 +38,6 @@ public class Driver extends User {
 
         List<WorkHoursDto> availableTime = info.getAvailableTime();
         for (WorkHoursDto workHoursDto : availableTime) {
-            if (!DAY_OF_WEEKS.contains(workHoursDto.getDay())) {
-                throw new BusinessException(ErrorCode.INVALID_DAY_OF_WEEK);
-            }
             workHoursList.add(workHoursDto.toEntity(this));
         }
     }

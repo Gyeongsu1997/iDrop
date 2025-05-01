@@ -2,26 +2,27 @@ package ifive.idrop.pickup.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Entity
-@Builder
-@RequiredArgsConstructor
-@AllArgsConstructor
 @Getter
+@Builder
+@AllArgsConstructor
+@RequiredArgsConstructor
 public class PickUpLocation {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pickup_location_id")
-    private Long id;
+    private Long pickUpSubscriptionId;
     private String startAddress;
     private Double startLongitude;
     private Double startLatitude;
     private String endAddress;
     private Double endLongitude;
     private Double endLatitude;
+
+    @MapsId
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pick_up_subscription_id")
+    private Subscription subscription;
 }

@@ -1,7 +1,7 @@
 package ifive.idrop.driver.dto;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
-import ifive.idrop.pickup.domain.PickUpSubscription;
+import ifive.idrop.pickup.domain.Subscription;
 import ifive.idrop.pickup.domain.PickUpLocation;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,12 +24,12 @@ public class DriverTodayRemainingPickUpResponse {
     @JsonUnwrapped
     private TimeInfo timeInfo;
 
-    static public DriverTodayRemainingPickUpResponse of(PickUpSubscription pickUpSubscription, LocalDateTime reservedTime) {
+    static public DriverTodayRemainingPickUpResponse of(Subscription subscription, LocalDateTime reservedTime) {
         return DriverTodayRemainingPickUpResponse.builder()
-                .childId(pickUpSubscription.getChild().getId())
-                .childName(pickUpSubscription.getChild().getName())
-                .childImage(pickUpSubscription.getChild().getImageUrl())
-                .destination(DriverTodayRemainingPickUpResponse.Destination.of(pickUpSubscription.getPickUpLocation()))
+                .childId(subscription.getChild().getId())
+                .childName(subscription.getChild().getName())
+                .childImage(subscription.getChild().getImageUrl())
+                .destination(DriverTodayRemainingPickUpResponse.Destination.of(subscription.getPickUpLocation()))
                 .timeInfo(DriverTodayRemainingPickUpResponse.TimeInfo.of(reservedTime))
                 .build();
     }

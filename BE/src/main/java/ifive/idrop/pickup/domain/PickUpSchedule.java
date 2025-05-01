@@ -19,5 +19,5 @@ public class PickUpSchedule {
     @MapsId("pickUpSubscriptionId")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pick_up_subscription_id")
-    private PickUpSubscription pickUpSubscription;
+    private Subscription subscription;
 }

@@ -3,7 +3,7 @@ package ifive.idrop.driver.dto;
 import ifive.idrop.child.domain.Child;
 import ifive.idrop.parent.domain.Parent;
 import ifive.idrop.pickup.domain.PickUpLocation;
-import ifive.idrop.pickup.domain.PickUpSubscription;
+import ifive.idrop.pickup.domain.Subscription;
 import lombok.Builder;
 import lombok.Getter;
 import org.json.simple.JSONObject;
@@ -29,16 +29,16 @@ public class DriverSubscribeInfoResponse {
     private String status;
     private JSONObject schedule;
 
-    public static DriverSubscribeInfoResponse of(PickUpSubscription pickUpSubscription) {
-        Child child = pickUpSubscription.getChild();
+    public static DriverSubscribeInfoResponse of(Subscription subscription) {
+        Child child = subscription.getChild();
         Parent parent = child.getParent();
-        PickUpLocation pickUpLocation = pickUpSubscription.getPickUpLocation();
+        PickUpLocation pickUpLocation = subscription.getPickUpLocation();
 
-        LocalDate startDate = calculateStartDate(pickUpSubscription.getModifiedDate());
-        LocalDate endDate = calculateEndDate(pickUpSubscription.getModifiedDate());
+        LocalDate startDate = calculateStartDate(subscription.getModifiedDate());
+        LocalDate endDate = calculateEndDate(subscription.getModifiedDate());
 
         return DriverSubscribeInfoResponse.builder()
-                .pickUpInfoId(pickUpSubscription.getId())
+                .pickUpInfoId(subscription.getId())
                 .parentName(parent.getName())
                 .parentPhoneNumber(parent.getPhoneNumber())
                 .childName(child.getName())
@@ -49,7 +49,7 @@ public class DriverSubscribeInfoResponse {
                 .endDate(endDate)
                 .startAddress(pickUpLocation.getStartAddress())
                 .endAddress(pickUpLocation.getEndAddress())
-                .status(pickUpSubscription.getStatus().getStatus())
+                .status(subscription.getStatus().getStatus())
 //                .schedule(toJSONObject(pickUpSubscription.getSchedule()))
                 .build();
     }

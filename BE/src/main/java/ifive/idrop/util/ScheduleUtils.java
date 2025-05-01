@@ -1,6 +1,5 @@
 package ifive.idrop.util;
 
-import ifive.idrop.common.enums.Day;
 import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.pickup.domain.PickUpSchedule;
 import org.json.simple.JSONObject;
@@ -34,8 +33,7 @@ public class ScheduleUtils {
         int dayOfToday = now.getDayOfWeek().getValue();
 
         for (PickUpSchedule schedule : pickUpScheduleList) {
-            Day day = schedule.getId().getDay();
-            int i = DAY_OF_WEEKS.indexOf(day.getDay());
+            int i = schedule.getId().getDay().ordinal();
             int difference = getDifferenceOfDayOfWeek(i + 1, dayOfToday);
             for (int d = difference; d <= EXPIRATION; d += 7) {
                 if (d == 0)

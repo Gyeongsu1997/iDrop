@@ -1,6 +1,6 @@
 package ifive.idrop.child.domain;
 
-import ifive.idrop.pickup.domain.PickUpSubscription;
+import ifive.idrop.pickup.domain.Subscription;
 import ifive.idrop.common.enums.Gender;
 import ifive.idrop.parent.domain.Parent;
 import jakarta.persistence.*;
@@ -27,5 +27,5 @@ public class Child {
     private Parent parent;
 
     @OneToMany(mappedBy = "child")
-    private List<PickUpSubscription> pickUpSubscriptionList = new ArrayList<>();
+    private List<Subscription> subscriptionList = new ArrayList<>();
 }
