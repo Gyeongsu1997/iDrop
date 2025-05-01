@@ -44,7 +44,7 @@ public class PickUpSubscription {
 
     private String schedule;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "pickUpInfo")
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "pickUpSubscription")
     private PickUpSubscribe pickUpSubscribe;
 
     @OneToMany(mappedBy = "pickUpSubscription", cascade = CascadeType.ALL)
@@ -59,7 +59,7 @@ public class PickUpSubscription {
         this.pickUpLocation = location;
     }
 
-    @OneToMany(mappedBy = "pickUpInfo")
+    @OneToMany(mappedBy = "pickUpSubscription")
     @Builder.Default
     private List<PickUp> pickUpList = new ArrayList<>();
 
