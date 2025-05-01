@@ -110,8 +110,7 @@ public class DriverService {
             throw new BusinessException(ErrorCode.UNAUTHORIZED_USER);
         }
 
-        PickUpSubscribe pickUpSubscribe = pickUpSubscription.getPickUpSubscribe();
-        PickUpStatus pickUpStatus = pickUpSubscribe.modify(PickUpStatus.of(statusCode));
+        PickUpStatus pickUpStatus =  pickUpSubscription.modify(PickUpStatus.of(statusCode));
 
         if (pickUpStatus.equals(PickUpStatus.ACCEPT)) {
             RequestSchedule requestSchedule = parseToList(toJSONObject(pickUpSubscription.getSchedule()));
@@ -169,7 +168,7 @@ public class DriverService {
         List<PickUpSubscription> waitingPickUpSubscriptionList = pickUpRepository.findWaitingPickUpInfoByDriverId(driverId);
         for (PickUpSubscription waitingPickUpSubscription : waitingPickUpSubscriptionList) {
             if (isOverlapped(pickUpSubscription.getSchedule(), waitingPickUpSubscription.getSchedule())) {
-                waitingPickUpSubscription.getPickUpSubscribe().modify(PickUpStatus.DECLINE);
+                waitingPickUpSubscription.modify(PickUpStatus.DECLINE);
 
                 // 거절 알람
                 Parent parent = pickUpSubscription.getParent();

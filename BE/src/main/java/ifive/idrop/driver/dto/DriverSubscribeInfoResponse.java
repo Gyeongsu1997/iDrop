@@ -31,11 +31,10 @@ public class DriverSubscribeInfoResponse {
     public static DriverSubscribeInfoResponse of(PickUpSubscription pickUpSubscription) {
         Child child = pickUpSubscription.getChild();
         Parent parent = child.getParent();
-        PickUpSubscribe pickUpSubscribe = pickUpSubscription.getPickUpSubscribe();
         PickUpLocation pickUpLocation = pickUpSubscription.getPickUpLocation();
 
-        LocalDate startDate = calculateStartDate(pickUpSubscribe.getModifiedDate());
-        LocalDate endDate = calculateEndDate(pickUpSubscribe.getModifiedDate());
+        LocalDate startDate = calculateStartDate(pickUpSubscription.getModifiedDate());
+        LocalDate endDate = calculateEndDate(pickUpSubscription.getModifiedDate());
 
         return DriverSubscribeInfoResponse.builder()
                 .pickUpInfoId(pickUpSubscription.getId())
@@ -49,7 +48,7 @@ public class DriverSubscribeInfoResponse {
                 .endDate(endDate)
                 .startAddress(pickUpLocation.getStartAddress())
                 .endAddress(pickUpLocation.getEndAddress())
-                .status(pickUpSubscribe.getStatus().getStatus())
+                .status(pickUpSubscription.getStatus().getStatus())
                 .schedule(toJSONObject(pickUpSubscription.getSchedule()))
                 .build();
     }

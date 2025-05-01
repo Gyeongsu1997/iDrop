@@ -15,8 +15,6 @@ import java.util.Optional;
 
 import ifive.idrop.entity.PickUpSubscription;
 import ifive.idrop.entity.PickUpLocation;
-import ifive.idrop.entity.PickUpSubscribe;
-
 
 @Repository
 @RequiredArgsConstructor
@@ -47,10 +45,6 @@ public class PickUpRepository {
 
     public void savePickUpLocation(PickUpLocation location) {
         em.persist(location);
-    }
-
-    public void savePickUpSubscribe(PickUpSubscribe subscribe) {
-        em.persist(subscribe);
     }
 
     public void savePickUpInfo(PickUpSubscription pickUpSubscription) {

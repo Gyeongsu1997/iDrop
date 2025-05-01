@@ -44,7 +44,6 @@ public class ParentService {
         Child child = parentRepository.findChild(parent.getId())
                 .orElseThrow(() -> new BusinessException(ErrorCode.CHILD_NOT_EXIST));
 
-        PickUpSubscribe subscribe = createPickUpSubscribe();
         PickUpLocation location = createPickUpLocation(subscribeRequest);
         createPickUpInfo(subscribeRequest, child, driver, location, subscribe);
 
@@ -62,23 +61,14 @@ public class ParentService {
                         .toList());
     }
 
-    // todo: 데모 이후 구독 생성시 후에 모두 승인이 아닌 대기 상태로 변경
-    private PickUpSubscribe createPickUpSubscribe() {
-        PickUpSubscribe subscribe = PickUpSubscribe.builder()
-                .status(PickUpStatus.WAIT)
-                .requestDate(LocalDateTime.now())
-                .build();
-        pickUpRepository.savePickUpSubscribe(subscribe);
-        return subscribe;
-    }
-
-    private PickUpSubscription createPickUpInfo(SubscribeRequest subscribeRequest, Child child, Driver driver, PickUpLocation location, PickUpSubscribe subscribe) {
+    private PickUpSubscription createPickUpInfo(SubscribeRequest subscribeRequest, Child child, Driver driver, PickUpLocation location) {
         PickUpSubscription pickUpSubscription = PickUpSubscription.builder()
                 .child(child)
                 .driver(driver)
                 .schedule(subscribeRequest.getSchedule().toJSONString())
+                .status(PickUpStatus.WAIT)
+                .requestDate(LocalDateTime.now())
                 .build();
-        pickUpSubscription.updatePickUpSubscribe(subscribe);
         pickUpSubscription.updatePickUpLocation(location);
         pickUpRepository.savePickUpInfo(pickUpSubscription);
         return pickUpSubscription;
