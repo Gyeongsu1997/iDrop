@@ -1,4 +1,4 @@
-package ifive.idrop.entity.enums;
+package ifive.idrop.pickup.domain.enums;
 
 import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.exception.ErrorCode;

@@ -2,7 +2,6 @@ package ifive.idrop.pickup.domain;
 
 import ifive.idrop.driver.domain.Driver;
 import ifive.idrop.child.domain.Child;
-import ifive.idrop.entity.PickUpSubscription;
 import ifive.idrop.parent.domain.Parent;
 import jakarta.persistence.*;
 import lombok.*;

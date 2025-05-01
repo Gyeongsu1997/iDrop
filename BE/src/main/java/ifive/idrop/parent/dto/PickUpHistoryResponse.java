@@ -2,7 +2,7 @@ package ifive.idrop.parent.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import ifive.idrop.pickup.domain.PickUp;
-import ifive.idrop.entity.enums.PickUpInfoStatus;
+import ifive.idrop.pickup.domain.enums.PickUpInfoStatus;
 import lombok.Builder;
 import lombok.Getter;
 

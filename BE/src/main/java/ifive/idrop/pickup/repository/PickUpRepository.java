@@ -1,6 +1,6 @@
 package ifive.idrop.pickup.repository;
 
-import ifive.idrop.entity.enums.PickUpStatus;
+import ifive.idrop.pickup.domain.enums.PickUpStatus;
 import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.exception.ErrorCode;
 import ifive.idrop.pickup.domain.PickUp;
@@ -13,8 +13,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import ifive.idrop.entity.PickUpSubscription;
-import ifive.idrop.entity.PickUpLocation;
+import ifive.idrop.pickup.domain.PickUpSubscription;
+import ifive.idrop.pickup.domain.PickUpLocation;
 
 @Repository
 @RequiredArgsConstructor

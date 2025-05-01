@@ -5,8 +5,7 @@ import ifive.idrop.driver.domain.Driver;
 import ifive.idrop.driver.domain.WorkHours;
 import ifive.idrop.driver.dto.*;
 import ifive.idrop.parent.dto.DriverListRequest;
-import ifive.idrop.entity.*;
-import ifive.idrop.entity.enums.PickUpStatus;
+import ifive.idrop.pickup.domain.enums.PickUpStatus;
 import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.exception.ErrorCode;
 import ifive.idrop.notification.AlarmMessage;
@@ -25,7 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import ifive.idrop.dto.CurrentPickUpResponse;
-import ifive.idrop.entity.PickUpSubscription;
+import ifive.idrop.pickup.domain.PickUpSubscription;
 
 import java.util.List;
 import java.util.Objects;

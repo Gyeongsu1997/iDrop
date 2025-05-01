@@ -1,8 +1,8 @@
 package ifive.idrop.parent.dto;
 
 import ifive.idrop.driver.domain.Driver;
-import ifive.idrop.entity.PickUpSubscription;
-import ifive.idrop.entity.PickUpLocation;
+import ifive.idrop.pickup.domain.PickUpSubscription;
+import ifive.idrop.pickup.domain.PickUpLocation;
 import lombok.Builder;
 import lombok.Getter;
 import org.json.simple.JSONObject;

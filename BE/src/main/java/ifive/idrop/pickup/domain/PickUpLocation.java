@@ -1,4 +1,4 @@
-package ifive.idrop.entity;
+package ifive.idrop.pickup.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;

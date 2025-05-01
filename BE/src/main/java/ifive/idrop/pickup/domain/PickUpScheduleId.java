@@ -1,4 +1,4 @@
-package ifive.idrop.entity;
+package ifive.idrop.pickup.domain;
 
 import ifive.idrop.common.enums.Day;
 import jakarta.persistence.Embeddable;

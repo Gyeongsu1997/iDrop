@@ -2,7 +2,7 @@ package ifive.idrop.user.repository;
 
 import ifive.idrop.auth.domain.Auth;
 import ifive.idrop.driver.domain.Driver;
-import ifive.idrop.entity.PickUpSubscription;
+import ifive.idrop.pickup.domain.PickUpSubscription;
 import ifive.idrop.parent.domain.Parent;
 import ifive.idrop.user.domain.User;
 import jakarta.persistence.EntityManager;

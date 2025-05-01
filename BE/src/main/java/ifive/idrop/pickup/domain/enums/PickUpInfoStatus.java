@@ -1,4 +1,4 @@
-package ifive.idrop.entity.enums;
+package ifive.idrop.pickup.domain.enums;
 
 public enum PickUpInfoStatus {
     START("픽업 시작"),

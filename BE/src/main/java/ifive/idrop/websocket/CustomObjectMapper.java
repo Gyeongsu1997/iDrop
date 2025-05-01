@@ -1,4 +1,4 @@
-package ifive.idrop.util;
+package ifive.idrop.websocket;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;

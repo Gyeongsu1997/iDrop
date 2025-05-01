@@ -1,10 +1,9 @@
-package ifive.idrop.entity;
+package ifive.idrop.pickup.domain;
 
 import ifive.idrop.child.domain.Child;
 import ifive.idrop.driver.domain.Driver;
-import ifive.idrop.entity.enums.PickUpStatus;
+import ifive.idrop.pickup.domain.enums.PickUpStatus;
 import ifive.idrop.parent.domain.Parent;
-import ifive.idrop.pickup.domain.PickUp;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.AllArgsConstructor;
@@ -43,7 +42,7 @@ public class PickUpSubscription {
     private Child child;
 
     @OneToMany(mappedBy = "pickUpSubscription")
-    private List<PickUpSchedule> pickUpScheduleList = new ArrayList<>();
+    private List<PickUpSchedule> pickUpScheduleList;
 
     public void updatePickUpLocation(PickUpLocation location) {
         this.pickUpLocation = location;
