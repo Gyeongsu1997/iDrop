@@ -9,16 +9,13 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Builder
-@RequiredArgsConstructor
-@AllArgsConstructor
 @Getter
+@Builder
+@AllArgsConstructor
+@RequiredArgsConstructor
 public class PickUpHistory {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pickup_id")
-    private Long id;
-
+    @EmbeddedId
+    PickUpHistoryId id;
     private LocalDateTime reservedTime;
     private LocalDateTime startTime;
     private String startImage;
@@ -27,7 +24,8 @@ public class PickUpHistory {
     private String endImage;
     private String endMessage;
 
-    @ManyToOne
+    @MapsId("subscriptionId")
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "subscription_id")
     private Subscription subscription;
 

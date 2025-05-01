@@ -37,18 +37,18 @@ public class Subscription {
     @JoinColumn(name = "child_id")
     private Child child;
 
+    @OneToOne(mappedBy = "subscription", fetch = FetchType.LAZY)
+    private PickUpLocation pickUpLocation;
+
     @OneToMany(mappedBy = "subscription", cascade = CascadeType.ALL)
     private List<PickUpSchedule> pickUpScheduleList;
 
-    @OneToOne(mappedBy = "subscription", fetch = FetchType.LAZY)
-    private PickUpLocation pickUpLocation;
+    @OneToMany(mappedBy = "subscription")
+    private List<PickUpHistory> pickUpHistoryList = new ArrayList<>();
 
     public void updatePickUpLocation(PickUpLocation location) {
         this.pickUpLocation = location;
     }
-
-    @OneToMany(mappedBy = "subscription")
-    private List<PickUpHistory> pickUpHistoryList = new ArrayList<>();
 
     public Parent getParent() {
         return this.child.getParent();

@@ -29,7 +29,8 @@ public class PickUpController {
         PickUpHistory pickUpHistory = pickUpService.findCurrentPickUp(driver.getId(), childId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.CURRENT_PICKUP_NOT_FOUND));
         try {
-            pickUpService.saveStartOrEndPickUp(pickUpHistory.getId(), image, message);
+//            pickUpService.saveStartOrEndPickUp(pickUpHistory.getId(), image, message);
+            pickUpService.saveStartOrEndPickUp(1L, image, message);
         } catch (IOException e) {
             new BusinessException(ErrorCode.IMAGE_UPLOAD_ERROR);
         }
