@@ -10,7 +10,6 @@ import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.exception.ErrorCode;
 import ifive.idrop.pickup.service.PickUpService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,13 +19,12 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
-@Slf4j
-@RequiredArgsConstructor
 @RestController
+@RequiredArgsConstructor
 public class PickUpController {
     private final PickUpService pickUpService;
 
-    @PostMapping("/subscriptions")
+    @PostMapping("/api/subscriptions")
     public BaseResponse<String> postSubscription(@Login Parent parent, @RequestBody SubscriptionRequest request) {
         pickUpService.subscribe(parent, request);
         return BaseResponse.success();

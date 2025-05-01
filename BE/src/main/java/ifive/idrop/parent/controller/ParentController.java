@@ -12,18 +12,14 @@ import ifive.idrop.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import ifive.idrop.auth.resolver.Login;
 import ifive.idrop.common.dto.BaseResponse;
-import ifive.idrop.parent.dto.SubscriptionRequest;
 import ifive.idrop.parent.domain.Parent;
 import ifive.idrop.parent.service.ParentService;
-import org.json.JSONException;
 
-
-@RequiredArgsConstructor
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/parent")
 public class ParentController {
     private final DriverService driverService;
