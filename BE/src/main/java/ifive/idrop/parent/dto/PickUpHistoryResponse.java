@@ -2,7 +2,6 @@ package ifive.idrop.parent.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import ifive.idrop.pickup.domain.PickUp;
-import ifive.idrop.pickup.domain.enums.PickUpInfoStatus;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -50,7 +49,7 @@ public class PickUpHistoryResponse {
         static Info toEntity(PickUp pickUp) {
             if (pickUp.getEndTime() == null) {
                 return Info.builder()
-                        .status(PickUpInfoStatus.START.getStatus())
+                        .status("픽업 시작")
                         .startTime(pickUp.getStartTime())
                         .startImage(pickUp.getStartImage())
                         .startAddress(pickUp.getPickUpSubscription().getPickUpLocation().getStartAddress())
@@ -63,7 +62,7 @@ public class PickUpHistoryResponse {
                     .endImage(pickUp.getEndImage())
                     .startAddress(pickUp.getPickUpSubscription().getPickUpLocation().getStartAddress())
                     .endAddress(pickUp.getPickUpSubscription().getPickUpLocation().getEndAddress())
-                    .status(PickUpInfoStatus.DONE.getStatus())
+                    .status("픽업 종료")
                     .build();
         }
     }
