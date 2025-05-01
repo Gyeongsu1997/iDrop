@@ -10,7 +10,7 @@ import org.json.simple.JSONObject;
 
 import java.time.LocalDate;
 
-import static ifive.idrop.util.ScheduleUtils.*;
+import static ifive.idrop.common.util.ScheduleUtils.*;
 
 @Builder
 @Getter

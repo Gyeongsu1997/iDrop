@@ -1,4 +1,4 @@
-package ifive.idrop.util;
+package ifive.idrop.common.util;
 
 import ifive.idrop.driver.domain.WorkHours;
 import lombok.Getter;

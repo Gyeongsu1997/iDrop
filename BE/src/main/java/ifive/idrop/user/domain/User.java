@@ -31,7 +31,7 @@ public abstract class User {
     private String phoneNumber;
     protected String imageUrl;
 
-    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Auth auth;
 
     public static User createUser(SignUpRequest signUpRequest) {
@@ -49,6 +49,7 @@ public abstract class User {
         user.password = signUpRequest.getPassword();
         user.name = signUpRequest.getName();
         user.phoneNumber = signUpRequest.getPhoneNumber();
+        user.auth = Auth.of(user);
         return user;
     }
 

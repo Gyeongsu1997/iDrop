@@ -15,10 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Builder
-@RequiredArgsConstructor
-@AllArgsConstructor
 @Getter
+@Builder
+@AllArgsConstructor
+@RequiredArgsConstructor
 public class Subscription {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "subscription_id")

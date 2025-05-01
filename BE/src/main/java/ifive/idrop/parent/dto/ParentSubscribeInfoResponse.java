@@ -9,9 +9,9 @@ import org.json.simple.JSONObject;
 
 import java.time.LocalDate;
 
-import static ifive.idrop.util.ScheduleUtils.*;
-import static ifive.idrop.util.ScheduleUtils.calculateEndDate;
-import static ifive.idrop.util.ScheduleUtils.calculateStartDate;
+import static ifive.idrop.common.util.ScheduleUtils.*;
+import static ifive.idrop.common.util.ScheduleUtils.calculateEndDate;
+import static ifive.idrop.common.util.ScheduleUtils.calculateStartDate;
 
 @Builder
 @Getter

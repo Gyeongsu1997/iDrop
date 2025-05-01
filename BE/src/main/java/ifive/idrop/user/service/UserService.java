@@ -2,9 +2,11 @@ package ifive.idrop.user.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ifive.idrop.auth.domain.Auth;
+import ifive.idrop.auth.repository.AuthRepository;
 import ifive.idrop.common.dto.BaseResponse;
 import ifive.idrop.auth.dto.LoginRequest;
 import ifive.idrop.driver.domain.Driver;
+import ifive.idrop.parent.domain.Parent;
 import ifive.idrop.user.dto.NameResponse;
 import ifive.idrop.user.dto.SignUpRequest;
 import ifive.idrop.user.domain.User;
@@ -28,6 +30,7 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 public class UserService {
     private final UserRepository userRepository;
+    private final AuthRepository authRepository;
     private final JwtProvider jwtProvider;
     private final ObjectMapper objectMapper;
 
@@ -36,8 +39,6 @@ public class UserService {
         checkDuplicateLoginId(signUpRequest.getLoginId());
         User user = signUpRequest.toEntity();
         userRepository.save(user);
-        Auth auth = Auth.of(user);
-        userRepository.save(auth);
         if (user instanceof Driver)
             return BaseResponse.of("성공적으로 회원가입 되었습니다.", "기사");
         else
@@ -55,10 +56,11 @@ public class UserService {
         User user = optional.orElseThrow(() -> new BusinessException(ErrorCode.USERID_NOT_EXIST));
         if (!user.verifyUser(loginRequest))
             throw new BusinessException(ErrorCode.PASSWORD_NOT_MATCHED);
-        if (user instanceof Driver)
+        if (user instanceof Driver) {
             return Role.DRIVER;
-        else
+        } else {
             return Role.PARENT;
+        }
     }
 
     @Transactional
@@ -76,10 +78,10 @@ public class UserService {
         try{
             // 유효한 토큰 인지 검증
             jwtProvider.getClaims(refreshToken);
-            Optional<User> optional = userRepository.findByRefreshToken(refreshToken);
+            Optional<Auth> optional = authRepository.findByRefreshToken(refreshToken);
             if (optional.isEmpty())
                 return null;
-            User user = optional.get();
+            User user = userRepository.findById(optional.get().getUserId()).get(); // todo: 예외처리
 
             HashMap<String, Object> claims = new HashMap<>();
             AuthenticateUser authenticateUser;

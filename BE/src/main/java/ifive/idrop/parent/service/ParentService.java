@@ -6,7 +6,7 @@ import ifive.idrop.common.enums.Day;
 import ifive.idrop.driver.domain.Driver;
 import ifive.idrop.common.dto.BaseResponse;
 import ifive.idrop.parent.dto.SubscriptionRequest;
-import ifive.idrop.dto.CurrentPickUpResponse;
+import ifive.idrop.common.dto.CurrentPickUpResponse;
 
 import ifive.idrop.parent.dto.PickUpHistoryResponse;
 import ifive.idrop.parent.dto.ParentSubscribeInfoResponse;
@@ -19,7 +19,6 @@ import ifive.idrop.parent.domain.Parent;
 import ifive.idrop.parent.repository.ParentRepository;
 import ifive.idrop.pickup.repository.PickUpRepository;
 import lombok.RequiredArgsConstructor;
-import org.json.JSONException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,7 +27,6 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
 
 @Service
 @RequiredArgsConstructor
@@ -39,8 +37,7 @@ public class ParentService {
     private final PickUpRepository pickUpRepository;
 
     @Transactional
-    public BaseResponse<String> subscribe(Parent parent, SubscriptionRequest subscriptionRequest) throws JSONException, ExecutionException, InterruptedException {
-
+    public BaseResponse<String> subscribe(Parent parent, SubscriptionRequest subscriptionRequest) {
         Driver driver = driverRepository.findById(subscriptionRequest.getDriverId())
                 .orElseThrow(() -> new BusinessException(ErrorCode.DRIVER_NOT_EXIST));
         Child child = parentRepository.findChild(parent.getId())
@@ -55,12 +52,17 @@ public class ParentService {
         return BaseResponse.success();
     }
 
-    public BaseResponse<List<CurrentPickUpResponse>> getChildRunningInfo(Parent parent) {
-        List<Object[]> runningPickInfo = parentRepository.findRunningPickUpInfo(parent.getId());
-        return BaseResponse.of("Data Successfully Proceed",
-                runningPickInfo.stream()
-                        .map(o -> CurrentPickUpResponse.of((Subscription) o[0], (LocalDateTime) o[1]))
-                        .toList());
+    private PickUpLocation createPickUpLocation(SubscriptionRequest subscriptionRequest) {
+        PickUpLocation location = PickUpLocation.builder()
+                .startAddress(subscriptionRequest.getStartAddress())
+                .startLatitude(subscriptionRequest.getStartLatitude())
+                .startLongitude(subscriptionRequest.getStartLongitude())
+                .endAddress(subscriptionRequest.getEndAddress())
+                .endLatitude(subscriptionRequest.getEndLatitude())
+                .endLongitude(subscriptionRequest.getEndLongitude())
+                .build();
+        pickUpRepository.savePickUpLocation(location);
+        return location;
     }
 
     private Subscription createPickUpInfo(SubscriptionRequest subscriptionRequest, Child child, Driver driver, PickUpLocation location) {
@@ -86,17 +88,12 @@ public class ParentService {
         return subscription;
     }
 
-    private PickUpLocation createPickUpLocation(SubscriptionRequest subscriptionRequest) {
-        PickUpLocation location = PickUpLocation.builder()
-                .startAddress(subscriptionRequest.getStartAddress())
-                .startLatitude(subscriptionRequest.getStartLatitude())
-                .startLongitude(subscriptionRequest.getStartLongitude())
-                .endAddress(subscriptionRequest.getEndAddress())
-                .endLatitude(subscriptionRequest.getEndLatitude())
-                .endLongitude(subscriptionRequest.getEndLongitude())
-                .build();
-        pickUpRepository.savePickUpLocation(location);
-        return location;
+    public BaseResponse<List<CurrentPickUpResponse>> getChildRunningInfo(Parent parent) {
+        List<Object[]> runningPickInfo = parentRepository.findRunningPickUpInfo(parent.getId());
+        return BaseResponse.of("Data Successfully Proceed",
+                runningPickInfo.stream()
+                        .map(o -> CurrentPickUpResponse.of((Subscription) o[0], (LocalDateTime) o[1]))
+                        .toList());
     }
 
     public BaseResponse<List<PickUpHistoryResponse>> getPickUpHistoryInfo(Parent parent, long pickInfoId) {

@@ -19,7 +19,6 @@ public class Auth {
 
     public static Auth of(User user) {
         Auth auth = new Auth();
-        auth.userId = user.getId();
         auth.user = user;
         return auth;
     }

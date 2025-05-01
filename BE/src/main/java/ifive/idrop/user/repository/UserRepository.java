@@ -1,17 +1,11 @@
 package ifive.idrop.user.repository;
 
-import ifive.idrop.auth.domain.Auth;
-import ifive.idrop.driver.domain.Driver;
-import ifive.idrop.pickup.domain.Subscription;
-import ifive.idrop.parent.domain.Parent;
 import ifive.idrop.user.domain.User;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 @Repository
 @RequiredArgsConstructor
@@ -22,8 +16,9 @@ public class UserRepository {
         em.persist(user);
     }
 
-    public void save(Auth auth) {
-        em.persist(auth);
+    public Optional<User> findById(Long id) {
+        User user = em.find(User.class, id);
+        return Optional.ofNullable(user);
     }
 
     // todo: loginId index
@@ -33,23 +28,5 @@ public class UserRepository {
                 .getResultList()
                 .stream()
                 .findAny();
-    }
-
-    public Optional<Subscription> findPickUpInfoById(Long pickUpInfoId) {
-        return Optional.ofNullable(em.find(Subscription.class, pickUpInfoId));
-    }
-
-    public Optional<User> findByRefreshToken(String refreshToken) {
-        List<Driver> driverResultList = em.createQuery("select d from Driver d where d.refreshToken = :refreshToken", Driver.class)
-                .setParameter("refreshToken", refreshToken)
-                .getResultList();
-
-        List<Parent> parentResultList = em.createQuery("select p from Parent p where p.refreshToken = :refreshToken", Parent.class)
-                .setParameter("refreshToken", refreshToken)
-                .getResultList();
-
-        List<User> result = Stream.concat(driverResultList.stream(), parentResultList.stream()).toList();
-
-        return result.stream().findAny();
     }
 }

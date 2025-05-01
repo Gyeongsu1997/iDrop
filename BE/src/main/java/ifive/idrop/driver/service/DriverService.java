@@ -16,21 +16,21 @@ import ifive.idrop.parent.domain.Parent;
 import ifive.idrop.pickup.domain.PickUpHistory;
 import ifive.idrop.notification.repository.NotificationRepository;
 import ifive.idrop.pickup.repository.PickUpRepository;
-import ifive.idrop.util.RequestSchedule;
+import ifive.idrop.common.util.RequestSchedule;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import ifive.idrop.dto.CurrentPickUpResponse;
+import ifive.idrop.common.dto.CurrentPickUpResponse;
 import ifive.idrop.pickup.domain.Subscription;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static ifive.idrop.util.ScheduleUtils.*;
+import static ifive.idrop.common.util.ScheduleUtils.*;
 
 @Service
 @RequiredArgsConstructor

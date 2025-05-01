@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class PickUpHistory {
     @EmbeddedId
-    PickUpHistoryId id;
+    private PickUpHistoryId id;
     @Column(nullable = false)
     private LocalDateTime reservedTime;
     private LocalDateTime startTime;
