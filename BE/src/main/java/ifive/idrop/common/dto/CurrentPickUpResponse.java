@@ -28,7 +28,7 @@ public class CurrentPickUpResponse {
                 .childId(subscription.getChild().getId())
                 .childName(subscription.getChild().getName())
                 .childImage(subscription.getChild().getImageUrl())
-                .startDate(subscription.getModifiedDate().plusDays(1))
+                .startDate(subscription.getResponseDate().plusDays(1))
                 .endDate(subscription.getExpiredDate().minusDays(1))
                 .destination(Destination.of(subscription.getPickUpLocation()))
                 .timeInfo(TimeInfo.of(reservedTime))

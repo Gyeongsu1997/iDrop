@@ -12,7 +12,6 @@ import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.exception.ErrorCode;
 import ifive.idrop.notification.AlarmMessage;
 import ifive.idrop.notification.NotificationUtill;
-import ifive.idrop.pickup.domain.enums.SubscriptionStatus;
 import ifive.idrop.pickup.repository.PickUpRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,9 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -42,43 +39,26 @@ public class PickUpService {
     private final String PICKUP_IMAGE_PATH = "image/pickup/";
 
     @Transactional
-    public void subscribe(Parent parent, SubscriptionRequest subscriptionRequest) {
-        Driver driver = driverRepository.findById(subscriptionRequest.getDriverId())
+    public void subscribe(Parent parent, SubscriptionRequest request) {
+        Driver driver = driverRepository.findById(request.getDriverId())
                 .orElseThrow(() -> new BusinessException(ErrorCode.DRIVER_NOT_EXIST));
         Child child = parentRepository.findChild(parent.getId())
                 .orElseThrow(() -> new BusinessException(ErrorCode.CHILD_NOT_EXIST));
 
-        createPickUpInfo(subscriptionRequest, child, driver);
-
-        // 요청한 기사에게 알람
-//        NotificationUtill.createNotification(driver, AlarmMessage.SUBSCRIBE_REQUEST.getTitle(),
-//                AlarmMessage.SUBSCRIBE_REQUEST.getMessage());
-    }
-
-    private Subscription createPickUpInfo(SubscriptionRequest subscriptionRequest, Child child, Driver driver) {
-//        Subscription subscription = Subscription.createSubscription();
-
-        Subscription subscription = Subscription.builder()
-                .child(child)
-                .driver(driver)
-                .status(SubscriptionStatus.WAIT)
-                .requestDate(LocalDateTime.now())
-                .pickUpScheduleList(new ArrayList<>())
-                .build();
-
-        PickUpLocation pickUpLocation = PickUpLocation.createPickUpLocation(subscriptionRequest);
-        subscription.updatePickUpLocation(pickUpLocation);
-
+        Subscription subscription = Subscription.createSubscription(request, driver, child);
         pickUpRepository.savePickUpInfo(subscription);
 
-        Map<Day, Map<String, Integer>> schedule = subscriptionRequest.getSchedule();
+        Map<Day, Map<String, Integer>> schedule = request.getSchedule();
         for (Map.Entry<Day, Map<String, Integer>> entry : schedule.entrySet()) {
             Day day = entry.getKey();
             int hour = entry.getValue().get("hour");
             int min = entry.getValue().get("min");
             subscription.addPickUpSchedule(new PickUpSchedule(new PickUpScheduleId(subscription.getId(), day), LocalTime.of(hour, min), subscription));
         }
-        return subscription;
+
+        // 요청한 기사에게 알람
+//        NotificationUtill.createNotification(driver, AlarmMessage.SUBSCRIBE_REQUEST.getTitle(),
+//                AlarmMessage.SUBSCRIBE_REQUEST.getMessage());
     }
 
     @Transactional

@@ -74,8 +74,15 @@ public class Subscription {
         return this.status;
     }
 
-    public static Subscription from(SubscriptionRequest request) {
+    public static Subscription createSubscription(SubscriptionRequest request, Driver driver, Child child) {
         Subscription subscription = new Subscription();
+        subscription.driver = driver;
+        subscription.child = child;
+        subscription.status = SubscriptionStatus.WAIT;
+        subscription.requestDate = LocalDateTime.now();
+        subscription.pickUpScheduleList = new ArrayList<>();
+        PickUpLocation pickUpLocation = PickUpLocation.createPickUpLocation(request);
+        subscription.updatePickUpLocation(pickUpLocation);
         return subscription;
     }
 }

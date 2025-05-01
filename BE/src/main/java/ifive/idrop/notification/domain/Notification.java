@@ -10,11 +10,10 @@ import lombok.RequiredArgsConstructor;
 import java.time.LocalDateTime;
 
 @Entity
-@RequiredArgsConstructor
-@AllArgsConstructor
-@Builder
 @Getter
-@Table(indexes = @Index(name = "idx_date", columnList = "pickUpAlarmTime"))
+@Builder
+@AllArgsConstructor
+@RequiredArgsConstructor
 public class Notification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -34,8 +34,8 @@ public class DriverSubscribeInfoResponse {
         Parent parent = child.getParent();
         PickUpLocation pickUpLocation = subscription.getPickUpLocation();
 
-        LocalDate startDate = calculateStartDate(subscription.getModifiedDate());
-        LocalDate endDate = calculateEndDate(subscription.getModifiedDate());
+        LocalDate startDate = calculateStartDate(subscription.getResponseDate());
+        LocalDate endDate = calculateEndDate(subscription.getResponseDate());
 
         return DriverSubscribeInfoResponse.builder()
                 .pickUpInfoId(subscription.getId())

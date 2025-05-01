@@ -1,6 +1,5 @@
 package ifive.idrop.driver.repository;
 
-import ifive.idrop.pickup.repository.PickUpRepository;
 import ifive.idrop.driver.domain.Driver;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +15,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class DriverRepository {
     private final EntityManager em;
-    private final PickUpRepository pickUpRepository;
 
     public Optional<Driver> findById(Long id) {
         return Optional.ofNullable(em.find(Driver.class, id));

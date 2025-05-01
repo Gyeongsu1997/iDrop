@@ -17,7 +17,6 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Slf4j
 public class ImageService {
-
     private final AmazonS3 amazonS3;
 
     @Value("${cloud.aws.s3.bucket}")
