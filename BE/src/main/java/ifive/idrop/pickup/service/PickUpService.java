@@ -1,7 +1,6 @@
 package ifive.idrop.pickup.service;
 
 import ifive.idrop.child.domain.Child;
-import ifive.idrop.common.dto.BaseResponse;
 import ifive.idrop.common.enums.Day;
 import ifive.idrop.driver.domain.Driver;
 import ifive.idrop.driver.repository.DriverRepository;
@@ -13,7 +12,7 @@ import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.exception.ErrorCode;
 import ifive.idrop.notification.AlarmMessage;
 import ifive.idrop.notification.NotificationUtill;
-import ifive.idrop.pickup.domain.enums.PickUpStatus;
+import ifive.idrop.pickup.domain.enums.SubscriptionStatus;
 import ifive.idrop.pickup.repository.PickUpRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -43,32 +42,33 @@ public class PickUpService {
     private final String PICKUP_IMAGE_PATH = "image/pickup/";
 
     @Transactional
-    public BaseResponse<String> subscribe(Parent parent, SubscriptionRequest subscriptionRequest) {
+    public void subscribe(Parent parent, SubscriptionRequest subscriptionRequest) {
         Driver driver = driverRepository.findById(subscriptionRequest.getDriverId())
                 .orElseThrow(() -> new BusinessException(ErrorCode.DRIVER_NOT_EXIST));
         Child child = parentRepository.findChild(parent.getId())
                 .orElseThrow(() -> new BusinessException(ErrorCode.CHILD_NOT_EXIST));
 
-        PickUpLocation pickUpLocation = PickUpLocation.createPickUpLocation(subscriptionRequest);
-        createPickUpInfo(subscriptionRequest, child, driver, pickUpLocation);
+        createPickUpInfo(subscriptionRequest, child, driver);
 
         // 요청한 기사에게 알람
 //        NotificationUtill.createNotification(driver, AlarmMessage.SUBSCRIBE_REQUEST.getTitle(),
 //                AlarmMessage.SUBSCRIBE_REQUEST.getMessage());
-        return BaseResponse.success();
     }
 
-    private Subscription createPickUpInfo(SubscriptionRequest subscriptionRequest, Child child, Driver driver, PickUpLocation location) {
-//        PickUpSubscription pickUpSubscription = PickUpSubscription.createPickUpSubscription();
+    private Subscription createPickUpInfo(SubscriptionRequest subscriptionRequest, Child child, Driver driver) {
+//        Subscription subscription = Subscription.createSubscription();
 
         Subscription subscription = Subscription.builder()
                 .child(child)
                 .driver(driver)
-                .status(PickUpStatus.WAIT)
+                .status(SubscriptionStatus.WAIT)
                 .requestDate(LocalDateTime.now())
                 .pickUpScheduleList(new ArrayList<>())
                 .build();
-        subscription.updatePickUpLocation(location);
+
+        PickUpLocation pickUpLocation = PickUpLocation.createPickUpLocation(subscriptionRequest);
+        subscription.updatePickUpLocation(pickUpLocation);
+
         pickUpRepository.savePickUpInfo(subscription);
 
         Map<Day, Map<String, Integer>> schedule = subscriptionRequest.getSchedule();

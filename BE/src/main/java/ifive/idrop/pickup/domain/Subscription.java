@@ -2,7 +2,8 @@ package ifive.idrop.pickup.domain;
 
 import ifive.idrop.child.domain.Child;
 import ifive.idrop.driver.domain.Driver;
-import ifive.idrop.pickup.domain.enums.PickUpStatus;
+import ifive.idrop.parent.dto.SubscriptionRequest;
+import ifive.idrop.pickup.domain.enums.SubscriptionStatus;
 import ifive.idrop.parent.domain.Parent;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -24,9 +25,10 @@ public class Subscription {
     @Column(name = "subscription_id")
     private Long id;
     @Enumerated(EnumType.STRING)
-    private PickUpStatus status;
+    private SubscriptionStatus status;
+    @Column(nullable = false)
     private LocalDateTime requestDate;
-    private LocalDateTime modifiedDate;
+    private LocalDateTime responseDate;
     private LocalDateTime expiredDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -59,16 +61,21 @@ public class Subscription {
         pickUpScheduleList.add(schedule);
     }
 
-    public PickUpStatus modify(PickUpStatus newStatus) {
+    public SubscriptionStatus modify(SubscriptionStatus newStatus) {
         this.status = newStatus;
         //상태가 변경된 시간
-        this.modifiedDate = LocalDateTime.now();
+        this.responseDate = LocalDateTime.now();
 
-        if (this.status.equals(PickUpStatus.ACCEPT)) {
+        if (this.status.equals(SubscriptionStatus.ACCEPT)) {
             //modifiedDate로부터 29일 후 자정
-            this.expiredDate = this.modifiedDate.plusDays(29)
+            this.expiredDate = this.responseDate.plusDays(29)
                     .withHour(0).withMinute(0).withSecond(0).withNano(0);
         }
         return this.status;
+    }
+
+    public static Subscription from(SubscriptionRequest request) {
+        Subscription subscription = new Subscription();
+        return subscription;
     }
 }

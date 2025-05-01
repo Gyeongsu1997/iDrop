@@ -5,7 +5,7 @@ import ifive.idrop.driver.domain.Driver;
 import ifive.idrop.driver.domain.WorkHours;
 import ifive.idrop.driver.dto.*;
 import ifive.idrop.parent.dto.DriverListRequest;
-import ifive.idrop.pickup.domain.enums.PickUpStatus;
+import ifive.idrop.pickup.domain.enums.SubscriptionStatus;
 import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.exception.ErrorCode;
 import ifive.idrop.notification.AlarmMessage;
@@ -108,9 +108,9 @@ public class DriverService {
             throw new BusinessException(ErrorCode.UNAUTHORIZED_USER);
         }
 
-        PickUpStatus pickUpStatus = subscription.modify(PickUpStatus.of(statusCode));
+        SubscriptionStatus subscriptionStatus = subscription.modify(SubscriptionStatus.of(statusCode));
 
-        if (pickUpStatus.equals(PickUpStatus.ACCEPT)) {
+        if (subscriptionStatus.equals(SubscriptionStatus.ACCEPT)) {
             RequestSchedule requestSchedule = parseToList(subscription.getPickUpScheduleList());
             List<LocalDateTime> requestScheduleList = requestSchedule.getRequestSchedule();
             for (LocalDateTime reservedTime : requestScheduleList) {
@@ -166,7 +166,7 @@ public class DriverService {
         List<Subscription> waitingSubscriptionList = pickUpRepository.findWaitingPickUpInfoByDriverId(driverId);
         for (Subscription waitingSubscription : waitingSubscriptionList) {
             if (isOverlapped("pickUpSubscription.getSchedule()", "waitingPickUpSubscription.getSchedule()")) {
-                waitingSubscription.modify(PickUpStatus.DECLINE);
+                waitingSubscription.modify(SubscriptionStatus.DECLINE);
 
                 // 거절 알람
                 Parent parent = subscription.getParent();
