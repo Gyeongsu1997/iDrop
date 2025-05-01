@@ -50,7 +50,6 @@ public class Driver extends User {
                 .image(this.getImageUrl())
                 .introduction(this.getIntroduction())
                 .starRate(this.getStarRate())
-                .numberOfReviews(100) //TODO 후기 개수, 나중에 후기 테이블을 만들면 실제 개수로 수정 예정
                 .build();
     }
 
@@ -65,7 +64,6 @@ public class Driver extends User {
                 .career(this.getCareer())
                 .introduction(this.getIntroduction())
                 .starRate(this.getStarRate())
-                .numberOfReviews(100) //TODO 후기 개수, 나중에 후기 테이블을 만들면 실제 개수로 수정 예정
                 .build();
     }
 }

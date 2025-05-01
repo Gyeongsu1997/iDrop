@@ -1,15 +1,7 @@
 import styles from "./DriverListItem.module.scss";
 
 export function DriverListItem({
-    data: {
-        driverId,
-        name,
-        gender,
-        starRate,
-        numberOfReviews,
-        image,
-        introduction
-    },
+    data: { driverId, name, gender, starRate, image, introduction },
     handleClick
 }) {
     return (
@@ -19,9 +11,7 @@ export function DriverListItem({
                     <h4 className={styles.name}>
                         {name}({gender})
                     </h4>
-                    <h6 className={styles.infoText}>
-                        ⭐️{starRate}/5.0({numberOfReviews})
-                    </h6>
+                    <h6 className={styles.infoText}>⭐️{starRate}/5.0</h6>
                 </div>
                 <img src={image} alt="기사님 사진" className={styles.img} />
             </div>
