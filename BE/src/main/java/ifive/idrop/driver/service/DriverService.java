@@ -5,6 +5,7 @@ import ifive.idrop.driver.domain.Driver;
 import ifive.idrop.driver.domain.WorkHours;
 import ifive.idrop.driver.dto.*;
 import ifive.idrop.parent.dto.DriverListRequest;
+import ifive.idrop.pickup.domain.PickUpSchedule;
 import ifive.idrop.pickup.domain.enums.PickUpStatus;
 import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.exception.ErrorCode;
@@ -96,7 +97,7 @@ public class DriverService {
     }
 
     @Transactional
-    public BaseResponse subscribeCheck(Long driverId, SubscribeCheckRequest subscribeCheckRequest) throws ExecutionException, InterruptedException {
+    public BaseResponse subscribeCheck(Long driverId, SubscribeCheckRequest subscribeCheckRequest) {
         Integer statusCode = subscribeCheckRequest.getStatusCode();
         if (statusCode == null || !(statusCode == 0 || statusCode == 1)) {
             throw new BusinessException(ErrorCode.INVALID_PICKUP_STATUS);
@@ -109,21 +110,20 @@ public class DriverService {
             throw new BusinessException(ErrorCode.UNAUTHORIZED_USER);
         }
 
-        PickUpStatus pickUpStatus =  pickUpSubscription.modify(PickUpStatus.of(statusCode));
+        PickUpStatus pickUpStatus = pickUpSubscription.modify(PickUpStatus.of(statusCode));
 
         if (pickUpStatus.equals(PickUpStatus.ACCEPT)) {
-//            RequestSchedule requestSchedule = parseToList(toJSONObject(pickUpSubscription.getSchedule()));
-            RequestSchedule requestSchedule = parseToList(toJSONObject("pickUpSubscription.getSchedule()"));
+            RequestSchedule requestSchedule = parseToList(pickUpSubscription.getPickUpScheduleList());
             List<LocalDateTime> requestScheduleList = requestSchedule.getRequestSchedule();
             for (LocalDateTime reservedTime : requestScheduleList) {
                 createPickUp(reservedTime, pickUpSubscription);
             }
-            removeOverlappedSubscribe(driverId, pickUpSubscription); //승인한 구독 요청과 시간이 겹치는 다른 구독 요청을 거절로 처리함
+            removeOverlappedSubscribe(driverId, pickUpSubscription); // 승인한 구독 요청과 시간이 겹치는 다른 구독 요청을 거절로 처리함
 
             // 알림 보내기
-            Parent parent = pickUpSubscription.getChild().getParent();
-            NotificationUtill.createNotification(parent,
-                    AlarmMessage.APPROVE.getTitle(), AlarmMessage.APPROVE.getMessage());
+//            Parent parent = pickUpSubscription.getChild().getParent();
+//            NotificationUtill.createNotification(parent,
+//                    AlarmMessage.APPROVE.getTitle(), AlarmMessage.APPROVE.getMessage());
 
             return BaseResponse.from("요청을 성공적으로 승인했습니다.");
         } else {

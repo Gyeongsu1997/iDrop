@@ -115,7 +115,7 @@ public class PickUpRepository {
         PickUpHistory pickUpHistory = Optional.ofNullable(em.find(PickUpHistory.class, pickupId))
                 .orElseThrow(() -> new BusinessException(ErrorCode.PICKUP_NOT_FOUND));
 
-        pickUpHistory.updateStartPickUpInfo(startImage, startMessage);
+        pickUpHistory.startPickUp(startImage, startMessage);
         em.merge(pickUpHistory);
     }
 
@@ -123,7 +123,7 @@ public class PickUpRepository {
         PickUpHistory pickUpHistory = Optional.ofNullable(em.find(PickUpHistory.class, pickupId))
                 .orElseThrow(() -> new BusinessException(ErrorCode.PICKUP_NOT_FOUND));
 
-        pickUpHistory.updateEndPickUpInfo(endImage, endMessage);
+        pickUpHistory.endPickUp(endImage, endMessage);
         em.merge(pickUpHistory);
     }
 

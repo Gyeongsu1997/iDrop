@@ -5,11 +5,9 @@ import ifive.idrop.child.domain.Child;
 import ifive.idrop.parent.domain.Parent;
 import jakarta.persistence.*;
 import lombok.*;
-import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
 
-@Slf4j
 @Entity
 @Builder
 @RequiredArgsConstructor
@@ -21,16 +19,16 @@ public class PickUpHistory {
     @Column(name = "pickup_id")
     private Long id;
 
-    private String startImage;
-    private String endImage;
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
     private LocalDateTime reservedTime;
+    private LocalDateTime startTime;
+    private String startImage;
     private String startMessage;
+    private LocalDateTime endTime;
+    private String endImage;
     private String endMessage;
 
     @ManyToOne
-    @JoinColumn(name = "pickup_info_id")
+    @JoinColumn(name = "pick_up_subscription_id")
     private PickUpSubscription pickUpSubscription;
 
     public void updatePickUpInfo(PickUpSubscription pickUpSubscription) {
@@ -38,20 +36,16 @@ public class PickUpHistory {
         pickUpSubscription.getPickUpHistoryList().add(this);
     }
 
-    public void updateStartPickUpInfo(String startImage, String startMessage) {
-        this.startImage = startImage;
+    public void startPickUp(String startImage, String startMessage) {
         this.startTime = LocalDateTime.now();
+        this.startImage = startImage;
         this.startMessage = startMessage;
     }
 
-    public void updateEndPickUpInfo(String endImage, String endMessage) {
-        this.endImage = endImage;
+    public void endPickUp(String endImage, String endMessage) {
         this.endTime = LocalDateTime.now();
+        this.endImage = endImage;
         this.endMessage = endMessage;
-    }
-
-    public boolean isDriver(Driver driver) {
-        return pickUpSubscription.getDriver().getId().equals(driver.getId());
     }
 
     public Child getChild() {

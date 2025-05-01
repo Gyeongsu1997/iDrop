@@ -1,6 +1,8 @@
 package ifive.idrop.util;
 
+import ifive.idrop.common.enums.Day;
 import ifive.idrop.common.exception.BusinessException;
+import ifive.idrop.pickup.domain.PickUpSchedule;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -24,6 +26,24 @@ public class ScheduleUtils {
         DAY_OF_WEEKS = Arrays.stream(DayOfWeek.values())
                 .map(d -> d.getDisplayName(TextStyle.SHORT, Locale.US))
                 .toList();
+    }
+
+    public static RequestSchedule parseToList(List<PickUpSchedule> pickUpScheduleList) {
+        RequestSchedule requestSchedule = new RequestSchedule();
+        LocalDateTime now = LocalDateTime.now().withSecond(0).withNano(0);
+        int dayOfToday = now.getDayOfWeek().getValue();
+
+        for (PickUpSchedule schedule : pickUpScheduleList) {
+            Day day = schedule.getId().getDay();
+            int i = DAY_OF_WEEKS.indexOf(day.getDay());
+            int difference = getDifferenceOfDayOfWeek(i + 1, dayOfToday);
+            for (int d = difference; d <= EXPIRATION; d += 7) {
+                if (d == 0)
+                    continue; //당일은 제외
+                requestSchedule.addSchedule(now.plusDays(d).withHour(schedule.getStartTime().getHour()).withMinute(schedule.getStartTime().getMinute()));
+            }
+        }
+        return requestSchedule;
     }
 
     public static RequestSchedule parseToList(JSONObject schedule) {

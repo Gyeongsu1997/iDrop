@@ -64,7 +64,7 @@ public class ParentService {
     }
 
     private PickUpSubscription createPickUpInfo(SubscriptionRequest subscriptionRequest, Child child, Driver driver, PickUpLocation location) {
-        PickUpSubscription pickUpSubscription = PickUpSubscription.createPickUpSubscription();
+//        PickUpSubscription pickUpSubscription = PickUpSubscription.createPickUpSubscription();
 
         PickUpSubscription pickUpSubscription = PickUpSubscription.builder()
                 .child(child)
