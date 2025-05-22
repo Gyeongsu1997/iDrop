@@ -24,7 +24,7 @@
 | ------------------ | ---------------------------------------------------------------------------------- |
 | Github wiki           | [wiki](https://github.com/softeerbootcamp-3rd/Team2-iFive/wiki) |
 | API 문서           | [API 명세서](https://scalloped-hubcap-8c3.notion.site/API-37b47d5ead004049a4010e52aed3c73c) |
-| ERD                | [ERD](https://www.erdcloud.com/d/xQ5iLZGSgB8bL73gm) |
+| ERD                | [ERD](https://www.erdcloud.com/d/duhGHwNW9EZzjRezh) |
 
 ### 기획 문서
 
