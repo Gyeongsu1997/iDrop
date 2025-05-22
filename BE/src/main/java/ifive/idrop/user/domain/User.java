@@ -3,6 +3,7 @@ package ifive.idrop.user.domain;
 import ifive.idrop.auth.domain.Auth;
 import ifive.idrop.auth.dto.LoginRequest;
 import ifive.idrop.common.enums.Gender;
+import ifive.idrop.common.enums.GenderConverter;
 import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.exception.ErrorCode;
 import ifive.idrop.driver.domain.Driver;
@@ -26,7 +27,7 @@ public abstract class User {
     private String password;
     private String name;
     protected LocalDate birthDate;
-    @Enumerated(EnumType.STRING)
+    @Convert(converter = GenderConverter.class)
     protected Gender gender;
     private String phoneNumber;
     protected String imageUrl;

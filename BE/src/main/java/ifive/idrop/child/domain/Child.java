@@ -1,5 +1,6 @@
 package ifive.idrop.child.domain;
 
+import ifive.idrop.common.enums.GenderConverter;
 import ifive.idrop.subscription.domain.Subscription;
 import ifive.idrop.common.enums.Gender;
 import ifive.idrop.parent.domain.Parent;
@@ -18,7 +19,7 @@ public class Child {
     private Long id;
     private String name;
     private LocalDate birthDate;
-    @Enumerated(EnumType.STRING)
+    @Convert(converter = GenderConverter.class)
     private Gender gender;
     private String imageUrl;
 
