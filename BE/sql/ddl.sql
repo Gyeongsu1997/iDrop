@@ -5,7 +5,7 @@ USE idrop;
 
 CREATE TABLE users (
     users_id bigint unsigned AUTO_INCREMENT PRIMARY KEY,
-    login_id varchar(50) NOT NULL,
+    login_id varchar(50) NOT NULL UNIQUE,
     password varchar(255) NOT NULL,
     name varchar(50) NOT NULL,
     birth_date	date NOT NULL,
@@ -23,8 +23,8 @@ CREATE TABLE auth (
 );
 
 CREATE TABLE parent (
-    parent_id bigint unsigned PRIMARY KEY,
-    FOREIGN KEY (parent_id) REFERENCES users(users_id)
+    users_id bigint unsigned PRIMARY KEY,
+    FOREIGN KEY (users_id) REFERENCES users(users_id)
 );
 
 CREATE TABLE child (
@@ -34,15 +34,15 @@ CREATE TABLE child (
     gender char(1) NOT NULL,
     image_url varchar(255),
     parent_id bigint unsigned NOT NULL,
-    FOREIGN KEY (parent_id) REFERENCES parent(parent_id)
+    FOREIGN KEY (parent_id) REFERENCES parent(users_id)
 );
 
 CREATE TABLE driver (
-    driver_id bigint unsigned PRIMARY KEY,
+    users_id bigint unsigned PRIMARY KEY,
     career varchar(255) NOT NULL,
     introduction varchar(255) NOT NULL,
     star_rate double,
-    FOREIGN KEY (driver_id) REFERENCES users(users_id)
+    FOREIGN KEY (users_id) REFERENCES users(users_id)
 );
 
 CREATE TABLE work_hours (
@@ -51,7 +51,7 @@ CREATE TABLE work_hours (
     start_time time,
     end_time time,
     PRIMARY KEY (driver_id, day),
-    FOREIGN KEY (driver_id) REFERENCES driver(driver_id)
+    FOREIGN KEY (driver_id) REFERENCES driver(users_id)
 );
 
 CREATE TABLE subscription (
@@ -63,7 +63,7 @@ CREATE TABLE subscription (
     child_id bigint unsigned NOT NULL,
     driver_id bigint unsigned NOT NULL,
     FOREIGN KEY (child_id) REFERENCES child(child_id),
-    FOREIGN KEY (driver_id) REFERENCES driver(driver_id)
+    FOREIGN KEY (driver_id) REFERENCES driver(users_id)
 );
 
 CREATE TABLE pick_up_schedule (
@@ -105,5 +105,5 @@ CREATE TABLE notification (
     id bigint unsigned AUTO_INCREMENT PRIMARY KEY,
     pick_up_alarm_time datetime NOT NULL,
     driver_id bigint unsigned NOT NULL,
-    FOREIGN KEY (driver_id) REFERENCES driver(driver_id)
+    FOREIGN KEY (driver_id) REFERENCES driver(users_id)
 );

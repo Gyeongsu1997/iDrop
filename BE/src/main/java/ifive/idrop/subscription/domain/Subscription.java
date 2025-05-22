@@ -28,6 +28,7 @@ public class Subscription {
     @Column(name = "subscription_id")
     private Long id;
     @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "varchar(255)")
     private SubscriptionStatus status;
     @Column(nullable = false)
     private LocalDateTime requestDate;
