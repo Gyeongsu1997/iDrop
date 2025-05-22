@@ -17,9 +17,7 @@ import java.util.List;
 @Getter
 @DiscriminatorValue("D")
 public class Driver extends User {
-    @Lob
     private String career;
-    @Lob
     private String introduction;
     private Double starRate;
 
