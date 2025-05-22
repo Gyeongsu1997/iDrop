@@ -3,7 +3,6 @@ package ifive.idrop.user.domain;
 import ifive.idrop.auth.domain.Auth;
 import ifive.idrop.auth.dto.LoginRequest;
 import ifive.idrop.common.enums.Gender;
-import ifive.idrop.common.enums.GenderConverter;
 import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.exception.ErrorCode;
 import ifive.idrop.driver.domain.Driver;
@@ -18,7 +17,7 @@ import java.time.LocalDate;
 @Getter
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "role")
+@DiscriminatorColumn(name = "role", columnDefinition = "char(1)")
 public abstract class User {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "users_id")
@@ -27,7 +26,7 @@ public abstract class User {
     private String password;
     private String name;
     protected LocalDate birthDate;
-    @Convert(converter = GenderConverter.class)
+    @Convert(converter = Gender.Converter.class)
     protected Gender gender;
     private String phoneNumber;
     protected String imageUrl;

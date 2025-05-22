@@ -1,25 +1,35 @@
 package ifive.idrop.common.enums;
 
-import ifive.idrop.common.exception.BusinessException;
-import ifive.idrop.common.exception.ErrorCode;
+import jakarta.persistence.AttributeConverter;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+
+import java.util.Arrays;
 
 @Getter
 @RequiredArgsConstructor
 public enum Gender {
-    M("Male"),
-    F("Female");
+    MALE('M'),
+    FEMALE('F');
 
-    private final String label;
+    private final Character value;
 
-    public static Gender of(String gender) {
-        if ("남성".equals(gender)) {
-            return Gender.M;
+    public static Gender of(Character value) {
+        return Arrays.stream(Gender.values())
+                .filter(g -> g.getValue().equals(value))
+                .findAny()
+                .orElseThrow(IllegalArgumentException::new);
+    }
+
+    public static class Converter implements AttributeConverter<Gender, Character> {
+        @Override
+        public Character convertToDatabaseColumn(Gender attribute) {
+            return attribute.getValue();
         }
-        if ("여성".equals(gender)) {
-            return Gender.F;
+
+        @Override
+        public Gender convertToEntityAttribute(Character dbData) {
+            return Gender.of(dbData);
         }
-        throw new BusinessException(ErrorCode.INVALID_GENDER);
     }
 }

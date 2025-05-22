@@ -6,7 +6,6 @@ import ifive.idrop.driver.dto.DriverSummary;
 import ifive.idrop.driver.dto.WorkHoursDto;
 import ifive.idrop.subscription.domain.Subscription;
 import ifive.idrop.user.domain.User;
-import ifive.idrop.common.enums.Gender;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -28,7 +27,7 @@ public class Driver extends User {
     private List<WorkHours> workHoursList = new ArrayList<>();
 
     public void addAdditionalInfo(DriverInformation info) {
-        this.gender = (info.getGender() != null) ? Gender.of(info.getGender()) : this.gender;
+//        this.gender = (info.getGender() != null) ? Gender.of(info.getGender()) : this.gender;
         this.birthDate = (info.getBirth() != null) ? info.getBirth() : this.birthDate;
         this.imageUrl = (info.getImage() != null) ? info.getImage() : this.imageUrl;
         this.career = (info.getCareer() != null) ? info.getCareer() : this.career;
@@ -44,7 +43,7 @@ public class Driver extends User {
         return DriverSummary.builder()
                 .driverId(this.getId())
                 .name(this.getName())
-                .gender((this.gender != null) ? this.gender.getLabel() : null)
+//                .gender((this.gender != null) ? this.gender.getLabel() : null)
                 .image(this.getImageUrl())
                 .introduction(this.getIntroduction())
                 .starRate(this.getStarRate())
@@ -56,7 +55,7 @@ public class Driver extends User {
                 .driverId(this.getId())
                 .name(this.getName())
                 .phoneNumber(this.getPhoneNumber())
-                .gender((this.gender != null) ? this.gender.getLabel() : null)
+//                .gender((this.gender != null) ? this.gender.getLabel() : null)
                 .birth(this.getBirthDate())
                 .image(this.getImageUrl())
                 .career(this.getCareer())

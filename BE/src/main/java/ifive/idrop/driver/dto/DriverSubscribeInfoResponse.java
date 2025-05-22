@@ -43,7 +43,7 @@ public class DriverSubscribeInfoResponse {
                 .parentPhoneNumber(parent.getPhoneNumber())
                 .childName(child.getName())
                 .childBirth(child.getBirthDate())
-                .childGender(child.getGender().getLabel())
+//                .childGender(child.getGender().getLabel())
                 .childImage(child.getImageUrl())
                 .startDate(startDate)
                 .endDate(endDate)

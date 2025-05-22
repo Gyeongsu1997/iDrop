@@ -1,6 +1,7 @@
 package ifive.idrop.driver.domain;
 
 import ifive.idrop.common.enums.Day;
+import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
@@ -18,5 +19,6 @@ import java.io.Serializable;
 public class WorkHoursId implements Serializable {
     private Long driverId;
     @Convert(converter = Day.Converter.class)
+    @Column(columnDefinition = "char(3)")
     private Day day;
 }

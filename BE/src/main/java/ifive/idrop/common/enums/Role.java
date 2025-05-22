@@ -1,13 +1,22 @@
 package ifive.idrop.common.enums;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+import java.util.Arrays;
 
 @Getter
-@AllArgsConstructor
+@RequiredArgsConstructor
 public enum Role {
-    DRIVER("기사"),
-    PARENT("부모");
+    DRIVER('D'),
+    PARENT('P');
 
-    private final String name;
+    private final Character value;
+
+    public static Role of(Character value) {
+        return Arrays.stream(Role.values())
+                .filter(r -> r.getValue().equals(value))
+                .findAny()
+                .orElseThrow(IllegalArgumentException::new);
+    }
 }
