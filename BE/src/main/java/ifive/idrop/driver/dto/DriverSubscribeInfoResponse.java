@@ -3,7 +3,7 @@ package ifive.idrop.driver.dto;
 import ifive.idrop.child.domain.Child;
 import ifive.idrop.parent.domain.Parent;
 import ifive.idrop.pickup.domain.PickUpLocation;
-import ifive.idrop.pickup.domain.Subscription;
+import ifive.idrop.subscription.domain.Subscription;
 import lombok.Builder;
 import lombok.Getter;
 import org.json.simple.JSONObject;

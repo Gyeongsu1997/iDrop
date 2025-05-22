@@ -1,8 +1,11 @@
-package ifive.idrop.pickup.domain;
+package ifive.idrop.subscription.domain;
 
 import ifive.idrop.child.domain.Child;
 import ifive.idrop.driver.domain.Driver;
 import ifive.idrop.parent.dto.SubscriptionRequest;
+import ifive.idrop.pickup.domain.PickUpHistory;
+import ifive.idrop.pickup.domain.PickUpLocation;
+import ifive.idrop.pickup.domain.PickUpSchedule;
 import ifive.idrop.pickup.domain.enums.SubscriptionStatus;
 import ifive.idrop.parent.domain.Parent;
 import jakarta.persistence.*;

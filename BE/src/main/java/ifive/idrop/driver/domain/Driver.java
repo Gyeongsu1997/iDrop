@@ -4,7 +4,7 @@ import ifive.idrop.driver.dto.DriverInformation;
 import ifive.idrop.driver.dto.DriverDetailResponse;
 import ifive.idrop.driver.dto.DriverSummary;
 import ifive.idrop.driver.dto.WorkHoursDto;
-import ifive.idrop.pickup.domain.Subscription;
+import ifive.idrop.subscription.domain.Subscription;
 import ifive.idrop.user.domain.User;
 import ifive.idrop.common.enums.Gender;
 import jakarta.persistence.*;

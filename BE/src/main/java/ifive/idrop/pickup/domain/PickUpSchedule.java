@@ -1,5 +1,6 @@
 package ifive.idrop.pickup.domain;
 
+import ifive.idrop.subscription.domain.Subscription;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

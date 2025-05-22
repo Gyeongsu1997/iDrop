@@ -1,7 +1,7 @@
 package ifive.idrop.parent.dto;
 
 import ifive.idrop.driver.domain.Driver;
-import ifive.idrop.pickup.domain.Subscription;
+import ifive.idrop.subscription.domain.Subscription;
 import ifive.idrop.pickup.domain.PickUpLocation;
 import lombok.Builder;
 import lombok.Getter;

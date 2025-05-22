@@ -9,6 +9,7 @@ import ifive.idrop.pickup.domain.*;
 import ifive.idrop.parent.domain.Parent;
 import ifive.idrop.parent.repository.ParentRepository;
 import ifive.idrop.pickup.repository.PickUpRepository;
+import ifive.idrop.subscription.domain.Subscription;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

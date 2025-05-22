@@ -22,13 +22,8 @@ public class NotificationUtill {
             return;
         }
 
-        NotificationRequest request = NotificationRequest.builder()
-                .title(title)
-                .token(user.getFcmToken())
-                .message(message)
-                .build();
         try {
-            sendNotification(request);
+            sendNotification(title, message, user.getFcmToken());
         } catch (ExecutionException e) {
             log.error("user = {}, FCM토큰이 없습니다", user.getLoginId());
         } catch (InterruptedException e) {
@@ -36,15 +31,15 @@ public class NotificationUtill {
         }
     }
 
-    static private void sendNotification(NotificationRequest request) throws ExecutionException, InterruptedException {
+    static private void sendNotification(String title, String body, String token) throws ExecutionException, InterruptedException {
         Message message = Message.builder()
                 .setWebpushConfig(WebpushConfig.builder()
                         .setNotification(WebpushNotification.builder()
-                                .setTitle(request.getTitle())
-                                .setBody(request.getMessage())
+                                .setTitle(title)
+                                .setBody(body)
                                 .build())
                         .build())
-                .setToken(request.getToken())
+                .setToken(token)
                 .build();
 
         String response = FirebaseMessaging.getInstance().sendAsync(message).get();

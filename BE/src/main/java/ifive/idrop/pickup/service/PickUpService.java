@@ -13,6 +13,7 @@ import ifive.idrop.common.exception.ErrorCode;
 import ifive.idrop.notification.AlarmMessage;
 import ifive.idrop.notification.NotificationUtill;
 import ifive.idrop.pickup.repository.PickUpRepository;
+import ifive.idrop.subscription.domain.Subscription;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

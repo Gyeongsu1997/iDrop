@@ -1,7 +1,7 @@
 package ifive.idrop.common.dto;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
-import ifive.idrop.pickup.domain.Subscription;
+import ifive.idrop.subscription.domain.Subscription;
 import ifive.idrop.pickup.domain.PickUpLocation;
 import lombok.*;
 

@@ -3,6 +3,7 @@ package ifive.idrop.pickup.domain;
 import ifive.idrop.driver.domain.Driver;
 import ifive.idrop.child.domain.Child;
 import ifive.idrop.parent.domain.Parent;
+import ifive.idrop.subscription.domain.Subscription;
 import jakarta.persistence.*;
 import lombok.*;
 

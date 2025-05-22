@@ -68,5 +68,4 @@ public class DriverRepository {
                 .setParameter("oneHourBeforeNow", LocalDateTime.now().minusHours(1))
                 .getResultList();
     }
-
 }
