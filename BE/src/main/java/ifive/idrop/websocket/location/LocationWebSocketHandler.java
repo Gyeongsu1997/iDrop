@@ -1,15 +1,19 @@
 package ifive.idrop.websocket.location;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import ifive.idrop.entity.*;
-import ifive.idrop.exception.CommonException;
-import ifive.idrop.exception.ErrorCode;
-import ifive.idrop.filter.AuthenticateUser;
-import ifive.idrop.filter.VerifyUserFilter;
-import ifive.idrop.jwt.JwtProvider;
-import ifive.idrop.repository.UserRepository;
-import ifive.idrop.util.CustomObjectMapper;
-import ifive.idrop.websocket.PickUpInfoRepository;
+import ifive.idrop.driver.domain.Driver;
+import ifive.idrop.common.exception.BusinessException;
+import ifive.idrop.common.exception.ErrorCode;
+import ifive.idrop.auth.domain.AuthenticateUser;
+import ifive.idrop.auth.filter.VerifyUserFilter;
+import ifive.idrop.auth.utils.JwtProvider;
+import ifive.idrop.parent.domain.Parent;
+import ifive.idrop.pickup.domain.PickUpHistory;
+import ifive.idrop.pickup.domain.PickUpLocation;
+import ifive.idrop.pickup.repository.PickUpRepository;
+import ifive.idrop.user.repository.UserRepository;
+import ifive.idrop.user.domain.User;
+import ifive.idrop.websocket.CustomObjectMapper;
 import ifive.idrop.websocket.location.dto.ChildGeoLocation;
 import ifive.idrop.websocket.location.dto.CurrentPickUp;
 import ifive.idrop.websocket.direction.dto.Direction;
@@ -28,15 +32,13 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import static ifive.idrop.entity.enums.Role.*;
-
 @Slf4j
 @RequiredArgsConstructor
 public class LocationWebSocketHandler extends TextWebSocketHandler {
 
     private final JwtProvider jwtProvider;
     private final UserRepository userRepository;
-    private final PickUpInfoRepository pickUpInfoRepository;
+    private final PickUpRepository pickUpRepository;
     private final NaverDirectionFinder directionFinder;
 
     private static final Map<String, WebSocketSession> sessions; //세션아이디, 세션
@@ -62,16 +64,16 @@ public class LocationWebSocketHandler extends TextWebSocketHandler {
         String sessionId = session.getId();
         sessions.put(sessionId, session);
 
-        Users user = getUserBySession(session);
+        User user = getUserBySession(session);
 
-        if (user.getRole() == DRIVER) {
+        if (user instanceof Driver) {
             Long driverId = ((Driver) user).getId();
             drivers.put(sessionId, driverId);
             try {
                 CurrentPickUp currentPickUp = setCurrentPickUps(driverId);
                 Direction direction = directionFinder.getDirection(currentPickUp.getStartLocation(), currentPickUp.getEndLocation());
                 session.sendMessage(new TextMessage(CustomObjectMapper.getString(direction)));
-            } catch (CommonException e) {
+            } catch (BusinessException e) {
                 sendErrorMessage(session, e.getMessage());
                 session.close(CloseStatus.NORMAL); // 정상 종료 상태로 소켓 연결 종료
                 return; // 메소드 종료
@@ -79,7 +81,7 @@ public class LocationWebSocketHandler extends TextWebSocketHandler {
 
             log.info("webSocket/location - DRIVER connected (session ID={}, driver ID={})", sessionId, driverId);
 
-        } else if (user.getRole() == PARENT) {
+        } else if (user instanceof Parent) {
             Long parentId = ((Parent) user).getId();
             if (!parentDriverSets.containsKey(parentId)) {
                 session.sendMessage(new TextMessage("기사가 접속 중이 아닙니다."));
@@ -145,23 +147,25 @@ public class LocationWebSocketHandler extends TextWebSocketHandler {
     }
 
     //웹소켓 세션에서 User 구하기
-    private Users getUserBySession(WebSocketSession session) throws JsonProcessingException {
+    private User getUserBySession(WebSocketSession session) throws JsonProcessingException {
         // HTTP 헤더에서 엑세스 토큰을 꺼낸다.
 
         String accessToken = String.valueOf(session.getHandshakeHeaders().get("Sec-Websocket-Protocol"));
         accessToken = accessToken.substring(1, accessToken.length() - 1);
         AuthenticateUser authenticateUser = getAuthenticateUser(accessToken);
-        return userRepository.findByUserId(authenticateUser.getUserId())
-                .orElseThrow(() -> new CommonException(ErrorCode.USER_NOT_FOUND));
+        return userRepository.findByLoginId(authenticateUser.getUserId())
+                .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
     }
 
     //웹소켓 driver가 연결 시 currentPickUp 만들어서 세팅
     private CurrentPickUp setCurrentPickUps(Long driverId) {
-        PickUp pickup = pickUpInfoRepository.findPickUpByDriverIdWithCurrentTimeInReservedWindow(driverId)
-                .orElseThrow(() -> new CommonException(ErrorCode.PICKUP_NOT_FOUND));
-        PickUpLocation pickUpLocation = pickUpInfoRepository.getPickUpLocation(pickup.getId());
+        PickUpHistory pickup = pickUpRepository.findPickUpByDriverIdWithCurrentTimeInReservedWindow(driverId)
+                .orElseThrow(() -> new BusinessException(ErrorCode.PICKUP_NOT_FOUND));
+        PickUpLocation pickUpLocation = pickUpRepository.findPickUpLocationById(pickup.getId().getSubscriptionId())
+                .orElseThrow(() -> new BusinessException(ErrorCode.TOKEN_NOT_EXIST)); // todo: ErrorCode 변경
 
-        Object[] childIdAndParentId = pickUpInfoRepository.findChildAndParentIdByPickUp(pickup.getId());
+//        Object[] childIdAndParentId = pickUpInfoRepository.findChildAndParentIdByPickUp(pickup.getId());
+        Object[] childIdAndParentId = pickUpRepository.findChildAndParentIdByPickUp(1L);
         CurrentPickUp currentPickUp = CurrentPickUp.builder()
                 .childId((Long) childIdAndParentId[0])
                 .parentId((Long) childIdAndParentId[1])

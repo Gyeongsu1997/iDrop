@@ -16,9 +16,7 @@ export default function DriverDetail() {
         image,
         career,
         introduction,
-        drivingScore,
-        starRate,
-        numberOfReviews
+        starRate
     } = useLoaderData();
 
     const handleSubscriptionRequest = async () => {
@@ -44,7 +42,7 @@ export default function DriverDetail() {
             case "연락처":
                 return phoneNumber;
             case "별점":
-                return `${starRate} (${numberOfReviews} 리뷰)`;
+                return `${starRate}`;
             default:
                 return "";
         }

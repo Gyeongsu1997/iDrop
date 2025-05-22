@@ -1,0 +1,50 @@
+package ifive.idrop.parent.service;
+
+import ifive.idrop.common.dto.BaseResponse;
+import ifive.idrop.common.dto.CurrentPickUpResponse;
+
+import ifive.idrop.parent.dto.PickUpHistoryResponse;
+import ifive.idrop.parent.dto.ParentSubscribeInfoResponse;
+import ifive.idrop.pickup.domain.*;
+import ifive.idrop.parent.domain.Parent;
+import ifive.idrop.parent.repository.ParentRepository;
+import ifive.idrop.pickup.repository.PickUpRepository;
+import ifive.idrop.subscription.domain.Subscription;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+@Transactional(readOnly = true)
+public class ParentService {
+    private final ParentRepository parentRepository;
+    private final PickUpRepository pickUpRepository;
+
+    public BaseResponse<List<CurrentPickUpResponse>> getChildRunningInfo(Parent parent) {
+        List<Object[]> runningPickInfo = parentRepository.findRunningPickUpInfo(parent.getId());
+        return BaseResponse.of("Data Successfully Proceed",
+                runningPickInfo.stream()
+                        .map(o -> CurrentPickUpResponse.of((Subscription) o[0], (LocalDateTime) o[1]))
+                        .toList());
+    }
+
+    public BaseResponse<List<PickUpHistoryResponse>> getPickUpHistoryInfo(Parent parent, long pickInfoId) {
+        List<PickUpHistory> pickUpHistoryList = pickUpRepository.findPickUpByPickUpInfoIdAndParentIdOrderByReservedTime(parent.getId(), pickInfoId);
+        return BaseResponse.of("Data Successfully Proceed",
+                pickUpHistoryList.stream().map(PickUpHistoryResponse::toEntity)
+                        .toList());
+    }
+
+    public List<ParentSubscribeInfoResponse> subscribeList(Long parentId) {
+        List<Subscription> subscriptionList = pickUpRepository.findPickUpInfoByParentIdInTheLatestOrder(parentId);
+        return subscriptionList.stream().map(ParentSubscribeInfoResponse::of).toList();
+    }
+
+    public boolean hasCurrentPickUp(Long parentId) {
+        return pickUpRepository.getCurrentPickUpSize(parentId) != 0;
+    }
+}
