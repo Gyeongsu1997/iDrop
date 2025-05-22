@@ -8,11 +8,11 @@ CREATE TABLE users (
     login_id varchar(50) NOT NULL UNIQUE,
     password varchar(255) NOT NULL,
     name varchar(50) NOT NULL,
-    birth_date	date NOT NULL,
-    gender	char(1)	NOT NULL,
+    birth_date date NOT NULL,
+    gender char(1) NOT NULL CHECK (gender IN ('M', 'F')),
     phone_number varchar(50) NOT NULL,
     image_url varchar(255),
-    role char(1) NOT NULL
+    role char(1) NOT NULL CHECK (role IN ('D', 'P'))
 );
 
 CREATE TABLE auth (
@@ -31,7 +31,7 @@ CREATE TABLE child (
     child_id bigint unsigned AUTO_INCREMENT PRIMARY KEY,
     name varchar(50) NOT NULL,
     birth_date date	NOT NULL,
-    gender char(1) NOT NULL,
+    gender char(1) NOT NULL CHECK (gender IN ('M', 'F')),
     image_url varchar(255),
     parent_id bigint unsigned NOT NULL,
     FOREIGN KEY (parent_id) REFERENCES parent(users_id)
@@ -47,7 +47,7 @@ CREATE TABLE driver (
 
 CREATE TABLE work_hours (
     driver_id bigint unsigned NOT NULL,
-    day	char(3)	NOT NULL,
+    day	char(3)	NOT NULL CHECK (day IN ('MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN')),
     start_time time,
     end_time time,
     PRIMARY KEY (driver_id, day),
@@ -68,7 +68,7 @@ CREATE TABLE subscription (
 
 CREATE TABLE pick_up_schedule (
     subscription_id	bigint unsigned	NOT NULL,
-    day	char(3)	NOT NULL,
+    day	char(3)	NOT NULL CHECK (day IN ('MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN')),
     start_time time,
     PRIMARY KEY (subscription_id, day),
     FOREIGN KEY (subscription_id) REFERENCES subscription(subscription_id)
