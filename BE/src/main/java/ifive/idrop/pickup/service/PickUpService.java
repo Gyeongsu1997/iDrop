@@ -1,19 +1,12 @@
 package ifive.idrop.pickup.service;
 
-import ifive.idrop.child.domain.Child;
-import ifive.idrop.common.enums.Day;
-import ifive.idrop.driver.domain.Driver;
-import ifive.idrop.driver.repository.DriverRepository;
 import ifive.idrop.parent.domain.Parent;
-import ifive.idrop.parent.dto.SubscriptionRequest;
-import ifive.idrop.parent.repository.ParentRepository;
 import ifive.idrop.pickup.domain.*;
 import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.exception.ErrorCode;
 import ifive.idrop.notification.AlarmMessage;
 import ifive.idrop.notification.NotificationUtill;
 import ifive.idrop.pickup.repository.PickUpRepository;
-import ifive.idrop.subscription.domain.Subscription;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -21,9 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.time.LocalTime;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
