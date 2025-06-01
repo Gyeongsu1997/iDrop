@@ -7,6 +7,7 @@ import java.util.Map;
 
 @Getter
 public class SubscriptionRequest {
+    private Long childId;
     private Long driverId;
     private String startAddress;
     private Double startLatitude;
@@ -19,6 +20,7 @@ public class SubscriptionRequest {
 
 /**
  * {
+ *     "childId": 1,
  *     "driverId": 1,
  *     "startAddress": "서울특별시 강남구 논현동 58-3 에티버스러닝 학동캠퍼스",
  *     "startLatitude": 37.5138649,
