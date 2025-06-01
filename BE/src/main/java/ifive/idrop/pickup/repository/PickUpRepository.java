@@ -44,10 +44,6 @@ public class PickUpRepository {
         return query.getResultList();
     }
 
-    public void savePickUpInfo(Subscription subscription) {
-        em.persist(subscription);
-    }
-
     public void savePickUp(PickUpHistory pick) {
         em.persist(pick);
     }

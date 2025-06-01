@@ -3,17 +3,12 @@ package ifive.idrop.pickup.controller;
 import ifive.idrop.auth.resolver.Login;
 import ifive.idrop.common.dto.BaseResponse;
 import ifive.idrop.driver.domain.Driver;
-import ifive.idrop.parent.domain.Parent;
-import ifive.idrop.parent.dto.SubscriptionRequest;
 import ifive.idrop.pickup.domain.PickUpHistory;
 import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.exception.ErrorCode;
 import ifive.idrop.pickup.service.PickUpService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -24,11 +19,6 @@ import java.util.concurrent.ExecutionException;
 public class PickUpController {
     private final PickUpService pickUpService;
 
-    @PostMapping("/api/subscriptions")
-    public BaseResponse<String> postSubscription(@Login Parent parent, @RequestBody SubscriptionRequest request) {
-        pickUpService.subscribe(parent, request);
-        return BaseResponse.success();
-    }
 
     @PostMapping("/driver/pickup")
     public BaseResponse<String> startOrEndPickUp(@Login Driver driver, Long childId, @ModelAttribute MultipartFile image, String message) throws ExecutionException, InterruptedException {

@@ -33,34 +33,9 @@ import java.util.concurrent.ExecutionException;
 @Transactional(readOnly = true)
 public class PickUpService {
     private final PickUpRepository pickUpRepository;
-    private final DriverRepository driverRepository;
-    private final ParentRepository parentRepository;
 
     private final ImageService imageService;
     private final String PICKUP_IMAGE_PATH = "image/pickup/";
-
-    @Transactional
-    public void subscribe(Parent parent, SubscriptionRequest request) {
-        Driver driver = driverRepository.findById(request.getDriverId())
-                .orElseThrow(() -> new BusinessException(ErrorCode.DRIVER_NOT_EXIST));
-        Child child = parentRepository.findChild(parent.getId())
-                .orElseThrow(() -> new BusinessException(ErrorCode.CHILD_NOT_EXIST));
-
-        Subscription subscription = Subscription.createSubscription(request, driver, child);
-        pickUpRepository.savePickUpInfo(subscription);
-
-        Map<Day, Map<String, Integer>> schedule = request.getSchedule();
-        for (Map.Entry<Day, Map<String, Integer>> entry : schedule.entrySet()) {
-            Day day = entry.getKey();
-            int hour = entry.getValue().get("hour");
-            int min = entry.getValue().get("min");
-            subscription.addPickUpSchedule(new PickUpSchedule(new PickUpScheduleId(subscription.getId(), day), LocalTime.of(hour, min), subscription));
-        }
-
-        // 요청한 기사에게 알람
-//        NotificationUtill.createNotification(driver, AlarmMessage.SUBSCRIBE_REQUEST.getTitle(),
-//                AlarmMessage.SUBSCRIBE_REQUEST.getMessage());
-    }
 
     @Transactional
     public void saveStartOrEndPickUp(Long pickUpId, MultipartFile image, String message) throws IOException, ExecutionException, InterruptedException {

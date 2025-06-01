@@ -1,12 +1,14 @@
 package ifive.idrop.subscription.domain;
 
 import ifive.idrop.child.domain.Child;
+import ifive.idrop.common.enums.Day;
 import ifive.idrop.driver.domain.Driver;
-import ifive.idrop.parent.dto.SubscriptionRequest;
 import ifive.idrop.pickup.domain.PickUpHistory;
 import ifive.idrop.pickup.domain.PickUpLocation;
 import ifive.idrop.pickup.domain.PickUpSchedule;
 import ifive.idrop.parent.domain.Parent;
+import ifive.idrop.pickup.domain.PickUpScheduleId;
+import ifive.idrop.subscription.dto.SubscriptionRequest;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.AllArgsConstructor;
@@ -14,8 +16,11 @@ import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.StringTokenizer;
 
 @Entity
 @Getter
@@ -34,25 +39,39 @@ public class Subscription {
     private SubscriptionStatus status;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "driver_id")
-    private Driver driver;
-
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "child_id")
     private Child child;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "driver_id")
+    private Driver driver;
 
     @OneToOne(mappedBy = "subscription", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private PickUpLocation pickUpLocation;
 
     @OneToMany(mappedBy = "subscription", cascade = CascadeType.ALL)
-    private List<PickUpSchedule> pickUpScheduleList;
+    private List<PickUpSchedule> pickUpScheduleList = new ArrayList<>();
 
     @OneToMany(mappedBy = "subscription")
     private List<PickUpHistory> pickUpHistoryList = new ArrayList<>();
 
-    public void updatePickUpLocation(PickUpLocation location) {
-        this.pickUpLocation = location;
-        location.subscription = this;
+    public static Subscription createSubscription(SubscriptionRequest subscriptionRequest, Child child, Driver driver) {
+        Subscription subscription = new Subscription();
+        subscription.requestDate = LocalDateTime.now();
+        subscription.status = SubscriptionStatus.REQUEST;
+        subscription.child = child;
+        subscription.driver = driver;
+        subscription.pickUpLocation = PickUpLocation.createPickUpLocation(subscription, subscriptionRequest);
+
+        Map<Day, String> schedule = subscriptionRequest.getSchedule();
+        for (Map.Entry<Day, String> entry : schedule.entrySet()) {
+            Day day = entry.getKey();
+            StringTokenizer st = new StringTokenizer(entry.getValue(), ":");
+            int hour = Integer.parseInt(st.nextToken());
+            int min = Integer.parseInt(st.nextToken());
+            subscription.addPickUpSchedule(new PickUpSchedule(new PickUpScheduleId(subscription.getId(), day), LocalTime.of(hour, min), subscription));
+        }
+        return subscription;
     }
 
     public Parent getParent() {
@@ -74,17 +93,5 @@ public class Subscription {
                     .withHour(0).withMinute(0).withSecond(0).withNano(0);
         }
         return this.status;
-    }
-
-    public static Subscription createSubscription(SubscriptionRequest request, Driver driver, Child child) {
-        Subscription subscription = new Subscription();
-        subscription.driver = driver;
-        subscription.child = child;
-        subscription.status = SubscriptionStatus.REQUEST;
-        subscription.requestDate = LocalDateTime.now();
-        subscription.pickUpScheduleList = new ArrayList<>();
-        PickUpLocation pickUpLocation = PickUpLocation.createPickUpLocation(request);
-        subscription.updatePickUpLocation(pickUpLocation);
-        return subscription;
     }
 }
