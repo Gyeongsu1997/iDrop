@@ -26,7 +26,7 @@ public abstract class User {
     private String password;
     private String name;
     protected LocalDate birthDate;
-    @Convert(converter = Gender.Converter.class)
+    @Column(columnDefinition = "char(1)")
     protected Gender gender;
     private String phoneNumber;
     protected String imageUrl;

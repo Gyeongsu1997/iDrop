@@ -5,7 +5,7 @@ import ifive.idrop.driver.domain.Driver;
 import ifive.idrop.driver.domain.WorkHours;
 import ifive.idrop.driver.dto.*;
 import ifive.idrop.parent.dto.DriverListRequest;
-import ifive.idrop.pickup.domain.enums.SubscriptionStatus;
+import ifive.idrop.subscription.domain.SubscriptionStatus;
 import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.exception.ErrorCode;
 import ifive.idrop.notification.AlarmMessage;
@@ -97,7 +97,7 @@ public class DriverService {
     @Transactional
     public BaseResponse subscribeCheck(Long driverId, SubscribeCheckRequest subscribeCheckRequest) {
         Integer statusCode = subscribeCheckRequest.getStatusCode();
-        if (statusCode == null || !(statusCode == 0 || statusCode == 1)) {
+        if (statusCode == null || !(statusCode == 0 || statusCode == 1)) { // 0: 거절 / 1: 승인
             throw new BusinessException(ErrorCode.INVALID_PICKUP_STATUS);
         }
         Long pickUpInfoId = subscribeCheckRequest.getPickUpInfoId();
@@ -108,9 +108,11 @@ public class DriverService {
             throw new BusinessException(ErrorCode.UNAUTHORIZED_USER);
         }
 
-        SubscriptionStatus subscriptionStatus = subscription.modify(SubscriptionStatus.of(statusCode));
+//        SubscriptionStatus subscriptionStatus = subscription.modify(SubscriptionStatus.of(statusCode));
+        SubscriptionStatus subscriptionStatus = SubscriptionStatus.PROGRESS;
 
-        if (subscriptionStatus.equals(SubscriptionStatus.ACCEPT)) {
+
+        if (subscriptionStatus.equals(SubscriptionStatus.PROGRESS)) {
             RequestSchedule requestSchedule = parseToList(subscription.getPickUpScheduleList());
             List<LocalDateTime> requestScheduleList = requestSchedule.getRequestSchedule();
             for (LocalDateTime reservedTime : requestScheduleList) {
@@ -166,7 +168,7 @@ public class DriverService {
         List<Subscription> waitingSubscriptionList = pickUpRepository.findWaitingPickUpInfoByDriverId(driverId);
         for (Subscription waitingSubscription : waitingSubscriptionList) {
             if (isOverlapped("pickUpSubscription.getSchedule()", "waitingPickUpSubscription.getSchedule()")) {
-                waitingSubscription.modify(SubscriptionStatus.DECLINE);
+                waitingSubscription.modify(SubscriptionStatus.REJECTED);
 
                 // 거절 알람
                 Parent parent = subscription.getParent();

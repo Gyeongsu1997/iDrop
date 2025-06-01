@@ -1,6 +1,5 @@
 package ifive.idrop.common.enums;
 
-import jakarta.persistence.AttributeConverter;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -24,17 +23,5 @@ public enum Day {
                 .filter(d -> d.getValue().equals(value))
                 .findAny()
                 .orElseThrow(IllegalArgumentException::new);
-    }
-
-    public static class Converter implements AttributeConverter<Day, String> {
-        @Override
-        public String convertToDatabaseColumn(Day attribute) {
-            return attribute.getValue();
-        }
-
-        @Override
-        public Day convertToEntityAttribute(String dbData) {
-            return Day.of(dbData);
-        }
     }
 }

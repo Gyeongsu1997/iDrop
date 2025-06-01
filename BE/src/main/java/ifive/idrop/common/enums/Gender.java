@@ -1,35 +1,23 @@
 package ifive.idrop.common.enums;
 
-import jakarta.persistence.AttributeConverter;
+import ifive.idrop.common.enums.converter.AbstractEnumAttributeConverter;
+import ifive.idrop.common.enums.converter.BaseEnumAttribute;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-import java.util.Arrays;
-
 @Getter
 @RequiredArgsConstructor
-public enum Gender {
+public enum Gender implements BaseEnumAttribute<Character> {
     MALE('M'),
     FEMALE('F');
 
-    private final Character value;
+    private final Character code;
 
-    public static Gender of(Character value) {
-        return Arrays.stream(Gender.values())
-                .filter(g -> g.getValue().equals(value))
-                .findAny()
-                .orElseThrow(IllegalArgumentException::new);
-    }
+    public static class Converter extends AbstractEnumAttributeConverter<Gender, Character> {
+        public static final String ENUM_NAME = "성별";
 
-    public static class Converter implements AttributeConverter<Gender, Character> {
-        @Override
-        public Character convertToDatabaseColumn(Gender attribute) {
-            return attribute.getValue();
-        }
-
-        @Override
-        public Gender convertToEntityAttribute(Character dbData) {
-            return Gender.of(dbData);
+        public Converter() {
+            super(Gender.class, ENUM_NAME);
         }
     }
 }

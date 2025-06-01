@@ -18,7 +18,7 @@ public class Child {
     private Long id;
     private String name;
     private LocalDate birthDate;
-    @Convert(converter = Gender.Converter.class)
+    @Column(columnDefinition = "char(1)")
     private Gender gender;
     private String imageUrl;
 
