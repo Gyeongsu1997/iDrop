@@ -1,6 +1,6 @@
 package ifive.idrop.pickup.repository;
 
-import ifive.idrop.pickup.domain.enums.SubscriptionStatus;
+import ifive.idrop.subscription.domain.SubscriptionStatus;
 import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.exception.ErrorCode;
 import ifive.idrop.pickup.domain.PickUpHistory;
@@ -39,7 +39,7 @@ public class PickUpRepository {
                         "WHERE ps.status = :status " +
                         "AND d.id = :driverId " +
                         "AND p.reservedTime >= CURRENT_TIMESTAMP", PickUpHistory.class);
-        query.setParameter("status", SubscriptionStatus.ACCEPT)
+        query.setParameter("status", SubscriptionStatus.PROGRESS)
                 .setParameter("driverId", driverId);
         return query.getResultList();
     }
@@ -76,7 +76,7 @@ public class PickUpRepository {
                         "WHERE d.id = :driverId " +
                         "AND ps.status = :status", Subscription.class);
         query.setParameter("driverId", driverId)
-                .setParameter("status", SubscriptionStatus.WAIT);
+                .setParameter("status", SubscriptionStatus.REQUEST);
         return query.getResultList();
     }
 
@@ -103,8 +103,8 @@ public class PickUpRepository {
                         "AND ps.status <> :decline " +
                         "ORDER BY ps.requestDate DESC", Subscription.class);
         query.setParameter("driverId", driverId)
-                .setParameter("cancel", SubscriptionStatus.CANCEL)
-                .setParameter("decline", SubscriptionStatus.DECLINE);
+                .setParameter("cancel", SubscriptionStatus.CANCELED)
+                .setParameter("decline", SubscriptionStatus.REJECTED);
         return query.getResultList();
     }
 

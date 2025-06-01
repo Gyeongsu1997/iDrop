@@ -41,7 +41,7 @@ public class ParentSubscribeInfoResponse {
                 .endDate(endDate)
                 .startAddress(pickUpLocation.getStartAddress())
                 .endAddress(pickUpLocation.getEndAddress())
-                .status(subscription.getStatus().getStatus())
+                .status(subscription.getStatus().getDesc())
                 .schedule(toJSONObject("pickUpSubscription.getSchedule()"))
                 .build();
     }

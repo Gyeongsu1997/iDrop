@@ -15,5 +15,5 @@ import java.io.Serializable;
 @Embeddable
 public class PickUpHistoryId implements Serializable {
     private Long subscriptionId;
-    private Short historyId;
+    private Short historySeq;
 }
