@@ -68,7 +68,8 @@ public class JwtAuthorizationFilter implements Filter {
     }
 
     private boolean whiteListCheck(String uri){
-        return PatternMatchUtils.simpleMatch(whiteListUris, uri);
+        return true;
+//        return PatternMatchUtils.simpleMatch(whiteListUris, uri);
     }
 
     private boolean isContainToken(HttpServletRequest request){

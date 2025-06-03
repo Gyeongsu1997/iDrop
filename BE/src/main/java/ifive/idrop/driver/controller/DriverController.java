@@ -18,9 +18,15 @@ import java.util.concurrent.ExecutionException;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/driver")
+@RequestMapping("/api/drivers")
 public class DriverController {
     private final DriverService driverService;
+
+    @GetMapping("/{driverId}")
+    public BaseResponse<DriverResponse> getDriver(@PathVariable Long driverId) {
+        Driver driver = driverService.findDriver(driverId);
+        return BaseResponse.of("success", DriverResponse.from(driver));
+    }
 
     @PostMapping("/register/info")
     public BaseResponse<String> registerInfo(@Login Driver driver, @RequestBody DriverInformation driverInformation) {
@@ -51,15 +57,5 @@ public class DriverController {
     public BaseResponse<List<DriverTodayRemainingPickUpResponse>> getRemainingPickUpList(@Login Driver driver) {
         List<DriverTodayRemainingPickUpResponse> pickUpList = driverService.getTodayRemainingPickUpList(driver.getId());
         return BaseResponse.of("Data Successfully Proceed", pickUpList);
-    }
-
-    @GetMapping("/detail/driver/{driverId}")
-    public DriverDetailResponse detailDriver(@Login User user, @PathVariable("driverId") Long driverId) {
-        if (user instanceof Driver driver) {
-            if (!driver.getId().equals(driverId)) {
-                throw new BusinessException(ErrorCode.UNAUTHORIZED_USER);
-            }
-        }
-        return driverService.detail(driverId);
     }
 }

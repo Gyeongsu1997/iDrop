@@ -1,10 +1,8 @@
 package ifive.idrop.common.enums.converter;
 
 import jakarta.persistence.AttributeConverter;
-import jakarta.persistence.Converter;
 import lombok.RequiredArgsConstructor;
 
-@Converter(autoApply = true)
 @RequiredArgsConstructor
 public abstract class AbstractEnumAttributeConverter<E extends Enum<E> & BaseEnumAttribute<T>, T> implements AttributeConverter<E, T> {
     private final Class<E> enumClass;

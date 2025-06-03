@@ -40,6 +40,11 @@ public class DriverService {
     private final PickUpRepository pickUpRepository;
     private final NotificationRepository notificationRepository;
 
+    public Driver findDriver(Long driverId) {
+        return driverRepository.findById(driverId)
+                .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
+    }
+
     public List<Driver> searchAvailableDrivers(DriverListRequest driverListRequest) {
         RequestSchedule requestSchedule = parseToList(driverListRequest.getSchedule());
 
@@ -65,13 +70,6 @@ public class DriverService {
         driver.addAdditionalInfo(driverInformation);
         return BaseResponse.of("정보가 성공적으로 등록되었습니다.", driver.getName());
     }
-
-    public DriverDetailResponse detail(Long driverId) {
-        Driver driver = driverRepository.findById(driverId)
-                .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
-        return driver.getDetail();
-    }
-
 
     public BaseResponse<List<CurrentPickUpResponse>> getAllChildRunningInfo(Driver driver) {
         List<Object[]> runningPickInfo = driverRepository.findAllRunningPickUpInfoOrderByreservedTimeASC(driver.getId());
