@@ -35,7 +35,8 @@ public class Subscription {
     private LocalDateTime requestDate;
     private LocalDateTime responseDate;
     private LocalDateTime expiredDate;
-    @Column(name = "status_id", nullable = false)
+    @Convert(converter = SubscriptionStatus.Converter.class)
+    @Column(name = "status_id", columnDefinition = "tinyint unsigned", nullable = false)
     private SubscriptionStatus status;
 
     @ManyToOne(fetch = FetchType.LAZY)

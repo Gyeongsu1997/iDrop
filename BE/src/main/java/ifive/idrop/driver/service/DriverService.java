@@ -79,11 +79,6 @@ public class DriverService {
                         .toList());
     }
 
-    public List<DriverSubscribeInfoResponse> subscribeList(Long driverId) {
-        List<Subscription> subscriptionList = pickUpRepository.findPickUpInfoByDriverIdTheLatestOrder(driverId);
-        return subscriptionList.stream().map(DriverSubscribeInfoResponse::of).toList();
-    }
-
     public BaseResponse<List<CurrentPickUpResponse>> getChildRunningInfo(Driver driver) {
         List<Object[]> runningPickInfo = driverRepository.findRunningPickUpInfo(driver.getId());
         return BaseResponse.of("Data Successfully Proceed",

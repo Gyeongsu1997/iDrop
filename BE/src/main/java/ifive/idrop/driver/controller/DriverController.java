@@ -3,13 +3,10 @@ package ifive.idrop.driver.controller;
 import ifive.idrop.auth.resolver.Login;
 
 import ifive.idrop.common.dto.BaseResponse;
-import ifive.idrop.common.exception.BusinessException;
-import ifive.idrop.common.exception.ErrorCode;
 import ifive.idrop.driver.dto.*;
 import ifive.idrop.common.dto.CurrentPickUpResponse;
 import ifive.idrop.driver.domain.Driver;
 import ifive.idrop.driver.service.DriverService;
-import ifive.idrop.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,11 +38,6 @@ public class DriverController {
     @GetMapping("/pickup/now/child")
     public BaseResponse<List<CurrentPickUpResponse>> checkPickUpInfo(@Login Driver driver) {
         return driverService.getChildRunningInfo(driver);
-    }
-
-    @GetMapping("/subscribe/list")
-    public List<DriverSubscribeInfoResponse> subscribeList(@Login Driver driver) {
-        return driverService.subscribeList(driver.getId());
     }
 
     @PostMapping("/subscribe/check")

@@ -1,15 +1,13 @@
 package ifive.idrop.subscription.controller;
 
-import ifive.idrop.auth.resolver.Login;
 import ifive.idrop.common.dto.BaseResponse;
-import ifive.idrop.parent.domain.Parent;
 import ifive.idrop.subscription.dto.SubscriptionRequest;
+import ifive.idrop.subscription.dto.SubscriptionResponse;
 import ifive.idrop.subscription.service.SubscriptionService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -18,8 +16,14 @@ public class SubscriptionController {
     private final SubscriptionService subscriptionService;
 
     @PostMapping
-    public BaseResponse<String> postSubscription(@Login Parent parent, @RequestBody SubscriptionRequest subscriptionRequest) {
+    public BaseResponse<String> postSubscription(@RequestBody SubscriptionRequest subscriptionRequest) {
         subscriptionService.subscribe(subscriptionRequest);
         return BaseResponse.success();
+    }
+
+    @GetMapping("/drivers/{driverId}")
+    public BaseResponse<List<SubscriptionResponse>> getDriverSubscriptions(@PathVariable Long driverId) {
+        List<SubscriptionResponse> subscriptionResponseList = subscriptionService.findDriverSubscriptions(driverId);
+        return BaseResponse.of("success", subscriptionResponseList);
     }
 }

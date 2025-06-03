@@ -8,10 +8,13 @@ import ifive.idrop.driver.domain.Driver;
 import ifive.idrop.driver.repository.DriverRepository;
 import ifive.idrop.subscription.domain.Subscription;
 import ifive.idrop.subscription.dto.SubscriptionRequest;
+import ifive.idrop.subscription.dto.SubscriptionResponse;
 import ifive.idrop.subscription.repository.SubscriptionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -30,5 +33,12 @@ public class SubscriptionService {
 
         Subscription subscription = Subscription.createSubscription(subscriptionRequest, child, driver);
         subscriptionRepository.save(subscription);
+    }
+
+    public List<SubscriptionResponse> findDriverSubscriptions(Long driverId) {
+        return subscriptionRepository.findByDriverId(driverId)
+                .stream()
+                .map(SubscriptionResponse::from)
+                .toList();
     }
 }

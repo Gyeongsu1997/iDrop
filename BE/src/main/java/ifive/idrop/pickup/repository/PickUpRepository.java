@@ -89,21 +89,6 @@ public class PickUpRepository {
         return query.getResultList();
     }
 
-    public List<Subscription> findPickUpInfoByDriverIdTheLatestOrder(Long driverId) {
-        TypedQuery<Subscription> query = em.createQuery(
-                "SELECT pui FROM Subscription pui " +
-                        "JOIN pui.pickUpSubscribe ps " +
-                        "JOIN pui.driver d " +
-                        "WHERE d.id = :driverId " +
-                        "AND ps.status <> :cancel " +
-                        "AND ps.status <> :decline " +
-                        "ORDER BY ps.requestDate DESC", Subscription.class);
-        query.setParameter("driverId", driverId)
-                .setParameter("cancel", SubscriptionStatus.CANCELED)
-                .setParameter("decline", SubscriptionStatus.REJECTED);
-        return query.getResultList();
-    }
-
     public void savePickUpStartInfo(Long pickupId, String startImage, String startMessage) {
         PickUpHistory pickUpHistory = Optional.ofNullable(em.find(PickUpHistory.class, pickupId))
                 .orElseThrow(() -> new BusinessException(ErrorCode.PICKUP_NOT_FOUND));

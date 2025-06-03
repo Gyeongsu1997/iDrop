@@ -5,6 +5,8 @@ import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 @RequiredArgsConstructor
 public class SubscriptionRepository {
@@ -12,5 +14,11 @@ public class SubscriptionRepository {
 
     public void save(Subscription subscription) {
         em.persist(subscription);
+    }
+
+    public List<Subscription> findByDriverId(Long driverId) {
+        return em.createQuery("select s from Subscription s where s.driver.id = :driverId order by s.requestDate desc", Subscription.class)
+                .setParameter("driverId", driverId)
+                .getResultList();
     }
 }
