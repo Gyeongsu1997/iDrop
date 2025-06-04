@@ -7,11 +7,7 @@ import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.exception.ErrorCode;
 import ifive.idrop.driver.domain.Driver;
 import ifive.idrop.driver.repository.DriverRepository;
-import ifive.idrop.notification.AlarmMessage;
-import ifive.idrop.notification.NotificationUtill;
-import ifive.idrop.parent.domain.Parent;
 import ifive.idrop.pickup.domain.PickUpHistory;
-import ifive.idrop.pickup.domain.PickUpHistoryId;
 import ifive.idrop.pickup.domain.PickUpSchedule;
 import ifive.idrop.pickup.repository.PickUpRepository;
 import ifive.idrop.subscription.domain.Subscription;
@@ -29,8 +25,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import static ifive.idrop.common.util.ScheduleUtils.isOverlapped;
 
 @Service
 @RequiredArgsConstructor
@@ -83,7 +77,6 @@ public class SubscriptionService {
                 ));
 
         List<LocalDateTime> reservedTimeList = new ArrayList<>();
-
         for (int i = 0; i < 28; i++) {
             LocalDate targetDate = startDate.plusDays(i);
             Day day = Day.fromDayOfWeek(targetDate.getDayOfWeek());
