@@ -63,6 +63,7 @@ CREATE TABLE subscription (
     subscription_id	bigint unsigned	AUTO_INCREMENT PRIMARY KEY,
     request_date datetime NOT NULL,
     response_date datetime,
+    start_date date,
     expired_date datetime,
     status_id tinyint unsigned NOT NULL,
     child_id bigint unsigned NOT NULL,

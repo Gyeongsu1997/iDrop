@@ -12,6 +12,7 @@ import ifive.idrop.subscription.dto.SubscriptionRequest;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -31,6 +32,8 @@ public class Subscription {
     @Column(nullable = false)
     private LocalDateTime requestDate;
     private LocalDateTime responseDate;
+    @Column(nullable = false)
+    private LocalDate startDate;
     private LocalDateTime expiredDate;
     @Convert(converter = SubscriptionStatus.Converter.class)
     @Column(name = "status_id", columnDefinition = "tinyint unsigned", nullable = false)
@@ -56,18 +59,17 @@ public class Subscription {
     public static Subscription createSubscription(SubscriptionRequest subscriptionRequest, Child child, Driver driver) {
         Subscription subscription = new Subscription();
         subscription.requestDate = LocalDateTime.now();
+        subscription.startDate = subscriptionRequest.getStartDate();
         subscription.status = SubscriptionStatus.REQUEST;
         subscription.child = child;
         subscription.driver = driver;
         subscription.pickUpLocation = PickUpLocation.createPickUpLocation(subscription, subscriptionRequest);
 
-        Map<Day, String> schedule = subscriptionRequest.getSchedule();
-        for (Map.Entry<Day, String> entry : schedule.entrySet()) {
+        Map<Day, LocalTime> schedule = subscriptionRequest.getSchedule();
+        for (Map.Entry<Day, LocalTime> entry : schedule.entrySet()) {
             Day day = entry.getKey();
-            StringTokenizer st = new StringTokenizer(entry.getValue(), ":");
-            int hour = Integer.parseInt(st.nextToken());
-            int min = Integer.parseInt(st.nextToken());
-            subscription.addPickUpSchedule(new PickUpSchedule(new PickUpScheduleId(subscription.getId(), day), LocalTime.of(hour, min), subscription));
+            LocalTime startTime = entry.getValue();
+            subscription.addPickUpSchedule(new PickUpSchedule(new PickUpScheduleId(subscription.getId(), day), startTime, subscription));
         }
         return subscription;
     }
