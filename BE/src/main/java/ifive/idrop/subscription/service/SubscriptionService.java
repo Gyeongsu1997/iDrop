@@ -66,7 +66,7 @@ public class SubscriptionService {
         subscription.accept();
 
         List<PickUpSchedule> pickUpScheduleList = subscription.getPickUpScheduleList();
-        List<LocalDateTime> reservedTimeList = scheduleToReservedTime(pickUpScheduleList, 28);
+        List<LocalDateTime> reservedTimeList = scheduleToReservedTime(pickUpScheduleList, subscription.getStartDate());
         short historySeq = 1;
         for (LocalDateTime reservedTime : reservedTimeList) {
             PickUpHistory pickUpHistory = PickUpHistory.createPickUpHistory(subscription, historySeq++, reservedTime);
@@ -75,7 +75,7 @@ public class SubscriptionService {
         // todo: 시간이 겹치는 요청 자동 거절
     }
 
-    private List<LocalDateTime> scheduleToReservedTime(List<PickUpSchedule> pickUpScheduleList, int duration) {
+    private List<LocalDateTime> scheduleToReservedTime(List<PickUpSchedule> pickUpScheduleList, LocalDate startDate) {
         Map<Day, LocalTime> scheduleMap = pickUpScheduleList.stream()
                 .collect(Collectors.toMap(
                         PickUpSchedule::getDay,
@@ -84,9 +84,8 @@ public class SubscriptionService {
 
         List<LocalDateTime> reservedTimeList = new ArrayList<>();
 
-        LocalDate today = LocalDate.now();
-        for (int i = 1; i <= duration; i++) {
-            LocalDate targetDate = today.plusDays(i);
+        for (int i = 0; i < 28; i++) {
+            LocalDate targetDate = startDate.plusDays(i);
             Day day = Day.fromDayOfWeek(targetDate.getDayOfWeek());
 
             if (scheduleMap.containsKey(day)) {
