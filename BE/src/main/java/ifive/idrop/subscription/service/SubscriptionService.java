@@ -41,4 +41,11 @@ public class SubscriptionService {
                 .map(SubscriptionResponse::from)
                 .toList();
     }
+
+    @Transactional
+    public void reject(Long subscriptionId) {
+        Subscription subscription = subscriptionRepository.findById(subscriptionId)
+                        .orElseThrow(() -> new BusinessException(ErrorCode.SUBSCRIPTION_NOT_FOUND));
+        subscription.reject();
+    }
 }

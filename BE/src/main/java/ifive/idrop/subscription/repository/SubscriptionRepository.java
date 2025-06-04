@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -14,6 +15,10 @@ public class SubscriptionRepository {
 
     public void save(Subscription subscription) {
         em.persist(subscription);
+    }
+
+    public Optional<Subscription> findById(Long subscriptionId) {
+        return Optional.ofNullable(em.find(Subscription.class, subscriptionId));
     }
 
     public List<Subscription> findByDriverId(Long driverId) {

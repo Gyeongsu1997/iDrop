@@ -26,4 +26,10 @@ public class SubscriptionController {
         List<SubscriptionResponse> subscriptionResponseList = subscriptionService.findDriverSubscriptions(driverId);
         return BaseResponse.of("success", subscriptionResponseList);
     }
+
+    @PatchMapping("/{subscriptionId}/reject")
+    public BaseResponse<String> rejectSubscription(@PathVariable Long subscriptionId) {
+        subscriptionService.reject(subscriptionId);
+        return BaseResponse.success();
+    }
 }

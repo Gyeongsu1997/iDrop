@@ -10,10 +10,7 @@ import ifive.idrop.parent.domain.Parent;
 import ifive.idrop.pickup.domain.PickUpScheduleId;
 import ifive.idrop.subscription.dto.SubscriptionRequest;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -94,5 +91,13 @@ public class Subscription {
                     .withHour(0).withMinute(0).withSecond(0).withNano(0);
         }
         return this.status;
+    }
+
+    public void reject() {
+        if (this.status != SubscriptionStatus.REQUEST) {
+            throw new RuntimeException();
+        }
+        this.status = SubscriptionStatus.REJECTED;
+        this.responseDate = LocalDateTime.now();
     }
 }
