@@ -27,6 +27,12 @@ public class SubscriptionController {
         return BaseResponse.of("success", subscriptionResponseList);
     }
 
+    @PatchMapping("/{subscriptionId}/accept")
+    public BaseResponse<String> acceptSubscription(@PathVariable Long subscriptionId) {
+        subscriptionService.accept(subscriptionId);
+        return BaseResponse.success();
+    }
+
     @PatchMapping("/{subscriptionId}/reject")
     public BaseResponse<String> rejectSubscription(@PathVariable Long subscriptionId) {
         subscriptionService.reject(subscriptionId);

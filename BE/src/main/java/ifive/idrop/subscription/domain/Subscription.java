@@ -80,17 +80,12 @@ public class Subscription {
         pickUpScheduleList.add(schedule);
     }
 
-    public SubscriptionStatus modify(SubscriptionStatus newStatus) {
-        this.status = newStatus;
-        //상태가 변경된 시간
-        this.responseDate = LocalDateTime.now();
-
-        if (this.status.equals(SubscriptionStatus.PROGRESS)) {
-            //modifiedDate로부터 29일 후 자정
-            this.expiredDate = this.responseDate.plusDays(29)
-                    .withHour(0).withMinute(0).withSecond(0).withNano(0);
+    public void accept() {
+        if (this.status != SubscriptionStatus.REQUEST) {
+            throw new RuntimeException();
         }
-        return this.status;
+        this.status = SubscriptionStatus.PROGRESS;
+        this.responseDate = LocalDateTime.now();
     }
 
     public void reject() {

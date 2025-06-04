@@ -40,11 +40,6 @@ public class DriverController {
         return driverService.getChildRunningInfo(driver);
     }
 
-    @PostMapping("/subscribe/check")
-    public BaseResponse subscribeCheck(@Login Driver driver, @RequestBody SubscribeCheckRequest subscribeCheckRequest) throws ExecutionException, InterruptedException {
-        return driverService.subscribeCheck(driver.getId(), subscribeCheckRequest);
-    }
-
     @GetMapping("/pickup/today/remaining")
     public BaseResponse<List<DriverTodayRemainingPickUpResponse>> getRemainingPickUpList(@Login Driver driver) {
         List<DriverTodayRemainingPickUpResponse> pickUpList = driverService.getTodayRemainingPickUpList(driver.getId());
