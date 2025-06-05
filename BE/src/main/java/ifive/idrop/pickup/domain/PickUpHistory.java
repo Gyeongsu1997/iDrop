@@ -31,6 +31,14 @@ public class PickUpHistory {
     @JoinColumn(name = "subscription_id")
     private Subscription subscription;
 
+    public static PickUpHistory createPickUpHistory(Subscription subscription, Short historySeq, LocalDateTime reservedTime) {
+        PickUpHistory pickUpHistory = new PickUpHistory();
+        pickUpHistory.id = new PickUpHistoryId(subscription.getId(), historySeq);
+        pickUpHistory.reservedTime = reservedTime;
+        pickUpHistory.subscription = subscription;
+        return pickUpHistory;
+    }
+
     public void updatePickUpInfo(Subscription subscription) {
         this.subscription = subscription;
         subscription.getPickUpHistoryList().add(this);

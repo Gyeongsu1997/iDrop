@@ -93,32 +93,4 @@ public class ScheduleUtils {
         }
         return modifiedDate.toLocalDate().plusDays(EXPIRATION);
     }
-
-    public static boolean isOverlapped(String schedule1, String schedule2) {
-        JSONObject scheduleObj1 = toJSONObject(schedule1);
-        JSONObject scheduleObj2 = toJSONObject(schedule2);
-        for (int i = 0; i < 7; i++) {
-            Map<String, Integer> dayObject1 = (Map<String, Integer>) scheduleObj1.get(DAY_OF_WEEKS.get(i));
-            if (dayObject1 != null) {
-                Number hour1 = dayObject1.get("hour");
-                Number minute1 = dayObject1.get("min");
-
-                Map<String, Integer> dayObject2 = (Map<String, Integer>) scheduleObj2.get(DAY_OF_WEEKS.get(i));
-
-                if (dayObject2 != null) {
-                    Number hour2 = dayObject2.get("hour");
-                    Number minute2 = dayObject2.get("min");
-
-                    LocalTime t1 = LocalTime.of(hour1.intValue(), minute1.intValue());
-                    LocalTime t2 = LocalTime.of(hour2.intValue(), minute2.intValue());
-
-                    if (t2.isAfter(t1.minusHours(1)) && t2.isBefore(t1.plusHours(1))) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
 }

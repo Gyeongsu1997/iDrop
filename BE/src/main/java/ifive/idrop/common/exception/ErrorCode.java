@@ -20,14 +20,15 @@ public enum ErrorCode {
     PASSWORD_NOT_MATCHED(HttpStatus.BAD_REQUEST, "비밀번호가 맞지 않습니다.", "비밀번호를 다시 확인해주세요."),
     INVALID_GENDER(HttpStatus.BAD_REQUEST, "성별이 정확하지 않습니다.", "성별은 '남성' 또는 '여성' 중 하나여야 합니다."),
     INVALID_DAY_OF_WEEK(HttpStatus.BAD_REQUEST, "요일이 정확하지 않습니다.", "요일은 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun' 중 하나입니다."),
+    SUBSCRIPTION_NOT_FOUND(HttpStatus.NOT_FOUND, "구독이 존재하지 않습니다.", ""),
     INVALID_PICKUP_STATUS(HttpStatus.BAD_REQUEST, "픽업 상태가 정확하지 않습니다.", "상태는 '거절', '승인', '대기', '취소', '만료' 중 하나여야 합니다."),
     CURRENT_PICKUP_NOT_FOUND(HttpStatus.NOT_FOUND, "현재 업무 시간인 픽업이 없습니다.", "업무 시간에 픽업을 시작해주세요"),
     PICKUP_NOT_FOUND(HttpStatus.NOT_FOUND, "픽업이 없습니다.", "다시 확인해주세요"),
     PICKUP_INFO_NOT_EXIST(HttpStatus.BAD_REQUEST, "해당하는 픽업 정보가 없습니다.", "다시 확인해 주세요."),
     PICKUP_ALREADY_END(HttpStatus.BAD_REQUEST, "이미 종료된 픽업입니다.", "다시 확인해주세요."),
     IMAGE_UPLOAD_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "이미지 업로드 중 문제가 발생했습니다.", "다시 요청해주세요."),
-    DIRECTION_NOT_FOUND(HttpStatus.INTERNAL_SERVER_ERROR, "경로가 없습니다.", "도착했는지 확인해주세요."),
-    ;
+    DIRECTION_NOT_FOUND(HttpStatus.INTERNAL_SERVER_ERROR, "경로가 없습니다.", "도착했는지 확인해주세요.");
+
     private final HttpStatus httpStatus;
     private final String message;
     private final String solution;

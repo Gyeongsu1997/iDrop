@@ -3,6 +3,7 @@ package ifive.idrop.common.enums;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import java.time.DayOfWeek;
 import java.util.Arrays;
 
 @Getter
@@ -23,5 +24,9 @@ public enum Day {
                 .filter(d -> d.getValue().equals(value))
                 .findAny()
                 .orElseThrow(IllegalArgumentException::new);
+    }
+
+    public static Day fromDayOfWeek(DayOfWeek dayOfWeek) {
+        return Day.valueOf(dayOfWeek.name().substring(0, 3));
     }
 }

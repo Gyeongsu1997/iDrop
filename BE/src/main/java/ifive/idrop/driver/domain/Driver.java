@@ -1,7 +1,6 @@
 package ifive.idrop.driver.domain;
 
 import ifive.idrop.driver.dto.DriverInformation;
-import ifive.idrop.driver.dto.DriverDetailResponse;
 import ifive.idrop.driver.dto.DriverSummary;
 import ifive.idrop.driver.dto.WorkHoursDto;
 import ifive.idrop.subscription.domain.Subscription;
@@ -45,20 +44,6 @@ public class Driver extends User {
                 .name(this.getName())
 //                .gender((this.gender != null) ? this.gender.getLabel() : null)
                 .image(this.getImageUrl())
-                .introduction(this.getIntroduction())
-                .starRate(this.getStarRate())
-                .build();
-    }
-
-    public DriverDetailResponse getDetail() {
-        return DriverDetailResponse.builder()
-                .driverId(this.getId())
-                .name(this.getName())
-                .phoneNumber(this.getPhoneNumber())
-//                .gender((this.gender != null) ? this.gender.getLabel() : null)
-                .birth(this.getBirthDate())
-                .image(this.getImageUrl())
-                .career(this.getCareer())
                 .introduction(this.getIntroduction())
                 .starRate(this.getStarRate())
                 .build();

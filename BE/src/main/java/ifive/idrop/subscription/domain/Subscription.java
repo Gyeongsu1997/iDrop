@@ -1,21 +1,24 @@
 package ifive.idrop.subscription.domain;
 
 import ifive.idrop.child.domain.Child;
+import ifive.idrop.common.enums.Day;
 import ifive.idrop.driver.domain.Driver;
-import ifive.idrop.parent.dto.SubscriptionRequest;
 import ifive.idrop.pickup.domain.PickUpHistory;
 import ifive.idrop.pickup.domain.PickUpLocation;
 import ifive.idrop.pickup.domain.PickUpSchedule;
 import ifive.idrop.parent.domain.Parent;
+import ifive.idrop.pickup.domain.PickUpScheduleId;
+import ifive.idrop.subscription.dto.SubscriptionRequest;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.StringTokenizer;
 
 @Entity
 @Getter
@@ -29,30 +32,46 @@ public class Subscription {
     @Column(nullable = false)
     private LocalDateTime requestDate;
     private LocalDateTime responseDate;
+    @Column(nullable = false)
+    private LocalDate startDate;
     private LocalDateTime expiredDate;
-    @Column(name = "status_id", nullable = false)
+    @Convert(converter = SubscriptionStatus.Converter.class)
+    @Column(name = "status_id", columnDefinition = "tinyint unsigned", nullable = false)
     private SubscriptionStatus status;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "driver_id")
-    private Driver driver;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "child_id")
     private Child child;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "driver_id")
+    private Driver driver;
+
     @OneToOne(mappedBy = "subscription", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private PickUpLocation pickUpLocation;
 
     @OneToMany(mappedBy = "subscription", cascade = CascadeType.ALL)
-    private List<PickUpSchedule> pickUpScheduleList;
+    private List<PickUpSchedule> pickUpScheduleList = new ArrayList<>();
 
     @OneToMany(mappedBy = "subscription")
     private List<PickUpHistory> pickUpHistoryList = new ArrayList<>();
 
-    public void updatePickUpLocation(PickUpLocation location) {
-        this.pickUpLocation = location;
-        location.subscription = this;
+    public static Subscription createSubscription(SubscriptionRequest subscriptionRequest, Child child, Driver driver) {
+        Subscription subscription = new Subscription();
+        subscription.requestDate = LocalDateTime.now();
+        subscription.startDate = subscriptionRequest.getStartDate();
+        subscription.status = SubscriptionStatus.REQUEST;
+        subscription.child = child;
+        subscription.driver = driver;
+        subscription.pickUpLocation = PickUpLocation.createPickUpLocation(subscription, subscriptionRequest);
+
+        Map<Day, LocalTime> schedule = subscriptionRequest.getSchedule();
+        for (Map.Entry<Day, LocalTime> entry : schedule.entrySet()) {
+            Day day = entry.getKey();
+            LocalTime startTime = entry.getValue();
+            subscription.addPickUpSchedule(new PickUpSchedule(new PickUpScheduleId(subscription.getId(), day), startTime, subscription));
+        }
+        return subscription;
     }
 
     public Parent getParent() {
@@ -63,28 +82,19 @@ public class Subscription {
         pickUpScheduleList.add(schedule);
     }
 
-    public SubscriptionStatus modify(SubscriptionStatus newStatus) {
-        this.status = newStatus;
-        //상태가 변경된 시간
-        this.responseDate = LocalDateTime.now();
-
-        if (this.status.equals(SubscriptionStatus.PROGRESS)) {
-            //modifiedDate로부터 29일 후 자정
-            this.expiredDate = this.responseDate.plusDays(29)
-                    .withHour(0).withMinute(0).withSecond(0).withNano(0);
+    public void accept() {
+        if (this.status != SubscriptionStatus.REQUEST) {
+            throw new RuntimeException();
         }
-        return this.status;
+        this.status = SubscriptionStatus.PROGRESS;
+        this.responseDate = LocalDateTime.now();
     }
 
-    public static Subscription createSubscription(SubscriptionRequest request, Driver driver, Child child) {
-        Subscription subscription = new Subscription();
-        subscription.driver = driver;
-        subscription.child = child;
-        subscription.status = SubscriptionStatus.REQUEST;
-        subscription.requestDate = LocalDateTime.now();
-        subscription.pickUpScheduleList = new ArrayList<>();
-        PickUpLocation pickUpLocation = PickUpLocation.createPickUpLocation(request);
-        subscription.updatePickUpLocation(pickUpLocation);
-        return subscription;
+    public void reject() {
+        if (this.status != SubscriptionStatus.REQUEST) {
+            throw new RuntimeException();
+        }
+        this.status = SubscriptionStatus.REJECTED;
+        this.responseDate = LocalDateTime.now();
     }
 }

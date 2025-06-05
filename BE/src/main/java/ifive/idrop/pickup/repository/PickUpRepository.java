@@ -22,12 +22,12 @@ import ifive.idrop.pickup.domain.PickUpLocation;
 public class PickUpRepository {
     private final EntityManager em;
 
-    public Optional<PickUpHistory> findPickUpById(Long pickUpId) {
-        return Optional.ofNullable(em.find(PickUpHistory.class, pickUpId));
+    public void save(PickUpHistory pickUpHistory) {
+        em.persist(pickUpHistory);
     }
 
-    public Optional<Subscription> findPickUpInfoById(Long pickUpInfoId) {
-        return Optional.ofNullable(em.find(Subscription.class, pickUpInfoId));
+    public Optional<PickUpHistory> findPickUpById(Long pickUpId) {
+        return Optional.ofNullable(em.find(PickUpHistory.class, pickUpId));
     }
 
     public List<PickUpHistory> findReservedPickUpsByDriver(Long driverId) {
@@ -42,14 +42,6 @@ public class PickUpRepository {
         query.setParameter("status", SubscriptionStatus.PROGRESS)
                 .setParameter("driverId", driverId);
         return query.getResultList();
-    }
-
-    public void savePickUpInfo(Subscription subscription) {
-        em.persist(subscription);
-    }
-
-    public void savePickUp(PickUpHistory pick) {
-        em.persist(pick);
     }
 
     public List<PickUpHistory> findPickUpByPickUpInfoIdAndParentIdOrderByReservedTime(Long parentId, Long pickInfoId) {
@@ -90,21 +82,6 @@ public class PickUpRepository {
                         "ORDER BY CASE WHEN ps.expiredDate IS NULL THEN 1 ELSE 0 END, " +
                         "ps.expiredDate DESC", Subscription.class);
         query.setParameter("parentId", parentId);
-        return query.getResultList();
-    }
-
-    public List<Subscription> findPickUpInfoByDriverIdTheLatestOrder(Long driverId) {
-        TypedQuery<Subscription> query = em.createQuery(
-                "SELECT pui FROM Subscription pui " +
-                        "JOIN pui.pickUpSubscribe ps " +
-                        "JOIN pui.driver d " +
-                        "WHERE d.id = :driverId " +
-                        "AND ps.status <> :cancel " +
-                        "AND ps.status <> :decline " +
-                        "ORDER BY ps.requestDate DESC", Subscription.class);
-        query.setParameter("driverId", driverId)
-                .setParameter("cancel", SubscriptionStatus.CANCELED)
-                .setParameter("decline", SubscriptionStatus.REJECTED);
         return query.getResultList();
     }
 
