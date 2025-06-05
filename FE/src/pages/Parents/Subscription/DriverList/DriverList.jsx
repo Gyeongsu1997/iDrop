@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Header } from "@/components/Header/Header";
 import { DriverListItem } from "./DriverListItem/DriverListItem";
 import styles from "./DriverList.module.scss";
-import { getDriverList } from "@/service/parentsAPI";
+import { getDriverList } from "@/services/parentsAPI";
 
 export default function DriverList() {
     const [drivers, setDrivers] = useState([]);

@@ -1,5 +1,5 @@
 import { useLoaderData } from "react-router-dom";
-import { getKidInfo } from "@/service/childrenAPI";
+import { getKidInfo } from "@/services/childrenAPI";
 import styles from "./Menu.module.scss";
 import { MenuButton } from "./MenuButton/MenuButton";
 import iDropGreen from "@/assets/iDropGreen.svg";
@@ -18,7 +18,7 @@ import Success from "@/assets/Success.svg";
 import User from "@/assets/user_icon.svg";
 import Calender from "@/assets/calender.svg";
 import Truck from "@/assets/truck.png";
-import { handleAllowNotification } from "../../service/notification/notificationPermission";
+import { handleAllowNotification } from "../../services/notification/notificationPermission";
 
 const userName = null;
 export function DriverMenu() {

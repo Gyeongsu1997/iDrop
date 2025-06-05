@@ -1,4 +1,4 @@
-import { getCurrentPickUp } from "../../../service/parentsAPI";
+import { getCurrentPickUp } from "../../../services/parentsAPI";
 import styles from "./menuButton.module.scss";
 import { useNavigate } from "react-router-dom";
 

@@ -1,6 +1,6 @@
 import { redirect, useLoaderData, useLocation } from "react-router-dom";
 import { Header } from "@/components/Header/Header";
-import { getKidInfo } from "@/service/childrenAPI";
+import { getKidInfo } from "@/services/childrenAPI";
 import styles from "./SelectChild.module.scss";
 import { TodayPickUpList } from "./TodayPickUpList";
 import { isHaveItems, parseData } from "../../../utils/parseData";

@@ -4,7 +4,7 @@ import { Footer } from "@/components/Footer/Footer";
 import { Header } from "@/components/Header/Header";
 import styles from "./PickUp.module.scss";
 import { CameraSnapshotPreview } from "./CameraSnapshotPreview";
-import { postKidInfo } from "@/service/childrenAPI";
+import { postKidInfo } from "@/services/childrenAPI";
 import { isWithinRadius } from "@/utils/calculatorDistance";
 import { useCoords } from "@/hooks/useCoords";
 import { ContentsBox } from "../../../components/Bottomsheet/ContentsBox/ContentsBox";
