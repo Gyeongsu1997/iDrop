@@ -6,23 +6,28 @@ import { getLatLng } from '@/utils/map';
 import { useMarker } from '@/hooks/useMarker';
 import { useCoords } from '@/hooks/useCoords';
 
-const searchCoordinateToAddress = (latLng, handleLocationSelect, mapType) => {
+const searchCoordinateToAddress = (
+  coords: naver.maps.Coord,
+  handleLocationSelect: any,
+  mapType: string,
+) => {
   naver.maps.Service.reverseGeocode(
     {
-      coords: latLng,
+      coords,
       orders: [
         naver.maps.Service.OrderType.ADDR,
         naver.maps.Service.OrderType.ROAD_ADDR,
       ].join(','),
     },
-    (status, response) => {
-      if (status !== naver.maps.Service.Status.OK) {
+    (status: naver.maps.Service.Status, response) => {
+      if (status === naver.maps.Service.Status.ERROR) {
+        console.log(response);
         return alert('Something went wrong!');
       }
 
       const { roadAddress, jibunAddress } = response.v2.address;
       const address = roadAddress ?? jibunAddress;
-      const { y: latitude, x: longitude } = latLng;
+      const { y: latitude, x: longitude } = coords;
       const location = {
         address,
         latitude,
@@ -38,29 +43,34 @@ const addDragEventListener = ({
   marker,
   handleLocationSelect,
   mapType,
+}: {
+  map: naver.maps.Map;
+  marker: any;
+  handleLocationSelect: any;
+  mapType: string;
 }) => {
   if (!map || !marker) {
     return;
   }
-  naver.maps.Event.addListener(map, 'drag', (e) => {
+  naver.maps.Event.addListener(map, 'drag', () => {
     marker.setPosition(map.getCenter());
   });
 
-  naver.maps.Event.addListener(map, 'dragend', (e) => {
-    const currentCoords = map.getCenter();
+  naver.maps.Event.addListener(map, 'dragend', () => {
+    const currentCoords: naver.maps.Coord = map.getCenter();
     searchCoordinateToAddress(currentCoords, handleLocationSelect, mapType);
   });
 };
 
 export function AddressFinderMap({ handleLocationSelect, mapType }) {
-  const mapRef = useRef();
+  const mapRef = useRef<HTMLDivElement>(null);
   const {
     location: { latitude, longitude },
     isLoading: locationLoading,
   } = useCoords();
 
   const center = !locationLoading && getLatLng(latitude, longitude);
-  const map = useMap(mapRef, { center }, locationLoading);
+  const map: naver.maps.Map = useMap(mapRef, { center }, locationLoading);
   const marker = useMarker(map, map?.getCenter());
   addDragEventListener({ map, marker, handleLocationSelect, mapType });
 
