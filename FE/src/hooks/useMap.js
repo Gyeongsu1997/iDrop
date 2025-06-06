@@ -33,5 +33,6 @@ export function useMap(mapRef, options = {}, isLoading = false) {
             setMap(null);
         };
     }, [isLoading]);
+
     return map;
 }
