@@ -69,7 +69,8 @@ export function AddressFinderMap({ handleLocationSelect, mapType }) {
     isLoading: locationLoading,
   } = useCoords();
 
-  const center = !locationLoading && getLatLng(latitude, longitude);
+  const center: naver.maps.LatLng =
+    !locationLoading && getLatLng(latitude, longitude);
   const map: naver.maps.Map = useMap(mapRef, { center }, locationLoading);
   const marker = useMarker(map, map?.getCenter());
   addDragEventListener({ map, marker, handleLocationSelect, mapType });
