@@ -18,13 +18,6 @@ export function getCurrentLocation() {
   });
 }
 
-export const getCurrentLocation = async () => {
-  if (!navigator.geolocation) {
-    throw new Error('Geolocation is not supported!');
-  }
-  navigator.geolocation.getCurrentPosition();
-};
-
 export async function getCurrentCoords(defaultCoords = DEFAULT_COORDS) {
   try {
     const response = await getCurrentLocation();
