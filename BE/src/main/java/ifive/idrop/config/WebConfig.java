@@ -2,15 +2,15 @@ package ifive.idrop.config;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import ifive.idrop.auth.filter.CorsFilter;
-import ifive.idrop.auth.filter.JwtAuthorizationFilter;
-import ifive.idrop.auth.filter.JwtFilter;
-import ifive.idrop.auth.filter.VerifyUserFilter;
-import ifive.idrop.notification.FCMFilter;
-import ifive.idrop.auth.utils.JwtProvider;
-import ifive.idrop.user.repository.UserRepository;
-import ifive.idrop.auth.resolver.LoginUsersArgumentResolver;
-import ifive.idrop.user.service.UserService;
+import ifive.idrop.domain.auth.filter.CorsFilter;
+import ifive.idrop.domain.auth.filter.JwtAuthorizationFilter;
+import ifive.idrop.domain.auth.filter.JwtFilter;
+import ifive.idrop.domain.auth.filter.VerifyUserFilter;
+import ifive.idrop.domain.notification.FCMFilter;
+import ifive.idrop.domain.auth.utils.JwtProvider;
+import ifive.idrop.domain.user.repository.UserRepository;
+import ifive.idrop.domain.auth.resolver.LoginUsersArgumentResolver;
+import ifive.idrop.domain.user.service.UserService;
 import jakarta.servlet.Filter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;

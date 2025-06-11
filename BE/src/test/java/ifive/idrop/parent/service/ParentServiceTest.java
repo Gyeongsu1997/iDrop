@@ -1,9 +1,7 @@
 package ifive.idrop.parent.service;
 
+import ifive.idrop.domain.parent.service.ParentService;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class ParentServiceTest {
     @InjectMocks

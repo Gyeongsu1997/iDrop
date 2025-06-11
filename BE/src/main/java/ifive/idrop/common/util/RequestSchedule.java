@@ -1,6 +1,6 @@
 package ifive.idrop.common.util;
 
-import ifive.idrop.driver.domain.WorkSchedule;
+import ifive.idrop.domain.driver.WorkSchedule;
 import lombok.Getter;
 
 import java.time.LocalDateTime;

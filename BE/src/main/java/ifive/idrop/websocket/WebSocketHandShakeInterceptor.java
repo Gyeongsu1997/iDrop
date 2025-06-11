@@ -1,11 +1,11 @@
 package ifive.idrop.websocket;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import ifive.idrop.user.domain.User;
-import ifive.idrop.auth.domain.AuthenticateUser;
-import ifive.idrop.auth.filter.VerifyUserFilter;
-import ifive.idrop.auth.utils.JwtProvider;
-import ifive.idrop.user.repository.UserRepository;
+import ifive.idrop.domain.user.User;
+import ifive.idrop.domain.auth.AuthenticateUser;
+import ifive.idrop.domain.auth.filter.VerifyUserFilter;
+import ifive.idrop.domain.auth.utils.JwtProvider;
+import ifive.idrop.domain.user.repository.UserRepository;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

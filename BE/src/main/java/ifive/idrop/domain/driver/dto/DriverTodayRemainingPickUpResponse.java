@@ -1,21 +1,22 @@
-package ifive.idrop.common.dto;
+package ifive.idrop.domain.driver.dto;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import ifive.idrop.domain.subscription.Subscription;
 import ifive.idrop.domain.pickup.PickUpLocation;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
 
 @Builder
 @AllArgsConstructor
 @Getter
-public class CurrentPickUpResponse {
+public class DriverTodayRemainingPickUpResponse {
+
     private Long childId;
     private String childName;
     private String childImage;
-    private LocalDateTime startDate;    // 구독 승인 날짜
-    private LocalDateTime endDate;      // 구독 마감 날짜
 
     @JsonUnwrapped
     private Destination destination;
@@ -23,15 +24,13 @@ public class CurrentPickUpResponse {
     @JsonUnwrapped
     private TimeInfo timeInfo;
 
-    static public CurrentPickUpResponse of(Subscription subscription, LocalDateTime reservedTime) {
-        return CurrentPickUpResponse.builder()
+    static public DriverTodayRemainingPickUpResponse of(Subscription subscription, LocalDateTime reservedTime) {
+        return DriverTodayRemainingPickUpResponse.builder()
                 .childId(subscription.getChild().getId())
                 .childName(subscription.getChild().getName())
                 .childImage(subscription.getChild().getImageUrl())
-                .startDate(subscription.getResponseDate().plusDays(1))
-                .endDate(subscription.getExpiredDate().minusDays(1))
-                .destination(Destination.of(subscription.getPickUpLocation()))
-                .timeInfo(TimeInfo.of(reservedTime))
+                .destination(DriverTodayRemainingPickUpResponse.Destination.of(subscription.getPickUpLocation()))
+                .timeInfo(DriverTodayRemainingPickUpResponse.TimeInfo.of(reservedTime))
                 .build();
     }
 
@@ -42,8 +41,8 @@ public class CurrentPickUpResponse {
         private LocalDateTime pickUpStartTime;  // 실제 픽업 시작 시간
         private LocalDateTime pickUpEndTime;    // 실제 픽업 마감 시간
 
-        static public TimeInfo of(LocalDateTime reservedTime) {
-            return TimeInfo.builder()
+        static public DriverTodayRemainingPickUpResponse.TimeInfo of(LocalDateTime reservedTime) {
+            return DriverTodayRemainingPickUpResponse.TimeInfo.builder()
                     .pickUpStartTime(reservedTime)
                     .pickUpEndTime(reservedTime.plusHours(1))
                     .build();
@@ -61,8 +60,8 @@ public class CurrentPickUpResponse {
         private Double endLongitude;
         private String endAddress;
 
-        static public Destination of(PickUpLocation location) {
-            return Destination.builder()
+        static public DriverTodayRemainingPickUpResponse.Destination of(PickUpLocation location) {
+            return DriverTodayRemainingPickUpResponse.Destination.builder()
                     .startAddress(location.getStartAddress())
                     .startLatitude(location.getStartLatitude())
                     .startLongitude(location.getStartLongitude())

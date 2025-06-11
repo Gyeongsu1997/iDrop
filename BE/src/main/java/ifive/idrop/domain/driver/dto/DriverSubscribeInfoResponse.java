@@ -1,0 +1,56 @@
+package ifive.idrop.domain.driver.dto;
+
+import ifive.idrop.domain.child.Child;
+import ifive.idrop.domain.parent.Parent;
+import ifive.idrop.domain.pickup.PickUpLocation;
+import ifive.idrop.domain.subscription.Subscription;
+import lombok.Builder;
+import lombok.Getter;
+import org.json.simple.JSONObject;
+
+import java.time.LocalDate;
+
+import static ifive.idrop.common.util.ScheduleUtils.*;
+
+@Builder
+@Getter
+public class DriverSubscribeInfoResponse {
+    private Long pickUpInfoId;
+    private String parentName;
+    private String parentPhoneNumber;
+    private String childName;
+    private LocalDate childBirth;
+    private String childGender;
+    private String childImage;
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private String startAddress; //출발지 주소
+    private String endAddress; //목적지 주소
+    private String status;
+    private JSONObject schedule;
+
+    public static DriverSubscribeInfoResponse of(Subscription subscription) {
+        Child child = subscription.getChild();
+        Parent parent = child.getParent();
+        PickUpLocation pickUpLocation = subscription.getPickUpLocation();
+
+        LocalDate startDate = calculateStartDate(subscription.getResponseDate());
+        LocalDate endDate = calculateEndDate(subscription.getResponseDate());
+
+        return DriverSubscribeInfoResponse.builder()
+                .pickUpInfoId(subscription.getId())
+                .parentName(parent.getName())
+                .parentPhoneNumber(parent.getPhoneNumber())
+                .childName(child.getName())
+                .childBirth(child.getBirthDate())
+//                .childGender(child.getGender().getLabel())
+                .childImage(child.getImageUrl())
+                .startDate(startDate)
+                .endDate(endDate)
+                .startAddress(pickUpLocation.getStartAddress())
+                .endAddress(pickUpLocation.getEndAddress())
+                .status(subscription.getStatus().getDesc())
+//                .schedule(toJSONObject(pickUpSubscription.getSchedule()))
+                .build();
+    }
+}
