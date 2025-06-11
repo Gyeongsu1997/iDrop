@@ -13,19 +13,19 @@ CREATE TABLE users (
     phone_number varchar(50) NOT NULL,
     image_url varchar(255),
     role char(1) NOT NULL CHECK (role IN ('D', 'P'))
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE auth (
     users_id bigint unsigned PRIMARY KEY,
     refresh_token varchar(255),
     fcm_token varchar(255),
     FOREIGN KEY (users_id) REFERENCES users(users_id)
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE parent (
     users_id bigint unsigned PRIMARY KEY, -- todo: 컬럼명을 parent_id로 변경
     FOREIGN KEY (users_id) REFERENCES users(users_id)
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE child (
     child_id bigint unsigned AUTO_INCREMENT PRIMARY KEY,
@@ -35,7 +35,7 @@ CREATE TABLE child (
     image_url varchar(255),
     parent_id bigint unsigned NOT NULL,
     FOREIGN KEY (parent_id) REFERENCES parent(users_id)
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE driver (
     users_id bigint unsigned PRIMARY KEY, -- todo: 컬럼명을 driver_id로 변경
@@ -43,7 +43,7 @@ CREATE TABLE driver (
     introduction varchar(255) NOT NULL,
     star_rate double,
     FOREIGN KEY (users_id) REFERENCES users(users_id)
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE work_hours (
     driver_id bigint unsigned NOT NULL,
@@ -52,12 +52,21 @@ CREATE TABLE work_hours (
     end_time time,
     PRIMARY KEY (driver_id, day),
     FOREIGN KEY (driver_id) REFERENCES driver(users_id)
-);
+) ENGINE=InnoDB;
+
+CREATE TABLE work_location (
+    driver_id bigint unsigned PRIMARY KEY,
+    longitude double NOT NULL,
+    latitude double NOT NULL,
+    radius smallint unsigned NOT NULL,
+    geometry geometry NOT NULL SRID 4326,
+    SPATIAL INDEX(geometry)
+) ENGINE=InnoDB;
 
 CREATE TABLE subscription_status (
     status_id tinyint unsigned PRIMARY KEY,
     status_name varchar(50) NOT NULL
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE subscription (
     subscription_id	bigint unsigned	AUTO_INCREMENT PRIMARY KEY,
@@ -71,7 +80,7 @@ CREATE TABLE subscription (
     FOREIGN KEY (status_id) REFERENCES subscription_status(status_id),
     FOREIGN KEY (child_id) REFERENCES child(child_id),
     FOREIGN KEY (driver_id) REFERENCES driver(users_id)
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE pick_up_schedule (
     subscription_id	bigint unsigned	NOT NULL,
@@ -79,7 +88,7 @@ CREATE TABLE pick_up_schedule (
     start_time time,
     PRIMARY KEY (subscription_id, day),
     FOREIGN KEY (subscription_id) REFERENCES subscription(subscription_id)
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE pick_up_location (
     subscription_id	bigint unsigned	PRIMARY KEY,
@@ -90,7 +99,7 @@ CREATE TABLE pick_up_location (
     end_latitude double	NOT NULL,
     end_longitude double NOT NULL,
     FOREIGN KEY (subscription_id) REFERENCES subscription(subscription_id)
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE pick_up_history (
     subscription_id bigint unsigned NOT NULL,
@@ -104,7 +113,7 @@ CREATE TABLE pick_up_history (
     end_message varchar(255),
     PRIMARY KEY (subscription_id, history_seq),
     FOREIGN KEY (subscription_id) REFERENCES subscription(subscription_id)
-);
+) ENGINE=InnoDB;
 
 
 
@@ -113,7 +122,7 @@ CREATE TABLE notification (
     pick_up_alarm_time datetime NOT NULL,
     driver_id bigint unsigned NOT NULL,
     FOREIGN KEY (driver_id) REFERENCES driver(users_id)
-);
+) ENGINE=InnoDB;
 
 INSERT INTO subscription_status values (1, 'REQUEST');
 INSERT INTO subscription_status values (2, 'CANCELED');
