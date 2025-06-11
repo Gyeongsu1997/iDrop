@@ -44,6 +44,15 @@ CREATE TABLE driver (
     FOREIGN KEY (users_id) REFERENCES users(users_id)
 ) ENGINE=InnoDB;
 
+CREATE TABLE work_location (
+    driver_id bigint unsigned PRIMARY KEY,
+    latitude double NOT NULL,
+    longitude double NOT NULL,
+    radius int unsigned NOT NULL,
+    point point NOT NULL SRID 4326,
+    SPATIAL INDEX(point)
+) ENGINE=InnoDB;
+
 CREATE TABLE work_schedule (
     driver_id bigint unsigned NOT NULL,
     day	enum('MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN') NOT NULL,
@@ -51,15 +60,6 @@ CREATE TABLE work_schedule (
     end_time time,
     PRIMARY KEY (driver_id, day),
     FOREIGN KEY (driver_id) REFERENCES driver(users_id)
-) ENGINE=InnoDB;
-
-CREATE TABLE work_location (
-    driver_id bigint unsigned PRIMARY KEY,
-    latitude double NOT NULL,
-    longitude double NOT NULL,
-    radius smallint unsigned NOT NULL,
-    point point NOT NULL SRID 4326,
-    SPATIAL INDEX(point)
 ) ENGINE=InnoDB;
 
 CREATE TABLE subscription_status (
@@ -81,14 +81,6 @@ CREATE TABLE subscription (
     FOREIGN KEY (driver_id) REFERENCES driver(users_id)
 ) ENGINE=InnoDB;
 
-CREATE TABLE pick_up_schedule (
-    subscription_id	bigint unsigned	NOT NULL,
-    day	enum('MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN') NOT NULL,
-    start_time time,
-    PRIMARY KEY (subscription_id, day),
-    FOREIGN KEY (subscription_id) REFERENCES subscription(subscription_id)
-) ENGINE=InnoDB;
-
 CREATE TABLE pick_up_location (
     subscription_id	bigint unsigned	PRIMARY KEY,
     start_address varchar(255) NOT NULL,
@@ -97,6 +89,14 @@ CREATE TABLE pick_up_location (
     end_address	varchar(255) NOT NULL,
     end_latitude double	NOT NULL,
     end_longitude double NOT NULL,
+    FOREIGN KEY (subscription_id) REFERENCES subscription(subscription_id)
+) ENGINE=InnoDB;
+
+CREATE TABLE pick_up_schedule (
+    subscription_id	bigint unsigned	NOT NULL,
+    day	enum('MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN') NOT NULL,
+    start_time time,
+    PRIMARY KEY (subscription_id, day),
     FOREIGN KEY (subscription_id) REFERENCES subscription(subscription_id)
 ) ENGINE=InnoDB;
 

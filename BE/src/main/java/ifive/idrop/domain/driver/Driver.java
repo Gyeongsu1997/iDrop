@@ -21,6 +21,9 @@ public class Driver extends User {
     @OneToMany(mappedBy = "driver")
     private List<Subscription> subscriptionList = new ArrayList<>();
 
+    @OneToOne(mappedBy = "driver", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private WorkLocation workLocation;
+
     @OneToMany(mappedBy = "driver", cascade = CascadeType.ALL)
     private List<WorkSchedule> workScheduleList = new ArrayList<>();
 
