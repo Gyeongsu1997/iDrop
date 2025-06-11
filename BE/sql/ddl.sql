@@ -58,7 +58,7 @@ CREATE TABLE work_location (
     longitude double NOT NULL,
     latitude double NOT NULL,
     radius smallint unsigned NOT NULL,
-    geometry geometry NOT NULL SRID 4326,
+    point point NOT NULL SRID 4326,
     SPATIAL INDEX(geometry)
 ) ENGINE=InnoDB;
 
