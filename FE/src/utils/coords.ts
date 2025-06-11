@@ -14,6 +14,9 @@ export function getCurrentLocation() {
       (error) => {
         reject(error);
       },
+      {
+        enableHighAccuracy: true,
+      },
     );
   });
 }
