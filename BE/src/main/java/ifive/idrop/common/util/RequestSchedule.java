@@ -1,6 +1,6 @@
 package ifive.idrop.common.util;
 
-import ifive.idrop.driver.domain.WorkHours;
+import ifive.idrop.driver.domain.WorkSchedule;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -22,13 +22,13 @@ public class RequestSchedule {
         Collections.sort(requestSchedule);
     }
 
-    public boolean isAvailable(List<WorkHours> workHoursList, List<LocalDateTime> reservedSchedule) {
-        if (isInWorkHours(workHoursList) && isReservable(reservedSchedule))
+    public boolean isAvailable(List<WorkSchedule> workScheduleList, List<LocalDateTime> reservedSchedule) {
+        if (isInWorkHours(workScheduleList) && isReservable(reservedSchedule))
             return true;
         return false;
     }
 
-    public boolean isInWorkHours(List<WorkHours> workHoursList) {
+    public boolean isInWorkHours(List<WorkSchedule> workScheduleList) {
         sortSchedule();
         for (int i = 0; i < requestSchedule.size(); i++) {
             if (i >= 7) {
@@ -38,16 +38,16 @@ public class RequestSchedule {
             LocalTime requestTime = LocalTime.of(schedule.getHour(), schedule.getMinute());
 
             int requestDayOfWeek = schedule.getDayOfWeek().getValue() - 1;
-            List<WorkHours> WorkHoursOfSpecificDayOfWeek = workHoursList.stream()
+            List<WorkSchedule> workScheduleOfSpecificDayOfWeek = workScheduleList.stream()
                     .filter(w -> w.getId().getDay().ordinal() == requestDayOfWeek)
                     .toList(); //특정 요일의 업무 시간이 오전, 오후 등 여러개가 있을 수 있으므로 리스트로 변환함
 
-            if (WorkHoursOfSpecificDayOfWeek.isEmpty())
+            if (workScheduleOfSpecificDayOfWeek.isEmpty())
                 return false;
             boolean available = false;
-            for (WorkHours workHours : WorkHoursOfSpecificDayOfWeek) {
-                LocalTime startTime = workHours.getStartTime();
-                LocalTime endTime = workHours.getEndTime();
+            for (WorkSchedule workSchedule : workScheduleOfSpecificDayOfWeek) {
+                LocalTime startTime = workSchedule.getStartTime();
+                LocalTime endTime = workSchedule.getEndTime();
 
                 if ((requestTime.equals(startTime) || requestTime.isAfter(startTime))
                         && (requestTime.equals(endTime.minusHours(1)) || requestTime.isBefore(endTime.minusHours(1))))

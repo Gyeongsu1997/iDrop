@@ -2,7 +2,7 @@ package ifive.idrop.driver.service;
 
 import ifive.idrop.common.dto.BaseResponse;
 import ifive.idrop.driver.domain.Driver;
-import ifive.idrop.driver.domain.WorkHours;
+import ifive.idrop.driver.domain.WorkSchedule;
 import ifive.idrop.driver.dto.*;
 import ifive.idrop.parent.dto.DriverListRequest;
 import ifive.idrop.common.exception.BusinessException;
@@ -49,8 +49,8 @@ public class DriverService {
             List<LocalDateTime> reservedSchedule = pickUpHistoryList.stream()
                     .map(PickUpHistory::getReservedTime)
                     .toList();
-            List<WorkHours> workHoursList = driver.getWorkHoursList();
-            if (requestSchedule.isAvailable(workHoursList, reservedSchedule)) {
+            List<WorkSchedule> workScheduleList = driver.getWorkScheduleList();
+            if (requestSchedule.isAvailable(workScheduleList, reservedSchedule)) {
                 availableDrivers.add(driver);
             }
         }

@@ -2,7 +2,7 @@ package ifive.idrop.driver.dto;
 
 import ifive.idrop.common.enums.Day;
 import ifive.idrop.driver.domain.Driver;
-import ifive.idrop.driver.domain.WorkHours;
+import ifive.idrop.driver.domain.WorkSchedule;
 import lombok.Getter;
 
 @Getter
@@ -13,7 +13,7 @@ public class WorkHoursDto {
     private int endHour;
     private int endMinute;
 
-    public WorkHours toEntity(Driver driver) {
-        return WorkHours.createWorkHours(driver, day, startHour, startMinute, endHour, endMinute);
+    public WorkSchedule toEntity(Driver driver) {
+        return WorkSchedule.createWorkHours(driver, day, startHour, startMinute, endHour, endMinute);
     }
 }

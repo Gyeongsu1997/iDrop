@@ -22,7 +22,7 @@ public class Driver extends User {
     private List<Subscription> subscriptionList = new ArrayList<>();
 
     @OneToMany(mappedBy = "driver", cascade = CascadeType.ALL)
-    private List<WorkHours> workHoursList = new ArrayList<>();
+    private List<WorkSchedule> workScheduleList = new ArrayList<>();
 
     public void addAdditionalInfo(DriverInformation info) {
 //        this.gender = (info.getGender() != null) ? Gender.of(info.getGender()) : this.gender;
@@ -33,7 +33,7 @@ public class Driver extends User {
 
         List<WorkHoursDto> availableTime = info.getAvailableTime();
         for (WorkHoursDto workHoursDto : availableTime) {
-            workHoursList.add(workHoursDto.toEntity(this));
+            workScheduleList.add(workHoursDto.toEntity(this));
         }
     }
 

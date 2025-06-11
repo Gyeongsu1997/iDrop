@@ -16,7 +16,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @EqualsAndHashCode
 @Embeddable
-public class WorkHoursId implements Serializable {
+public class WorkScheduleId implements Serializable {
     private Long driverId;
     @Enumerated(EnumType.STRING)
     private Day day;

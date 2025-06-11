@@ -44,7 +44,7 @@ CREATE TABLE driver (
     FOREIGN KEY (users_id) REFERENCES users(users_id)
 ) ENGINE=InnoDB;
 
-CREATE TABLE work_hours (
+CREATE TABLE work_schedule (
     driver_id bigint unsigned NOT NULL,
     day	enum('MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN') NOT NULL,
     start_time time,
