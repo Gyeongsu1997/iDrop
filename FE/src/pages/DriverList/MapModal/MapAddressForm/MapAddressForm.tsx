@@ -1,6 +1,15 @@
+import type { Location } from '../../../../types/location';
 import styles from './MapAddressForm.module.scss';
 
-export function MapAddressForm({ mapType, location, handleLocationSelect }) {
+interface MapAddressFormProps {
+  location: Location;
+  changeLocation: (newLoc: Partial<Location>) => void;
+}
+
+export function MapAddressForm({
+  location,
+  changeLocation,
+}: MapAddressFormProps) {
   return (
     <div className={styles.addressWrapper}>
       <label htmlFor='address'>주소</label>
@@ -8,18 +17,18 @@ export function MapAddressForm({ mapType, location, handleLocationSelect }) {
         name='address'
         className={styles.address}
         type='text'
-        value={location[mapType].address}
+        value={location.address}
         placeholder='지도를 이동해 주세요'
         readOnly
       />
-      <label htmlFor='detailAddress'>상세주소</label>
+      <label htmlFor='detailedAddress'>상세주소</label>
       <input
-        name='detailAddress'
+        name='detailedAddress'
         className={styles.address}
         type='text'
-        value={location[mapType].detailAddress}
+        value={location.detailedAddress}
         onChange={({ target: { value } }) =>
-          handleLocationSelect({ detailAddress: value }, mapType)
+          changeLocation({ detailedAddress: value })
         }
         placeholder='상세 주소가 있다면 적어주세요'
       />

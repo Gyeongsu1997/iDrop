@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useReducer } from "react";
-import { authRequest } from "@/service/authenticationAPI";
+import { authRequest } from "@/services/authenticationAPI";
 import { BASE_URL } from "@/constants/constants";
 
 const actionType = {

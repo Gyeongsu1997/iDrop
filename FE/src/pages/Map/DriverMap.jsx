@@ -11,7 +11,7 @@ import { getCurrentLocation } from "@/utils/coords";
 import { getAccessToken } from "@/utils/auth";
 import { DriverBottomSheet } from "@/components/Bottomsheet/Bottomsheet";
 import Car from "@/assets/car.svg";
-import { getKidInfo } from "@/service/childrenAPI";
+import { getKidInfo } from "@/services/childrenAPI";
 import { parseData } from "../../utils/parseData";
 
 export default function DriverMap() {
