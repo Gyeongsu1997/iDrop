@@ -55,11 +55,11 @@ CREATE TABLE work_schedule (
 
 CREATE TABLE work_location (
     driver_id bigint unsigned PRIMARY KEY,
-    longitude double NOT NULL,
     latitude double NOT NULL,
+    longitude double NOT NULL,
     radius smallint unsigned NOT NULL,
     point point NOT NULL SRID 4326,
-    SPATIAL INDEX(geometry)
+    SPATIAL INDEX(point)
 ) ENGINE=InnoDB;
 
 CREATE TABLE subscription_status (
