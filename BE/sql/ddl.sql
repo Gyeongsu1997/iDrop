@@ -41,7 +41,6 @@ CREATE TABLE driver (
     users_id bigint unsigned PRIMARY KEY, -- todo: 컬럼명을 driver_id로 변경
     career varchar(255) NOT NULL,
     introduction varchar(255) NOT NULL,
-    star_rate double,
     FOREIGN KEY (users_id) REFERENCES users(users_id)
 ) ENGINE=InnoDB;
 

@@ -17,7 +17,6 @@ import java.util.List;
 public class Driver extends User {
     private String career;
     private String introduction;
-    private Double starRate;
 
     @OneToMany(mappedBy = "driver")
     private List<Subscription> subscriptionList = new ArrayList<>();
@@ -45,7 +44,6 @@ public class Driver extends User {
 //                .gender((this.gender != null) ? this.gender.getLabel() : null)
                 .image(this.getImageUrl())
                 .introduction(this.getIntroduction())
-                .starRate(this.getStarRate())
                 .build();
     }
 }

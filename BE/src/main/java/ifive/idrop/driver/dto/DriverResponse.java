@@ -29,7 +29,6 @@ public class DriverResponse {
                 .imageUrl(driver.getImageUrl())
                 .career(driver.getCareer())
                 .introduction(driver.getIntroduction())
-                .starRate(driver.getStarRate())
                 .build();
     }
 }
