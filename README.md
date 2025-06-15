@@ -12,21 +12,16 @@
 ### 픽업 - 실시간 위치추적
 [![Video Label](http://img.youtube.com/vi/2nyEEmA7uak/0.jpg)](https://youtu.be/2nyEEmA7uak)
 
+## 프로젝트 Wiki
+
+
 ## 📃 프로젝트 문서 📃
 
 ### 개발 문서
 
 | 문서 종류          | 링크                                                                               |
 | ------------------ | ---------------------------------------------------------------------------------- |
-| Github wiki           | [wiki](https://github.com/softeerbootcamp-3rd/Team2-iFive/wiki) |
 | API 문서           | [API 명세서](https://scalloped-hubcap-8c3.notion.site/API-37b47d5ead004049a4010e52aed3c73c) |
 | ERD                | [ERD](https://www.erdcloud.com/d/duhGHwNW9EZzjRezh) |
-
-### 기획 문서
-
-| 문서 종류     | 링크                                                                                                                                                                                                                           |
-| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | 기획안     | [기획안](https://github.com/softeerbootcamp-3rd/Team2-iFive/wiki/%EA%B8%B0%ED%9A%8D%EC%95%88)|
 | 와이어 프레임 | [와이어 프레임](https://www.figma.com/file/E3AXcTrejyzuaIczrBVhQO/%EC%95%84%EC%9D%B4%EB%93%9C%EB%9E%8D?type=design&node-id=1554-255&mode=design) |
-
-<br/><br/>
