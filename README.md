@@ -14,6 +14,9 @@
 
 ## 프로젝트 Wiki
 
+|제목|키워드|
+|---|---|
+|[위치 기반 검색 - 공간 인덱스](https://github.com/Gyeongsu1997/iDrop/wiki/%EC%9C%84%EC%B9%98-%EA%B8%B0%EB%B0%98-%EA%B2%80%EC%83%89-%E2%80%90-%EA%B3%B5%EA%B0%84-%EC%9D%B8%EB%8D%B1%EC%8A%A4)|`공간 인덱스`|
 
 ## 📃 프로젝트 문서 📃
 
