@@ -4,119 +4,127 @@ CREATE DATABASE idrop;
 USE idrop;
 
 CREATE TABLE users (
-    users_id bigint unsigned AUTO_INCREMENT PRIMARY KEY,
-    login_id varchar(50) NOT NULL UNIQUE,
-    password varchar(255) NOT NULL,
-    name varchar(50) NOT NULL,
-    birth_date date NOT NULL,
-    gender char(1) NOT NULL CHECK (gender IN ('M', 'F')),
-    phone_number varchar(50) NOT NULL,
-    image_url varchar(255),
-    role char(1) NOT NULL CHECK (role IN ('D', 'P'))
-);
+    users_id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    login_id VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    name VARCHAR(50) NOT NULL,
+    birth_date DATE NOT NULL,
+    gender CHAR(1) NOT NULL CHECK (gender IN ('M', 'F')),
+    phone_number VARCHAR(50) NOT NULL,
+    image_url VARCHAR(255),
+    role CHAR(1) NOT NULL CHECK (role IN ('D', 'P'))
+) ENGINE=InnoDB;
 
 CREATE TABLE auth (
-    users_id bigint unsigned PRIMARY KEY,
-    refresh_token varchar(255),
-    fcm_token varchar(255),
+    users_id BIGINT UNSIGNED PRIMARY KEY,
+    refresh_token VARCHAR(255),
+    fcm_token VARCHAR(255),
     FOREIGN KEY (users_id) REFERENCES users(users_id)
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE parent (
-    users_id bigint unsigned PRIMARY KEY, -- todo: 컬럼명을 parent_id로 변경
+    users_id BIGINT UNSIGNED PRIMARY KEY, -- todo: 컬럼명을 parent_id로 변경
     FOREIGN KEY (users_id) REFERENCES users(users_id)
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE child (
-    child_id bigint unsigned AUTO_INCREMENT PRIMARY KEY,
-    name varchar(50) NOT NULL,
-    birth_date date	NOT NULL,
-    gender char(1) NOT NULL CHECK (gender IN ('M', 'F')),
-    image_url varchar(255),
-    parent_id bigint unsigned NOT NULL,
+    child_id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    birth_date DATE	NOT NULL,
+    gender CHAR(1) NOT NULL CHECK (gender IN ('M', 'F')),
+    image_url VARCHAR(255),
+    parent_id BIGINT UNSIGNED NOT NULL,
     FOREIGN KEY (parent_id) REFERENCES parent(users_id)
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE driver (
-    users_id bigint unsigned PRIMARY KEY, -- todo: 컬럼명을 driver_id로 변경
-    career varchar(255) NOT NULL,
-    introduction varchar(255) NOT NULL,
-    star_rate double,
+    users_id BIGINT UNSIGNED PRIMARY KEY, -- todo: 컬럼명을 driver_id로 변경
+    career VARCHAR(255) NOT NULL,
+    introduction VARCHAR(255) NOT NULL,
     FOREIGN KEY (users_id) REFERENCES users(users_id)
-);
+) ENGINE=InnoDB;
 
-CREATE TABLE work_hours (
-    driver_id bigint unsigned NOT NULL,
-    day	enum('MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN') NOT NULL,
-    start_time time,
-    end_time time,
+CREATE TABLE work_location (
+    driver_id BIGINT UNSIGNED PRIMARY KEY,
+    latitude DOUBLE NOT NULL,
+    longitude DOUBLE NOT NULL,
+    radius INT UNSIGNED NOT NULL,
+    point POINT NOT NULL SRID 4326,
+    FOREIGN KEY (driver_id) REFERENCES driver(users_id)
+) ENGINE=InnoDB;
+
+CREATE TABLE work_schedule (
+    driver_id BIGINT UNSIGNED NOT NULL,
+    day	ENUM('MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN') NOT NULL,
+    start_time TIME,
+    end_time TIME,
     PRIMARY KEY (driver_id, day),
     FOREIGN KEY (driver_id) REFERENCES driver(users_id)
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE subscription_status (
-    status_id tinyint unsigned PRIMARY KEY,
-    status_name varchar(50) NOT NULL
-);
+    status_id TINYINT UNSIGNED PRIMARY KEY,
+    status_name VARCHAR(50) NOT NULL
+) ENGINE=InnoDB;
 
 CREATE TABLE subscription (
-    subscription_id	bigint unsigned	AUTO_INCREMENT PRIMARY KEY,
-    request_date datetime NOT NULL,
-    response_date datetime,
-    start_date date,
-    expired_date datetime,
-    status_id tinyint unsigned NOT NULL,
-    child_id bigint unsigned NOT NULL,
-    driver_id bigint unsigned NOT NULL,
+    subscription_id	BIGINT UNSIGNED	AUTO_INCREMENT PRIMARY KEY,
+    request_date DATETIME NOT NULL,
+    response_date DATETIME,
+    start_date DATE,
+    expired_date DATETIME,
+    status_id TINYINT UNSIGNED NOT NULL,
+    child_id BIGINT UNSIGNED NOT NULL,
+    driver_id BIGINT UNSIGNED NOT NULL,
     FOREIGN KEY (status_id) REFERENCES subscription_status(status_id),
     FOREIGN KEY (child_id) REFERENCES child(child_id),
     FOREIGN KEY (driver_id) REFERENCES driver(users_id)
-);
-
-CREATE TABLE pick_up_schedule (
-    subscription_id	bigint unsigned	NOT NULL,
-    day	enum('MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN') NOT NULL,
-    start_time time,
-    PRIMARY KEY (subscription_id, day),
-    FOREIGN KEY (subscription_id) REFERENCES subscription(subscription_id)
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE pick_up_location (
-    subscription_id	bigint unsigned	PRIMARY KEY,
-    start_address varchar(255) NOT NULL,
-    start_latitude double NOT NULL,
-    start_longitude	double NOT NULL,
-    end_address	varchar(255) NOT NULL,
-    end_latitude double	NOT NULL,
-    end_longitude double NOT NULL,
+    subscription_id	BIGINT UNSIGNED	PRIMARY KEY,
+    start_address VARCHAR(255) NOT NULL,
+    start_latitude DOUBLE NOT NULL,
+    start_longitude	DOUBLE NOT NULL,
+    end_address	VARCHAR(255) NOT NULL,
+    end_latitude DOUBLE	NOT NULL,
+    end_longitude DOUBLE NOT NULL,
     FOREIGN KEY (subscription_id) REFERENCES subscription(subscription_id)
-);
+) ENGINE=InnoDB;
+
+CREATE TABLE pick_up_schedule (
+    subscription_id	BIGINT UNSIGNED	NOT NULL,
+    day	ENUM('MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN') NOT NULL,
+    start_time TIME,
+    PRIMARY KEY (subscription_id, day),
+    FOREIGN KEY (subscription_id) REFERENCES subscription(subscription_id)
+) ENGINE=InnoDB;
 
 CREATE TABLE pick_up_history (
-    subscription_id bigint unsigned NOT NULL,
-    history_seq smallint unsigned NOT NULL,
-    reserved_time datetime NOT NULL,
-    start_time datetime,
-    start_image varchar(255),
-    start_message varchar(255),
-    end_time datetime,
-    end_image varchar(255),
-    end_message varchar(255),
+    subscription_id BIGINT UNSIGNED NOT NULL,
+    history_seq SMALLINT unsigned NOT NULL,
+    reserved_time DATETIME NOT NULL,
+    start_time DATETIME,
+    start_image VARCHAR(255),
+    start_message VARCHAR(255),
+    end_time DATETIME,
+    end_image VARCHAR(255),
+    end_message VARCHAR(255),
     PRIMARY KEY (subscription_id, history_seq),
     FOREIGN KEY (subscription_id) REFERENCES subscription(subscription_id)
-);
+) ENGINE=InnoDB;
 
 
 
 CREATE TABLE notification (
-    id bigint unsigned AUTO_INCREMENT PRIMARY KEY,
-    pick_up_alarm_time datetime NOT NULL,
-    driver_id bigint unsigned NOT NULL,
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    pick_up_alarm_time DATETIME NOT NULL,
+    driver_id BIGINT UNSIGNED NOT NULL,
     FOREIGN KEY (driver_id) REFERENCES driver(users_id)
-);
+) ENGINE=InnoDB;
 
-INSERT INTO subscription_status values (1, 'REQUEST');
-INSERT INTO subscription_status values (2, 'CANCELED');
-INSERT INTO subscription_status values (3, 'PROGRESS');
-INSERT INTO subscription_status values (4, 'REJECTED');
-INSERT INTO subscription_status values (5, 'EXPIRED');
+INSERT INTO subscription_status VALUES (1, 'REQUEST');
+INSERT INTO subscription_status VALUES (2, 'CANCELED');
+INSERT INTO subscription_status VALUES (3, 'PROGRESS');
+INSERT INTO subscription_status VALUES (4, 'REJECTED');
+INSERT INTO subscription_status VALUES (5, 'EXPIRED');

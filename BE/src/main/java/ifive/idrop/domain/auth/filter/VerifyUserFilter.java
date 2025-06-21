@@ -1,0 +1,50 @@
+package ifive.idrop.domain.auth.filter;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import ifive.idrop.domain.auth.dto.LoginRequest;
+import ifive.idrop.common.enums.Role;
+import ifive.idrop.common.exception.BusinessException;
+import ifive.idrop.common.dto.ErrorResponse;
+import ifive.idrop.domain.auth.entity.AuthenticateUser;
+import ifive.idrop.domain.user.service.UserService;
+import jakarta.servlet.*;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
+
+import java.io.IOException;
+
+@Slf4j
+@RequiredArgsConstructor
+@Component
+public class VerifyUserFilter implements Filter {
+    public static final String AUTHENTICATE_USER = "authenticateUser";
+    private final ObjectMapper objectMapper;
+    private final UserService userService;
+
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+        if ((httpServletRequest.getMethod().equals("POST"))) {
+            try {
+                LoginRequest loginRequest = objectMapper.readValue(request.getReader(), LoginRequest.class);
+                Role role = userService.verifyUser(loginRequest);
+                request.setAttribute(AUTHENTICATE_USER, new AuthenticateUser(loginRequest.getUserId(), role));
+                chain.doFilter(request, response);
+            } catch (BusinessException e) {
+                log.error("user verify failed");
+                httpServletResponseError((HttpServletResponse) response, e);
+            }
+        }
+    }
+
+    private void httpServletResponseError(HttpServletResponse httpServletResponse, BusinessException e) throws IOException {
+        httpServletResponse.setStatus(e.getHttpStatus().value());
+        httpServletResponse.setContentType("application/json");
+        httpServletResponse.setCharacterEncoding("utf-8");
+        String json = objectMapper.writeValueAsString(ErrorResponse.from(e));
+        httpServletResponse.getWriter().write(json);
+    }
+}

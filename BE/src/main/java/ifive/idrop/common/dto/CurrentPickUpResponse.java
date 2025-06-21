@@ -1,8 +1,8 @@
 package ifive.idrop.common.dto;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
-import ifive.idrop.subscription.domain.Subscription;
-import ifive.idrop.pickup.domain.PickUpLocation;
+import ifive.idrop.domain.subscription.entity.Subscription;
+import ifive.idrop.domain.pickup.entity.PickUpLocation;
 import lombok.*;
 
 import java.time.LocalDateTime;

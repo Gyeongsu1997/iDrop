@@ -1,7 +1,7 @@
 package ifive.idrop.common.util;
 
 import ifive.idrop.common.exception.BusinessException;
-import ifive.idrop.pickup.domain.PickUpSchedule;
+import ifive.idrop.domain.pickup.entity.PickUpSchedule;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.TextStyle;
 import java.util.Arrays;
 import java.util.List;
