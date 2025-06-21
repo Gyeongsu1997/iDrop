@@ -25,7 +25,7 @@ public class BaseResponse<T> {
         return new BaseResponse<>("Data Successfully Proceed");
     }
 
-    public static <T> BaseResponse<T> of (String message, T data) {
+    public static <T> BaseResponse<T> of(String message, T data) {
         return new BaseResponse<T>(message, data);
     }
 }

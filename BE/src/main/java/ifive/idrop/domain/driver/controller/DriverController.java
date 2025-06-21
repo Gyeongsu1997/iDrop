@@ -23,8 +23,8 @@ public class DriverController {
 
     @GetMapping("/{driverId}")
     public BaseResponse<DriverResponse> getDriver(@PathVariable Long driverId) {
-        Driver driver = driverService.findDriver(driverId);
-        return BaseResponse.of("success", DriverResponse.from(driver));
+        DriverResponse driverResponse = driverService.findDriver(driverId);
+        return BaseResponse.of("success", driverResponse);
     }
 
     @GetMapping

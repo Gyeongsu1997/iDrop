@@ -1,13 +1,13 @@
 package ifive.idrop.domain.driver.service;
 
 import ifive.idrop.common.dto.BaseResponse;
+import ifive.idrop.domain.driver.dto.DriverResponse;
 import ifive.idrop.domain.driver.entity.Driver;
 import ifive.idrop.domain.driver.dto.DriverInformation;
 import ifive.idrop.domain.driver.dto.DriverTodayRemainingPickUpResponse;
 import ifive.idrop.domain.driver.repository.DriverRepository;
 import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.exception.ErrorCode;
-import ifive.idrop.domain.pickup.repository.PickUpRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,15 +24,15 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 public class DriverService {
     private final DriverRepository driverRepository;
-    private final PickUpRepository pickUpRepository;
+
+    public DriverResponse findDriver(Long driverId) {
+        Driver driver = driverRepository.findById(driverId)
+                .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
+        return DriverResponse.from(driver);
+    }
 
     public List<Driver> searchDrivers(double startLat, double startLng, double goalLat, double goalLng) {
         return driverRepository.findByLocation(startLat, startLng, goalLat, goalLng);
-    }
-
-    public Driver findDriver(Long driverId) {
-        return driverRepository.findById(driverId)
-                .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
     }
 
     @Transactional

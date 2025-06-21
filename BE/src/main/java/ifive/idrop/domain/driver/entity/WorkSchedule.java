@@ -29,4 +29,8 @@ public class WorkSchedule {
         workSchedule.driver = driver;
         return workSchedule;
     }
+
+    public Day getDay() {
+        return this.id.getDay();
+    }
 }
