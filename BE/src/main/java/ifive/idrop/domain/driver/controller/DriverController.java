@@ -37,10 +37,7 @@ public class DriverController {
         double goalLat = Double.parseDouble(st.nextToken());
         double goalLng = Double.parseDouble(st.nextToken());
 
-        List<DriverResponse> driverResponseList = driverService.searchDrivers(startLat, startLng, goalLat, goalLng)
-                .stream()
-                .map(DriverResponse::from)
-                .toList();
+        List<DriverResponse> driverResponseList = driverService.searchDrivers(startLat, startLng, goalLat, goalLng);
         return BaseResponse.of("success", driverResponseList);
     }
 

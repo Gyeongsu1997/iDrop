@@ -31,8 +31,11 @@ public class DriverService {
         return DriverResponse.from(driver);
     }
 
-    public List<Driver> searchDrivers(double startLat, double startLng, double goalLat, double goalLng) {
-        return driverRepository.findByLocation(startLat, startLng, goalLat, goalLng);
+    public List<DriverResponse> searchDrivers(double startLat, double startLng, double goalLat, double goalLng) {
+        return driverRepository.findByLocation(startLat, startLng, goalLat, goalLng)
+                .stream()
+                .map(DriverResponse::from)
+                .toList();
     }
 
     @Transactional
