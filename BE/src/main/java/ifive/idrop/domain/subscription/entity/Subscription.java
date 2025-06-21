@@ -1,13 +1,13 @@
-package ifive.idrop.domain.subscription;
+package ifive.idrop.domain.subscription.entity;
 
-import ifive.idrop.domain.child.Child;
+import ifive.idrop.domain.child.entity.Child;
 import ifive.idrop.common.enums.Day;
 import ifive.idrop.domain.driver.entity.Driver;
-import ifive.idrop.domain.pickup.PickUpHistory;
-import ifive.idrop.domain.pickup.PickUpLocation;
-import ifive.idrop.domain.pickup.PickUpSchedule;
-import ifive.idrop.domain.parent.Parent;
-import ifive.idrop.domain.pickup.PickUpScheduleId;
+import ifive.idrop.domain.pickup.entity.PickUpHistory;
+import ifive.idrop.domain.pickup.entity.PickUpLocation;
+import ifive.idrop.domain.pickup.entity.PickUpSchedule;
+import ifive.idrop.domain.parent.entity.Parent;
+import ifive.idrop.domain.pickup.entity.PickUpScheduleId;
 import ifive.idrop.domain.subscription.dto.SubscriptionRequest;
 import jakarta.persistence.*;
 import lombok.*;

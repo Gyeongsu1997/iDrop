@@ -1,8 +1,8 @@
 package ifive.idrop.domain.subscription.dto;
 
 import ifive.idrop.common.enums.Day;
-import ifive.idrop.domain.pickup.PickUpSchedule;
-import ifive.idrop.domain.subscription.Subscription;
+import ifive.idrop.domain.pickup.entity.PickUpSchedule;
+import ifive.idrop.domain.subscription.entity.Subscription;
 import lombok.Builder;
 import lombok.Getter;
 

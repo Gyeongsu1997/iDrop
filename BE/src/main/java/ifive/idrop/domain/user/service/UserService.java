@@ -1,18 +1,18 @@
 package ifive.idrop.domain.user.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import ifive.idrop.domain.auth.Auth;
+import ifive.idrop.domain.auth.entity.Auth;
 import ifive.idrop.domain.auth.repository.AuthRepository;
 import ifive.idrop.common.dto.BaseResponse;
 import ifive.idrop.domain.auth.dto.LoginRequest;
 import ifive.idrop.domain.driver.entity.Driver;
-import ifive.idrop.domain.user.User;
+import ifive.idrop.domain.user.entity.User;
 import ifive.idrop.domain.user.dto.SignUpRequest;
 import ifive.idrop.domain.user.dto.NameResponse;
 import ifive.idrop.common.enums.Role;
 import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.exception.ErrorCode;
-import ifive.idrop.domain.auth.AuthenticateUser;
+import ifive.idrop.domain.auth.entity.AuthenticateUser;
 import ifive.idrop.domain.auth.filter.VerifyUserFilter;
 import ifive.idrop.domain.auth.dto.Jwt;
 import ifive.idrop.domain.auth.utils.JwtProvider;

@@ -1,10 +1,10 @@
 package ifive.idrop.domain.pickup.repository;
 
-import ifive.idrop.domain.pickup.PickUpLocation;
-import ifive.idrop.domain.subscription.SubscriptionStatus;
+import ifive.idrop.domain.pickup.entity.PickUpLocation;
+import ifive.idrop.domain.subscription.entity.SubscriptionStatus;
 import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.exception.ErrorCode;
-import ifive.idrop.domain.pickup.PickUpHistory;
+import ifive.idrop.domain.pickup.entity.PickUpHistory;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import ifive.idrop.domain.subscription.Subscription;
+import ifive.idrop.domain.subscription.entity.Subscription;
 
 @Repository
 @RequiredArgsConstructor

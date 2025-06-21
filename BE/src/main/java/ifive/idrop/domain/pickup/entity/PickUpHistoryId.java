@@ -1,4 +1,4 @@
-package ifive.idrop.domain.pickup;
+package ifive.idrop.domain.pickup.entity;
 
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;

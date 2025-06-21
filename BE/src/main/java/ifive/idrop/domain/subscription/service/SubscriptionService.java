@@ -1,6 +1,6 @@
 package ifive.idrop.domain.subscription.service;
 
-import ifive.idrop.domain.child.Child;
+import ifive.idrop.domain.child.entity.Child;
 import ifive.idrop.domain.child.repository.ChildRepository;
 import ifive.idrop.common.enums.Day;
 import ifive.idrop.common.exception.BusinessException;
@@ -8,10 +8,10 @@ import ifive.idrop.common.exception.ErrorCode;
 import ifive.idrop.domain.driver.entity.Driver;
 import ifive.idrop.domain.driver.repository.DriverRepository;
 import ifive.idrop.domain.subscription.repository.SubscriptionRepository;
-import ifive.idrop.domain.pickup.PickUpHistory;
-import ifive.idrop.domain.pickup.PickUpSchedule;
+import ifive.idrop.domain.pickup.entity.PickUpHistory;
+import ifive.idrop.domain.pickup.entity.PickUpSchedule;
 import ifive.idrop.domain.pickup.repository.PickUpRepository;
-import ifive.idrop.domain.subscription.Subscription;
+import ifive.idrop.domain.subscription.entity.Subscription;
 import ifive.idrop.domain.subscription.dto.SubscriptionRequest;
 import ifive.idrop.domain.subscription.dto.SubscriptionResponse;
 import lombok.RequiredArgsConstructor;

@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import ifive.idrop.common.dto.CurrentPickUpResponse;
-import ifive.idrop.domain.subscription.Subscription;
+import ifive.idrop.domain.subscription.entity.Subscription;
 
 import java.util.List;
 import java.util.stream.Collectors;

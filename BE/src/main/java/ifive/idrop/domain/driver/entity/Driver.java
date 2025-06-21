@@ -3,8 +3,8 @@ package ifive.idrop.domain.driver.entity;
 import ifive.idrop.domain.driver.dto.DriverInformation;
 import ifive.idrop.domain.driver.dto.WorkHoursDto;
 import ifive.idrop.domain.driver.dto.DriverSummary;
-import ifive.idrop.domain.subscription.Subscription;
-import ifive.idrop.domain.user.User;
+import ifive.idrop.domain.subscription.entity.Subscription;
+import ifive.idrop.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 

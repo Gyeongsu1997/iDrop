@@ -1,6 +1,6 @@
 package ifive.idrop.domain.user.dto;
 
-import ifive.idrop.domain.user.User;
+import ifive.idrop.domain.user.entity.User;
 import lombok.Builder;
 import lombok.Getter;
 

@@ -1,6 +1,6 @@
 package ifive.idrop.domain.user.repository;
 
-import ifive.idrop.domain.user.User;
+import ifive.idrop.domain.user.entity.User;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;

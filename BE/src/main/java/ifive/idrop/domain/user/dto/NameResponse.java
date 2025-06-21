@@ -1,10 +1,10 @@
 package ifive.idrop.domain.user.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import ifive.idrop.domain.child.Child;
+import ifive.idrop.domain.child.entity.Child;
 import ifive.idrop.domain.driver.entity.Driver;
-import ifive.idrop.domain.parent.Parent;
-import ifive.idrop.domain.user.User;
+import ifive.idrop.domain.parent.entity.Parent;
+import ifive.idrop.domain.user.entity.User;
 import lombok.Getter;
 
 import java.util.ArrayList;

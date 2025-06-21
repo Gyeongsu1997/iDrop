@@ -1,10 +1,10 @@
-package ifive.idrop.domain.notification;
+package ifive.idrop.domain.notification.utils;
 
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.WebpushConfig;
 import com.google.firebase.messaging.WebpushNotification;
-import ifive.idrop.domain.user.User;
+import ifive.idrop.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

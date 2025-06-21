@@ -1,4 +1,4 @@
-package ifive.idrop.domain.notification;
+package ifive.idrop.domain.notification.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ifive.idrop.domain.auth.filter.JwtAuthorizationFilter;

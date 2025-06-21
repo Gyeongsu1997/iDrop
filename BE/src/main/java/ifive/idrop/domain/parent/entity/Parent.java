@@ -1,7 +1,7 @@
-package ifive.idrop.domain.parent;
+package ifive.idrop.domain.parent.entity;
 
-import ifive.idrop.domain.child.Child;
-import ifive.idrop.domain.user.User;
+import ifive.idrop.domain.child.entity.Child;
+import ifive.idrop.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 

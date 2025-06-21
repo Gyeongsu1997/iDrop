@@ -1,6 +1,6 @@
-package ifive.idrop.domain.pickup;
+package ifive.idrop.domain.pickup.entity;
 
-import ifive.idrop.domain.subscription.Subscription;
+import ifive.idrop.domain.subscription.entity.Subscription;
 import ifive.idrop.domain.subscription.dto.SubscriptionRequest;
 import jakarta.persistence.*;
 import lombok.Getter;

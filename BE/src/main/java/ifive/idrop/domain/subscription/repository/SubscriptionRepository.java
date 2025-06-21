@@ -1,6 +1,6 @@
 package ifive.idrop.domain.subscription.repository;
 
-import ifive.idrop.domain.subscription.Subscription;
+import ifive.idrop.domain.subscription.entity.Subscription;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;

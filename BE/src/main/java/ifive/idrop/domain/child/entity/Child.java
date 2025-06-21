@@ -1,8 +1,8 @@
-package ifive.idrop.domain.child;
+package ifive.idrop.domain.child.entity;
 
-import ifive.idrop.domain.subscription.Subscription;
+import ifive.idrop.domain.subscription.entity.Subscription;
 import ifive.idrop.common.enums.Gender;
-import ifive.idrop.domain.parent.Parent;
+import ifive.idrop.domain.parent.entity.Parent;
 import jakarta.persistence.*;
 import lombok.Getter;
 

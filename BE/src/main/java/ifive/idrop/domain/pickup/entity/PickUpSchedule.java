@@ -1,7 +1,7 @@
-package ifive.idrop.domain.pickup;
+package ifive.idrop.domain.pickup.entity;
 
 import ifive.idrop.common.enums.Day;
-import ifive.idrop.domain.subscription.Subscription;
+import ifive.idrop.domain.subscription.entity.Subscription;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,7 +1,7 @@
 package ifive.idrop.domain.parent.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import ifive.idrop.domain.pickup.PickUpHistory;
+import ifive.idrop.domain.pickup.entity.PickUpHistory;
 import lombok.Builder;
 import lombok.Getter;
 

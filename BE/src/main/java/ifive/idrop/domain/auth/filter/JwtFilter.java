@@ -1,7 +1,7 @@
 package ifive.idrop.domain.auth.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import ifive.idrop.domain.auth.AuthenticateUser;
+import ifive.idrop.domain.auth.entity.AuthenticateUser;
 import ifive.idrop.domain.auth.dto.Jwt;
 import ifive.idrop.domain.auth.utils.JwtProvider;
 import ifive.idrop.domain.user.service.UserService;

@@ -6,14 +6,14 @@ import ifive.idrop.domain.driver.entity.Driver;
 import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.exception.ErrorCode;
 import ifive.idrop.domain.driver.service.DriverService;
-import ifive.idrop.domain.user.User;
+import ifive.idrop.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 import ifive.idrop.domain.auth.resolver.Login;
 import ifive.idrop.common.dto.BaseResponse;
-import ifive.idrop.domain.parent.Parent;
+import ifive.idrop.domain.parent.entity.Parent;
 import ifive.idrop.domain.parent.service.ParentService;
 
 @RestController

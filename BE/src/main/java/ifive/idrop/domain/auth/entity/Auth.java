@@ -1,6 +1,6 @@
-package ifive.idrop.domain.auth;
+package ifive.idrop.domain.auth.entity;
 
-import ifive.idrop.domain.user.User;
+import ifive.idrop.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 

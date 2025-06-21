@@ -1,7 +1,7 @@
 package ifive.idrop.common.util;
 
 import ifive.idrop.common.exception.BusinessException;
-import ifive.idrop.domain.pickup.PickUpSchedule;
+import ifive.idrop.domain.pickup.entity.PickUpSchedule;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;

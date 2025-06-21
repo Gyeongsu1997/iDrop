@@ -6,7 +6,7 @@ import ifive.idrop.domain.auth.filter.CorsFilter;
 import ifive.idrop.domain.auth.filter.JwtAuthorizationFilter;
 import ifive.idrop.domain.auth.filter.JwtFilter;
 import ifive.idrop.domain.auth.filter.VerifyUserFilter;
-import ifive.idrop.domain.notification.FCMFilter;
+import ifive.idrop.domain.notification.utils.FCMFilter;
 import ifive.idrop.domain.auth.utils.JwtProvider;
 import ifive.idrop.domain.user.repository.UserRepository;
 import ifive.idrop.domain.auth.resolver.LoginUsersArgumentResolver;

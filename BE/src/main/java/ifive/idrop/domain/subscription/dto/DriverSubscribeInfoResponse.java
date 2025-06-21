@@ -1,9 +1,9 @@
 package ifive.idrop.domain.subscription.dto;
 
-import ifive.idrop.domain.child.Child;
-import ifive.idrop.domain.parent.Parent;
-import ifive.idrop.domain.pickup.PickUpLocation;
-import ifive.idrop.domain.subscription.Subscription;
+import ifive.idrop.domain.child.entity.Child;
+import ifive.idrop.domain.parent.entity.Parent;
+import ifive.idrop.domain.pickup.entity.PickUpLocation;
+import ifive.idrop.domain.subscription.entity.Subscription;
 import lombok.Builder;
 import lombok.Getter;
 import org.json.simple.JSONObject;

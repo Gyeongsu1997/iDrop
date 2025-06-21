@@ -1,4 +1,4 @@
-package ifive.idrop.domain.subscription;
+package ifive.idrop.domain.subscription.entity;
 
 import ifive.idrop.common.enums.converter.AbstractEnumAttributeConverter;
 import ifive.idrop.common.enums.converter.BaseEnumAttribute;

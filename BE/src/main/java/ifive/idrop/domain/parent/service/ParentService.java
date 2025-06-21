@@ -5,11 +5,11 @@ import ifive.idrop.common.dto.CurrentPickUpResponse;
 
 import ifive.idrop.domain.parent.dto.PickUpHistoryResponse;
 import ifive.idrop.domain.parent.dto.ParentSubscribeInfoResponse;
-import ifive.idrop.domain.pickup.PickUpHistory;
-import ifive.idrop.domain.parent.Parent;
+import ifive.idrop.domain.pickup.entity.PickUpHistory;
+import ifive.idrop.domain.parent.entity.Parent;
 import ifive.idrop.domain.parent.repository.ParentRepository;
 import ifive.idrop.domain.pickup.repository.PickUpRepository;
-import ifive.idrop.domain.subscription.Subscription;
+import ifive.idrop.domain.subscription.entity.Subscription;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

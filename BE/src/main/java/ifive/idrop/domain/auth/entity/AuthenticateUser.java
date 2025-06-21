@@ -1,4 +1,4 @@
-package ifive.idrop.domain.auth;
+package ifive.idrop.domain.auth.entity;
 
 import ifive.idrop.common.enums.Role;
 import lombok.AllArgsConstructor;

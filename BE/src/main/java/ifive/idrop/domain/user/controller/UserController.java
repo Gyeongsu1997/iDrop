@@ -2,7 +2,7 @@ package ifive.idrop.domain.user.controller;
 
 import ifive.idrop.domain.auth.resolver.Login;
 import ifive.idrop.common.dto.BaseResponse;
-import ifive.idrop.domain.user.User;
+import ifive.idrop.domain.user.entity.User;
 import ifive.idrop.domain.user.dto.SignUpRequest;
 import ifive.idrop.domain.user.service.UserService;
 import ifive.idrop.domain.user.dto.NameResponse;
