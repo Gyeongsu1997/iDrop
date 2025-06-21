@@ -8,10 +8,11 @@ import { useModal } from '@/hooks/useModal';
 import { getDrivers } from '@/services/parentsAPI';
 import { MapModal } from './MapModal/MapModal';
 import { useLocation } from './useLocation';
+import type { Driver } from '../../types/driver';
 
 export default function DriverList() {
   const navigate = useNavigate();
-  const [drivers, setDrivers] = useState([]);
+  const [drivers, setDrivers] = useState<Driver[]>([]);
   const [isStart, setIsStart] = useState(true);
   const { location: startLocation, changeLocation: changeStartLocation } =
     useLocation();
@@ -28,8 +29,8 @@ export default function DriverList() {
       return;
     }
     (async () => {
-      const data = await getDrivers(startLocation, goalLocation);
-      setDrivers(data.drivers);
+      const { data } = await getDrivers(startLocation, goalLocation);
+      setDrivers(data);
     })();
   }, [isVisible, startLocation, goalLocation]);
 
@@ -62,10 +63,10 @@ export default function DriverList() {
         openEndMap={openEndMap}
       />
       <section className={styles.list}>
-        {drivers?.map((data) => (
+        {drivers?.map((driver) => (
           <DriverListItem
-            key={data.driverId}
-            data={data}
+            key={driver.driverId}
+            driver={driver}
             handleClick={handleItemClick}
           />
         ))}

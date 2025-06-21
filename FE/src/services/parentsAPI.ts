@@ -88,7 +88,7 @@ export async function getCurrentPickUp() {
 export const getDrivers = async (start: Location, goal: Location) => {
   try {
     const response = await authRequest(
-      `${BASE_URL}/drivers?start=${start.latitude},${start.longitude}&goal=${goal.latitude},${goal.longitude}`,
+      `${BASE_URL}/api/drivers?start=${start.latitude},${start.longitude}&goal=${goal.latitude},${goal.longitude}`,
     );
 
     if (!response.ok) {
