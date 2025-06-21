@@ -17,7 +17,6 @@ public class DriverResponse {
     private String imageUrl;
     private String career;
     private String introduction;
-    private Double starRate;
 
     public static DriverResponse from(Driver driver) {
         return DriverResponse.builder()

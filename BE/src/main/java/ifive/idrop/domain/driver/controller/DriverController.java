@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.StringTokenizer;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,6 +25,23 @@ public class DriverController {
     public BaseResponse<DriverResponse> getDriver(@PathVariable Long driverId) {
         Driver driver = driverService.findDriver(driverId);
         return BaseResponse.of("success", DriverResponse.from(driver));
+    }
+
+    @GetMapping
+    public BaseResponse<List<DriverResponse>> searchDrivers(@RequestParam("start") String startLatLng, @RequestParam("goal") String goalLatLng) {
+        StringTokenizer st = new StringTokenizer(startLatLng, ",");
+        double startLat = Double.parseDouble(st.nextToken());
+        double startLng = Double.parseDouble(st.nextToken());
+
+        st = new StringTokenizer(goalLatLng, ",");
+        double goalLat = Double.parseDouble(st.nextToken());
+        double goalLng = Double.parseDouble(st.nextToken());
+
+        List<DriverResponse> driverResponseList = driverService.searchDrivers(startLat, startLng, goalLat, goalLng)
+                .stream()
+                .map(DriverResponse::from)
+                .toList();
+        return BaseResponse.of("success", driverResponseList);
     }
 
     @PostMapping("/register/info")

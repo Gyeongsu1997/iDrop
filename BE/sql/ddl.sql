@@ -4,7 +4,7 @@ CREATE DATABASE idrop;
 USE idrop;
 
 CREATE TABLE users (
-    users_id bigint unsigned AUTO_INCREMENT PRIMARY KEY,
+    users_id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     login_id varchar(50) NOT NULL UNIQUE,
     password varchar(255) NOT NULL,
     name varchar(50) NOT NULL,
@@ -16,45 +16,45 @@ CREATE TABLE users (
 ) ENGINE=InnoDB;
 
 CREATE TABLE auth (
-    users_id bigint unsigned PRIMARY KEY,
+    users_id BIGINT UNSIGNED PRIMARY KEY,
     refresh_token varchar(255),
     fcm_token varchar(255),
     FOREIGN KEY (users_id) REFERENCES users(users_id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE parent (
-    users_id bigint unsigned PRIMARY KEY, -- todo: 컬럼명을 parent_id로 변경
+    users_id BIGINT UNSIGNED PRIMARY KEY, -- todo: 컬럼명을 parent_id로 변경
     FOREIGN KEY (users_id) REFERENCES users(users_id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE child (
-    child_id bigint unsigned AUTO_INCREMENT PRIMARY KEY,
+    child_id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     name varchar(50) NOT NULL,
     birth_date date	NOT NULL,
     gender char(1) NOT NULL CHECK (gender IN ('M', 'F')),
     image_url varchar(255),
-    parent_id bigint unsigned NOT NULL,
+    parent_id BIGINT UNSIGNED NOT NULL,
     FOREIGN KEY (parent_id) REFERENCES parent(users_id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE driver (
-    users_id bigint unsigned PRIMARY KEY, -- todo: 컬럼명을 driver_id로 변경
+    users_id BIGINT UNSIGNED PRIMARY KEY, -- todo: 컬럼명을 driver_id로 변경
     career varchar(255) NOT NULL,
     introduction varchar(255) NOT NULL,
     FOREIGN KEY (users_id) REFERENCES users(users_id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE work_location (
-    driver_id bigint unsigned PRIMARY KEY,
+    driver_id BIGINT UNSIGNED PRIMARY KEY,
     latitude double NOT NULL,
     longitude double NOT NULL,
     radius int unsigned NOT NULL,
     point point NOT NULL SRID 4326,
-    SPATIAL INDEX(point)
+    FOREIGN KEY (driver_id) REFERENCES driver(users_id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE work_schedule (
-    driver_id bigint unsigned NOT NULL,
+    driver_id BIGINT UNSIGNED NOT NULL,
     day	enum('MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN') NOT NULL,
     start_time time,
     end_time time,
@@ -68,7 +68,7 @@ CREATE TABLE subscription_status (
 ) ENGINE=InnoDB;
 
 CREATE TABLE subscription (
-    subscription_id	bigint unsigned	AUTO_INCREMENT PRIMARY KEY,
+    subscription_id	BIGINT UNSIGNED	AUTO_INCREMENT PRIMARY KEY,
     request_date datetime NOT NULL,
     response_date datetime,
     start_date date,
@@ -82,7 +82,7 @@ CREATE TABLE subscription (
 ) ENGINE=InnoDB;
 
 CREATE TABLE pick_up_location (
-    subscription_id	bigint unsigned	PRIMARY KEY,
+    subscription_id	BIGINT UNSIGNED	PRIMARY KEY,
     start_address varchar(255) NOT NULL,
     start_latitude double NOT NULL,
     start_longitude	double NOT NULL,
@@ -93,7 +93,7 @@ CREATE TABLE pick_up_location (
 ) ENGINE=InnoDB;
 
 CREATE TABLE pick_up_schedule (
-    subscription_id	bigint unsigned	NOT NULL,
+    subscription_id	BIGINT UNSIGNED	NOT NULL,
     day	enum('MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN') NOT NULL,
     start_time time,
     PRIMARY KEY (subscription_id, day),
@@ -101,7 +101,7 @@ CREATE TABLE pick_up_schedule (
 ) ENGINE=InnoDB;
 
 CREATE TABLE pick_up_history (
-    subscription_id bigint unsigned NOT NULL,
+    subscription_id BIGINT UNSIGNED NOT NULL,
     history_seq smallint unsigned NOT NULL,
     reserved_time datetime NOT NULL,
     start_time datetime,
@@ -117,9 +117,9 @@ CREATE TABLE pick_up_history (
 
 
 CREATE TABLE notification (
-    id bigint unsigned AUTO_INCREMENT PRIMARY KEY,
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     pick_up_alarm_time datetime NOT NULL,
-    driver_id bigint unsigned NOT NULL,
+    driver_id BIGINT UNSIGNED NOT NULL,
     FOREIGN KEY (driver_id) REFERENCES driver(users_id)
 ) ENGINE=InnoDB;
 

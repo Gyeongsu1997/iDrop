@@ -3,6 +3,7 @@ package ifive.idrop.domain.driver.repository;
 import ifive.idrop.domain.driver.Driver;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
+import org.locationtech.jts.geom.Point;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -18,6 +19,17 @@ public class DriverRepository {
 
     public Optional<Driver> findById(Long driverId) {
         return Optional.ofNullable(em.find(Driver.class, driverId));
+    }
+
+    public List<Driver> findByLocation(double startLat, double startLng, double goalLat, double goalLng) {
+        String sql = "SELECT * FROM driver d JOIN users u ON d.users_id = u.users_id JOIN work_location w ON d.users_id = w.driver_id " +
+                "WHERE ST_Distance_Sphere(w.point, ST_GeomFromText(:start, 4326)) <= w.radius " +
+                "AND ST_Distance_Sphere(w.point, ST_GeomFromText(:goal, 4326)) <= w.radius";
+
+        return em.createNativeQuery(sql, Driver.class)
+                .setParameter("start", "POINT(" + startLat + " " + startLng + ")")
+                .setParameter("goal", "POINT(" + goalLat + " " + goalLng + ")")
+                .getResultList();
     }
 
     public List<Driver> findAllDrivers() {

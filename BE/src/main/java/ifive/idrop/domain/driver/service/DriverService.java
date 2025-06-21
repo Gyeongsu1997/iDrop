@@ -10,10 +10,12 @@ import ifive.idrop.domain.parent.dto.DriverListRequest;
 import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.exception.ErrorCode;
 import ifive.idrop.domain.pickup.PickUpHistory;
-import ifive.idrop.domain.notification.repository.NotificationRepository;
 import ifive.idrop.domain.pickup.repository.PickUpRepository;
 import ifive.idrop.common.util.RequestSchedule;
 import lombok.RequiredArgsConstructor;
+import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.Point;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,7 +35,10 @@ import static ifive.idrop.common.util.ScheduleUtils.*;
 public class DriverService {
     private final DriverRepository driverRepository;
     private final PickUpRepository pickUpRepository;
-    private final NotificationRepository notificationRepository;
+
+    public List<Driver> searchDrivers(double startLat, double startLng, double goalLat, double goalLng) {
+        return driverRepository.findByLocation(startLat, startLng, goalLat, goalLng);
+    }
 
     public Driver findDriver(Long driverId) {
         return driverRepository.findById(driverId)
