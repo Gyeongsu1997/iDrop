@@ -2,7 +2,7 @@ package ifive.idrop.domain.subscription;
 
 import ifive.idrop.domain.child.Child;
 import ifive.idrop.common.enums.Day;
-import ifive.idrop.domain.driver.Driver;
+import ifive.idrop.domain.driver.entity.Driver;
 import ifive.idrop.domain.pickup.PickUpHistory;
 import ifive.idrop.domain.pickup.PickUpLocation;
 import ifive.idrop.domain.pickup.PickUpSchedule;

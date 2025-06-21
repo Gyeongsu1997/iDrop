@@ -1,7 +1,7 @@
 package ifive.idrop.websocket.location;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import ifive.idrop.domain.driver.Driver;
+import ifive.idrop.domain.driver.entity.Driver;
 import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.exception.ErrorCode;
 import ifive.idrop.domain.auth.AuthenticateUser;

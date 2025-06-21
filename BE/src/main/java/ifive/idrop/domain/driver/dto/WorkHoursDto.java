@@ -1,8 +1,8 @@
 package ifive.idrop.domain.driver.dto;
 
 import ifive.idrop.common.enums.Day;
-import ifive.idrop.domain.driver.Driver;
-import ifive.idrop.domain.driver.WorkSchedule;
+import ifive.idrop.domain.driver.entity.Driver;
+import ifive.idrop.domain.driver.entity.WorkSchedule;
 import lombok.Getter;
 
 @Getter

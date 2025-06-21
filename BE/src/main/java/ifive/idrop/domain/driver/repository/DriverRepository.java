@@ -1,9 +1,8 @@
 package ifive.idrop.domain.driver.repository;
 
-import ifive.idrop.domain.driver.Driver;
+import ifive.idrop.domain.driver.entity.Driver;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
-import org.locationtech.jts.geom.Point;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;

@@ -1,5 +1,6 @@
-package ifive.idrop.domain.driver;
+package ifive.idrop.domain.driver.entity;
 
+import ifive.idrop.domain.driver.entity.Driver;
 import jakarta.persistence.*;
 import lombok.Getter;
 import org.locationtech.jts.geom.Point;

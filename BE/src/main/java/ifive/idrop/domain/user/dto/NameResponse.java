@@ -2,7 +2,7 @@ package ifive.idrop.domain.user.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import ifive.idrop.domain.child.Child;
-import ifive.idrop.domain.driver.Driver;
+import ifive.idrop.domain.driver.entity.Driver;
 import ifive.idrop.domain.parent.Parent;
 import ifive.idrop.domain.user.User;
 import lombok.Getter;

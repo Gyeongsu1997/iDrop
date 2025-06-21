@@ -7,7 +7,7 @@ import ifive.idrop.domain.driver.dto.DriverInformation;
 import ifive.idrop.domain.driver.dto.DriverResponse;
 import ifive.idrop.domain.driver.dto.DriverTodayRemainingPickUpResponse;
 import ifive.idrop.common.dto.CurrentPickUpResponse;
-import ifive.idrop.domain.driver.Driver;
+import ifive.idrop.domain.driver.entity.Driver;
 import ifive.idrop.domain.driver.service.DriverService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

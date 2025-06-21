@@ -1,6 +1,6 @@
 package ifive.idrop.domain.notification;
 
-import ifive.idrop.domain.driver.Driver;
+import ifive.idrop.domain.driver.entity.Driver;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

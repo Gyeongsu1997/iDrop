@@ -5,7 +5,7 @@ import ifive.idrop.domain.auth.Auth;
 import ifive.idrop.domain.auth.repository.AuthRepository;
 import ifive.idrop.common.dto.BaseResponse;
 import ifive.idrop.domain.auth.dto.LoginRequest;
-import ifive.idrop.domain.driver.Driver;
+import ifive.idrop.domain.driver.entity.Driver;
 import ifive.idrop.domain.user.User;
 import ifive.idrop.domain.user.dto.SignUpRequest;
 import ifive.idrop.domain.user.dto.NameResponse;

@@ -1,6 +1,6 @@
 package ifive.idrop.domain.pickup;
 
-import ifive.idrop.domain.driver.Driver;
+import ifive.idrop.domain.driver.entity.Driver;
 import ifive.idrop.domain.child.Child;
 import ifive.idrop.domain.parent.Parent;
 import ifive.idrop.domain.subscription.Subscription;

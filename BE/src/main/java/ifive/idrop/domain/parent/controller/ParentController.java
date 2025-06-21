@@ -1,10 +1,8 @@
 package ifive.idrop.domain.parent.controller;
 
-import ifive.idrop.domain.parent.dto.DriverListRequest;
 import ifive.idrop.common.dto.CurrentPickUpResponse;
-import ifive.idrop.domain.parent.dto.DriverListResponse;
 import ifive.idrop.domain.parent.dto.ParentSubscribeInfoResponse;
-import ifive.idrop.domain.driver.Driver;
+import ifive.idrop.domain.driver.entity.Driver;
 import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.exception.ErrorCode;
 import ifive.idrop.domain.driver.service.DriverService;

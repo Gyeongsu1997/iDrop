@@ -5,7 +5,7 @@ import ifive.idrop.domain.auth.dto.LoginRequest;
 import ifive.idrop.common.enums.Gender;
 import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.exception.ErrorCode;
-import ifive.idrop.domain.driver.Driver;
+import ifive.idrop.domain.driver.entity.Driver;
 import ifive.idrop.domain.parent.Parent;
 import ifive.idrop.domain.user.dto.SignUpRequest;
 import jakarta.persistence.*;

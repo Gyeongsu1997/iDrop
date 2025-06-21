@@ -1,7 +1,7 @@
 package ifive.idrop.domain.driver.service;
 
 import ifive.idrop.common.dto.BaseResponse;
-import ifive.idrop.domain.driver.Driver;
+import ifive.idrop.domain.driver.entity.Driver;
 import ifive.idrop.domain.driver.dto.DriverInformation;
 import ifive.idrop.domain.driver.dto.DriverTodayRemainingPickUpResponse;
 import ifive.idrop.domain.driver.repository.DriverRepository;

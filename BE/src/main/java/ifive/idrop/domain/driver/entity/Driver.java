@@ -1,4 +1,4 @@
-package ifive.idrop.domain.driver;
+package ifive.idrop.domain.driver.entity;
 
 import ifive.idrop.domain.driver.dto.DriverInformation;
 import ifive.idrop.domain.driver.dto.WorkHoursDto;

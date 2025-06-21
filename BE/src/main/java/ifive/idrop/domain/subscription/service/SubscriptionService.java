@@ -5,7 +5,7 @@ import ifive.idrop.domain.child.repository.ChildRepository;
 import ifive.idrop.common.enums.Day;
 import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.exception.ErrorCode;
-import ifive.idrop.domain.driver.Driver;
+import ifive.idrop.domain.driver.entity.Driver;
 import ifive.idrop.domain.driver.repository.DriverRepository;
 import ifive.idrop.domain.subscription.repository.SubscriptionRepository;
 import ifive.idrop.domain.pickup.PickUpHistory;
