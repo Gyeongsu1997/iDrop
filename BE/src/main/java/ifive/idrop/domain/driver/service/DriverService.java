@@ -2,32 +2,22 @@ package ifive.idrop.domain.driver.service;
 
 import ifive.idrop.common.dto.BaseResponse;
 import ifive.idrop.domain.driver.Driver;
-import ifive.idrop.domain.driver.WorkSchedule;
 import ifive.idrop.domain.driver.dto.DriverInformation;
 import ifive.idrop.domain.driver.dto.DriverTodayRemainingPickUpResponse;
 import ifive.idrop.domain.driver.repository.DriverRepository;
-import ifive.idrop.domain.parent.dto.DriverListRequest;
 import ifive.idrop.common.exception.BusinessException;
 import ifive.idrop.common.exception.ErrorCode;
-import ifive.idrop.domain.pickup.PickUpHistory;
 import ifive.idrop.domain.pickup.repository.PickUpRepository;
-import ifive.idrop.common.util.RequestSchedule;
 import lombok.RequiredArgsConstructor;
-import org.locationtech.jts.geom.Coordinate;
-import org.locationtech.jts.geom.GeometryFactory;
-import org.locationtech.jts.geom.Point;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import ifive.idrop.common.dto.CurrentPickUpResponse;
 import ifive.idrop.domain.subscription.Subscription;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static ifive.idrop.common.util.ScheduleUtils.*;
 
 @Service
 @RequiredArgsConstructor
@@ -43,24 +33,6 @@ public class DriverService {
     public Driver findDriver(Long driverId) {
         return driverRepository.findById(driverId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
-    }
-
-    public List<Driver> searchAvailableDrivers(DriverListRequest driverListRequest) {
-        RequestSchedule requestSchedule = parseToList(driverListRequest.getSchedule());
-
-        List<Driver> availableDrivers = new ArrayList<>();
-        List<Driver> drivers = driverRepository.findAllDrivers();
-        for (Driver driver : drivers) {
-            List<PickUpHistory> pickUpHistoryList = pickUpRepository.findReservedPickUpsByDriver(driver.getId());
-            List<LocalDateTime> reservedSchedule = pickUpHistoryList.stream()
-                    .map(PickUpHistory::getReservedTime)
-                    .toList();
-            List<WorkSchedule> workScheduleList = driver.getWorkScheduleList();
-            if (requestSchedule.isAvailable(workScheduleList, reservedSchedule)) {
-                availableDrivers.add(driver);
-            }
-        }
-        return availableDrivers;
     }
 
     @Transactional

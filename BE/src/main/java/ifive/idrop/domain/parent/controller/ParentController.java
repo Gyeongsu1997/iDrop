@@ -25,18 +25,6 @@ public class ParentController {
     private final DriverService driverService;
     private final ParentService parentService;
 
-    @PostMapping("/search/drivers")
-    public DriverListResponse searchDrivers(@RequestBody DriverListRequest driverListRequest) {
-        DriverListResponse driverListResponse = new DriverListResponse();
-
-        List<Driver> drivers = driverService.searchAvailableDrivers(driverListRequest);
-
-        for (Driver driver : drivers) {
-            driverListResponse.addDriverSummary(driver.getSummary());
-        }
-        return driverListResponse;
-    }
-
     @GetMapping("/pickup/now")
     public BaseResponse<List<CurrentPickUpResponse>> checkPickUpInfo(@Login Parent parent) {
         return parentService.getChildRunningInfo(parent);

@@ -30,20 +30,6 @@ public class PickUpRepository {
         return Optional.ofNullable(em.find(PickUpHistory.class, pickUpId));
     }
 
-    public List<PickUpHistory> findReservedPickUpsByDriver(Long driverId) {
-        TypedQuery<PickUpHistory> query = em.createQuery(
-                "SELECT p FROM PickUpHistory p " +
-                        "JOIN p.pickUpInfo pi " +
-                        "JOIN pi.pickUpSubscribe ps " +
-                        "JOIN pi.driver d " +
-                        "WHERE ps.status = :status " +
-                        "AND d.id = :driverId " +
-                        "AND p.reservedTime >= CURRENT_TIMESTAMP", PickUpHistory.class);
-        query.setParameter("status", SubscriptionStatus.PROGRESS)
-                .setParameter("driverId", driverId);
-        return query.getResultList();
-    }
-
     public List<PickUpHistory> findPickUpByPickUpInfoIdAndParentIdOrderByReservedTime(Long parentId, Long pickInfoId) {
         String query = "SELECT p FROM PickUpHistory p\n" +
                 "WHERE p.pickUpInfo.id =: pickInfoId\n" +
