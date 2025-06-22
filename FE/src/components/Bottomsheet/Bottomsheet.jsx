@@ -8,9 +8,9 @@ export function ParentBottomSheet({ childrenData }) {
   const { headerMsg, isHaveData } = checkData(childrenData);
 
   return (
-    <BttmSheetTemplate headerMsg={headerMsg}>
+    <BottomSheet headerMsg={headerMsg}>
       {isHaveData && <ParentContents childrenData={childrenData} />}
-    </BttmSheetTemplate>
+    </BottomSheet>
   );
 }
 
@@ -25,7 +25,7 @@ export function DriverBottomSheet({ childrenData }) {
     });
   };
   return (
-    <BttmSheetTemplate headerMsg={headerMsg}>
+    <BottomSheet headerMsg={headerMsg}>
       {isHaveData && (
         <DriverContents childrenData={childrenData}></DriverContents>
       )}
@@ -34,11 +34,11 @@ export function DriverBottomSheet({ childrenData }) {
       ) : (
         ''
       )}
-    </BttmSheetTemplate>
+    </BottomSheet>
   );
 }
 
-function BttmSheetTemplate({ children, headerMsg }) {
+export function BottomSheet({ children, headerMsg }) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const toggleBottomSheet = () => {
