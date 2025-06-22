@@ -6,7 +6,7 @@ import iDropGreen from '@/assets/iDropGreen.svg';
 import {
   DriverBottomSheet,
   ParentBottomSheet,
-} from '@/components/Bottomsheet/Bottomsheet';
+} from '@/components/BottomSheet/BottomSheet';
 import {
   removeCityPrefix,
   formatDate,
