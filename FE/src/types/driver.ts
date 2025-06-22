@@ -3,7 +3,7 @@ import type { Day } from '../constants/day';
 export interface Driver {
   driverId: number;
   name: string;
-  birthDate: string;
+  birthDate: string; // 'YYYY-MM-DD'
   gender: '남성' | '여성';
   phoneNumber: string;
   imageUrl: string;

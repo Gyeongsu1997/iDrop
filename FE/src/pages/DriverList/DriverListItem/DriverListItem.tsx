@@ -3,15 +3,13 @@ import styles from './DriverListItem.module.scss';
 
 interface DriverListItemProps {
   driver: Driver;
-  handleClick: (id: number) => void;
+  onClick: (driver: Driver) => void;
 }
 
-export function DriverListItem({
-  driver: { driverId, name, gender, imageUrl, introduction },
-  handleClick,
-}: DriverListItemProps) {
+export function DriverListItem({ driver, onClick }: DriverListItemProps) {
+  const { name, gender, imageUrl, introduction } = driver;
   return (
-    <article onClick={() => handleClick(driverId)} className={styles.item}>
+    <article onClick={() => onClick(driver)} className={styles.item}>
       <div className={styles.info}>
         <div className={styles.profile}>
           <h4 className={styles.name}>

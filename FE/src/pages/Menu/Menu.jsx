@@ -65,11 +65,7 @@ export function ParentMenu() {
           route='/map?type=parent'
           data={childrenData}
         />
-        <MenuButton
-          imgUrl={Success}
-          text='기사 검색'
-          route='/subscription/search'
-        />
+        <MenuButton imgUrl={Success} text='기사 검색' route='/drivers' />
         <MenuButton imgUrl={User} text='프로필' route='/profile' />
         <MenuButton imgUrl={Star} text='이용내역' route='/history' />
       </div>

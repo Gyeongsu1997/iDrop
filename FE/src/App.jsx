@@ -6,7 +6,6 @@ import {
   createRoutesFromElements,
   useRouteLoaderData,
 } from 'react-router-dom';
-import Search from './pages/Parents/Subscription/Search/Search';
 import Onboarding, {
   loader as onboardingLoader,
 } from './pages/Onboarding/Onboarding';
@@ -27,14 +26,13 @@ import SubscriptionConfirmation from './pages/Complete/Confirmation/Confirmation
 import ParentMap from './pages/Map/ParentMap';
 import DriverMap, { fetchNowPickUpData } from './pages/Map/DriverMap';
 import EndPickUp from './pages/Complete/EndPickUp/EndPickUp';
-import ManagementSubscription, {
-  fetchSubscribeList,
-} from './pages/Driver/SubscriptionManagement/SubscriptionManagement';
+import ManagementSubscription from './pages/Driver/SubscriptionManagement/SubscriptionManagement';
 import SelectChild, {
   fetchPickUpList,
 } from './pages/Driver/SelectChild/SelectChild';
 import History from './pages/Parents/History/History';
 import Profile from './pages/Parents/Profile/Profile';
+import DriverDetailRefactor from './pages/DriverDetail/DriverDetail';
 
 export default function App() {
   return <RouterProvider router={router} />;
@@ -74,12 +72,6 @@ const router = createBrowserRouter(
             <RoleProvider>
               {(isParent) => (isParent ? <ParentMenu /> : <DriverMenu />)}
             </RoleProvider>
-          }
-        />
-        <Route
-          path='subscription/search'
-          element={
-            <RoleProvider>{(isParent) => isParent && <Search />}</RoleProvider>
           }
         />
         <Route
@@ -144,6 +136,14 @@ const router = createBrowserRouter(
           element={
             <RoleProvider>
               {(isParent) => isParent && <DriverList />}
+            </RoleProvider>
+          }
+        />
+        <Route
+          path='/drivers/:driverId'
+          element={
+            <RoleProvider>
+              {(isParent) => isParent && <DriverDetailRefactor />}
             </RoleProvider>
           }
         />

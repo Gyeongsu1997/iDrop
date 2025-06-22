@@ -32,7 +32,7 @@ export default function DriverList() {
       const { data } = await getDrivers(startLocation, goalLocation);
       setDrivers(data);
     })();
-  }, [isVisible, startLocation, goalLocation]);
+  }, [isVisible.animate, startLocation.address, goalLocation.address]);
 
   const openStartMap = () => {
     setIsStart(true);
@@ -44,11 +44,12 @@ export default function DriverList() {
     openModal();
   };
 
-  const handleItemClick = (id: number) => {
-    navigate(`/subscription/driver/${id}`, {
+  const handleItemClick = (driver: Driver) => {
+    navigate(`/drivers/${driver.driverId}`, {
       state: {
         startLocation,
         goalLocation,
+        driver,
       },
     });
   };
@@ -67,7 +68,7 @@ export default function DriverList() {
           <DriverListItem
             key={driver.driverId}
             driver={driver}
-            handleClick={handleItemClick}
+            onClick={handleItemClick}
           />
         ))}
       </section>
