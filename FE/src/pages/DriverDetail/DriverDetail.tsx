@@ -4,7 +4,7 @@ import { Header } from '@/components/Header/Header';
 import { postSubscribe } from '@/services/parentsAPI';
 import styles from './DriverDetail.module.scss';
 
-export default function DriverDetailRefactor() {
+export default function DriverDetail() {
   const navigate = useNavigate();
   const {
     state: { startLocation, goalLocation, driver },

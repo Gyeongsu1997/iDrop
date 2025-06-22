@@ -17,9 +17,6 @@ import Login, {
 import DriverList from './pages/DriverList/DriverList';
 import { checkAuthLoader } from './utils/auth';
 import PickUpPage from './pages/Driver/PickUp/PickUp';
-import DriverDetail, {
-  loader as driverDetailLoader,
-} from './pages/Parents/Subscription/DriverDetail/DriverDetail';
 import ParentSignUp from './pages/Auth/SignUp/ParentSignUp';
 import { DriverMenu, ParentMenu, fetchMenuData } from './pages/Menu/Menu';
 import SubscriptionConfirmation from './pages/Complete/Confirmation/Confirmation';
@@ -32,7 +29,7 @@ import SelectChild, {
 } from './pages/Driver/SelectChild/SelectChild';
 import History from './pages/Parents/History/History';
 import Profile from './pages/Parents/Profile/Profile';
-import DriverDetailRefactor from './pages/DriverDetail/DriverDetail';
+import DriverDetail from './pages/DriverDetail/DriverDetail';
 
 export default function App() {
   return <RouterProvider router={router} />;
@@ -71,15 +68,6 @@ const router = createBrowserRouter(
           element={
             <RoleProvider>
               {(isParent) => (isParent ? <ParentMenu /> : <DriverMenu />)}
-            </RoleProvider>
-          }
-        />
-        <Route
-          path='subscription/driver/:driverId'
-          loader={driverDetailLoader}
-          element={
-            <RoleProvider>
-              {(isParent) => isParent && <DriverDetail />}
             </RoleProvider>
           }
         />
@@ -143,7 +131,7 @@ const router = createBrowserRouter(
           path='/drivers/:driverId'
           element={
             <RoleProvider>
-              {(isParent) => isParent && <DriverDetailRefactor />}
+              {(isParent) => isParent && <DriverDetail />}
             </RoleProvider>
           }
         />
