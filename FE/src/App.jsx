@@ -6,7 +6,6 @@ import {
   createRoutesFromElements,
   useRouteLoaderData,
 } from 'react-router-dom';
-import Search from './pages/Parents/Subscription/Search/Search';
 import Onboarding, {
   loader as onboardingLoader,
 } from './pages/Onboarding/Onboarding';
@@ -18,23 +17,19 @@ import Login, {
 import DriverList from './pages/DriverList/DriverList';
 import { checkAuthLoader } from './utils/auth';
 import PickUpPage from './pages/Driver/PickUp/PickUp';
-import DriverDetail, {
-  loader as driverDetailLoader,
-} from './pages/Parents/Subscription/DriverDetail/DriverDetail';
 import ParentSignUp from './pages/Auth/SignUp/ParentSignUp';
 import { DriverMenu, ParentMenu, fetchMenuData } from './pages/Menu/Menu';
 import SubscriptionConfirmation from './pages/Complete/Confirmation/Confirmation';
 import ParentMap from './pages/Map/ParentMap';
 import DriverMap, { fetchNowPickUpData } from './pages/Map/DriverMap';
 import EndPickUp from './pages/Complete/EndPickUp/EndPickUp';
-import ManagementSubscription, {
-  fetchSubscribeList,
-} from './pages/Driver/SubscriptionManagement/SubscriptionManagement';
+import ManagementSubscription from './pages/Driver/SubscriptionManagement/SubscriptionManagement';
 import SelectChild, {
   fetchPickUpList,
 } from './pages/Driver/SelectChild/SelectChild';
 import History from './pages/Parents/History/History';
 import Profile from './pages/Parents/Profile/Profile';
+import DriverDetail from './pages/DriverDetail/DriverDetail';
 
 export default function App() {
   return <RouterProvider router={router} />;
@@ -73,21 +68,6 @@ const router = createBrowserRouter(
           element={
             <RoleProvider>
               {(isParent) => (isParent ? <ParentMenu /> : <DriverMenu />)}
-            </RoleProvider>
-          }
-        />
-        <Route
-          path='subscription/search'
-          element={
-            <RoleProvider>{(isParent) => isParent && <Search />}</RoleProvider>
-          }
-        />
-        <Route
-          path='subscription/driver/:driverId'
-          loader={driverDetailLoader}
-          element={
-            <RoleProvider>
-              {(isParent) => isParent && <DriverDetail />}
             </RoleProvider>
           }
         />
@@ -144,6 +124,14 @@ const router = createBrowserRouter(
           element={
             <RoleProvider>
               {(isParent) => isParent && <DriverList />}
+            </RoleProvider>
+          }
+        />
+        <Route
+          path='/drivers/:driverId'
+          element={
+            <RoleProvider>
+              {(isParent) => isParent && <DriverDetail />}
             </RoleProvider>
           }
         />
