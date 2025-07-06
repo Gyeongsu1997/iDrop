@@ -46,11 +46,8 @@ export function BottomSheet({ children, headerMsg }) {
   };
 
   return (
-    <div
-      onClick={toggleBottomSheet}
-      className={`${styles.wrapper} ${isExpanded ? styles.expanded : ''}`}
-    >
-      <header className={styles.headLine}>
+    <div className={`${styles.wrapper} ${isExpanded ? styles.expanded : ''}`}>
+      <header className={styles.headLine} onClick={toggleBottomSheet}>
         <div className={styles.handle}></div>
         <span className={styles.headMessage}>{headerMsg}</span>
       </header>
