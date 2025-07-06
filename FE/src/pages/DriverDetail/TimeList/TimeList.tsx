@@ -26,7 +26,7 @@ const TimeItem = ({ day, onHourChange, onMinuteChange }: TimeItemProps) => {
             padChar='0'
             unit='시'
             defaultValue='08'
-            handleSelect={handleHourSelect}
+            onSelect={handleHourSelect}
           />
           <NumericSelector
             start={0}
@@ -36,7 +36,7 @@ const TimeItem = ({ day, onHourChange, onMinuteChange }: TimeItemProps) => {
             padChar='0'
             defaultValue='10'
             unit='분'
-            handleSelect={handleMinuteSelect}
+            onSelect={handleMinuteSelect}
           />
         </div>
       </form>
