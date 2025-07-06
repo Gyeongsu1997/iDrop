@@ -1,14 +1,21 @@
 import styles from './TimeList.module.scss';
 import { LabelledList } from '@/components/Layout/LabelledList';
 import { NumericSelector } from '@/components/Input/NumericSelector';
-import { SEARCH_PAGE } from '@/constants/constants';
+import { Day, DAY } from '@/constants/day';
+import { type State as Schedule } from './useSchedule';
 
-const TimeItem = ({ day, handleTimeChange }) => {
-  const handleHourSelect = handleTimeChange(day, 'hour');
-  const handleMinuteSelect = handleTimeChange(day, 'min');
+interface TimeItemProps {
+  day: Day;
+  onHourChange: (day: Day) => (newHour: string) => void;
+  onMinuteChange: (day: Day) => (newMin: string) => void;
+}
+
+const TimeItem = ({ day, onHourChange, onMinuteChange }: TimeItemProps) => {
+  const handleHourSelect = onHourChange(day);
+  const handleMinuteSelect = onMinuteChange(day);
   return (
     <li className={styles.timeItem}>
-      <h6 className={styles.timeDay}>{SEARCH_PAGE.WEEK_MAP[day]}</h6>
+      <h6 className={styles.timeDay}>{DAY[day]}</h6>
       <form className={styles.timeForm}>
         <div className={styles.timeWrapper}>
           <NumericSelector
@@ -37,22 +44,33 @@ const TimeItem = ({ day, handleTimeChange }) => {
   );
 };
 
-export function TimeList({ schedule, handleTimeChange }) {
-  const filteredTimeItems = SEARCH_PAGE.WEEK.filter(
-    (day) => schedule[day] !== undefined,
-  );
+interface TimeListProps {
+  schedule: Schedule;
+  onHourChange: (day: Day) => (newHour: string) => void;
+  onMinuteChange: (day: Day) => (newMin: string) => void;
+}
 
-  const timeListElement = filteredTimeItems.length ? (
-    filteredTimeItems.map((day, index) => (
-      <TimeItem
-        key={`day-${index}`}
-        day={day}
-        handleTimeChange={handleTimeChange}
-      />
-    ))
-  ) : (
-    <li className={styles.timeEmpty}>픽업 요일을 선택해주세요</li>
-  );
+export function TimeList({
+  schedule,
+  onHourChange,
+  onMinuteChange,
+}: TimeListProps) {
+  const filtered = Object.keys(DAY).filter((day) => day in schedule);
+
+  const timeListElement =
+    filtered.length > 0 ? (
+      filtered.map((day, index) => (
+        <TimeItem
+          key={`day-${index}`}
+          day={day}
+          onHourChange={onHourChange}
+          onMinuteChange={onMinuteChange}
+        />
+      ))
+    ) : (
+      <li className={styles.timeEmpty}>픽업 요일을 선택해주세요</li>
+    );
+
   return (
     <LabelledList articleStyle='time' label='픽업 시간'>
       {timeListElement}

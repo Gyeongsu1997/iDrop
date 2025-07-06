@@ -1,4 +1,3 @@
-import { useReducer } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { DayList } from './DayList/DayList';
 import { TimeList } from './TimeList/TimeList';
@@ -7,9 +6,9 @@ import { Header } from '@/components/Header/Header';
 import { BottomSheet } from '@/components/BottomSheet/BottomSheet';
 import { postSubscribe } from '@/services/parentsAPI';
 import styles from './DriverDetail.module.scss';
-import type { Location } from '../../types/location';
+import { type State as Schedule, useSchedule } from './useSchedule';
 
-const formatSchedule = (schedule) => {
+const formatSchedule = (schedule: Schedule) => {
   return Object.fromEntries(
     Object.entries(schedule).map(([day, { hour, min }]) => [
       day,
@@ -41,10 +40,7 @@ export default function DriverDetail() {
     career,
     introduction,
   } = driver;
-  const [schedule, dispatchSchedule] = useReducer(
-    scheduleReducer,
-    INITIAL_SCHEDULE_STATE,
-  );
+  const { schedule, toggleDay, changeHour, changeMinute } = useSchedule();
 
   const handleSubmit = async (isButtonActive: boolean) => {
     if (!isButtonActive) {
@@ -89,27 +85,6 @@ export default function DriverDetail() {
     }
   };
 
-  const handleWeekClick = (day) => {
-    if (schedule[day]) {
-      dispatchSchedule({
-        type: SCHEDULE_ACTION_TYPE.DELETE_DAY,
-        payload: { day },
-      });
-    } else {
-      dispatchSchedule({
-        type: SCHEDULE_ACTION_TYPE.ADD_DAY,
-        payload: { day, time: DEFAULT_TIME },
-      });
-    }
-  };
-
-  const handleTimeChange = (day, unit) => (value) => {
-    dispatchSchedule({
-      type: SCHEDULE_ACTION_TYPE.CHANGE_TIME,
-      payload: { day, unit, value },
-    });
-  };
-
   const isButtonActive =
     startLocation.address &&
     goalLocation.address &&
@@ -142,49 +117,18 @@ export default function DriverDetail() {
         </section>
       </main>
       <BottomSheet headerMsg='구독 신청'>
-        <DayList schedule={schedule} handleWeekClick={handleWeekClick} />
-        <TimeList schedule={schedule} handleTimeChange={handleTimeChange} />
+        <DayList schedule={schedule} handleWeekClick={toggleDay} />
+        <TimeList
+          schedule={schedule}
+          onHourChange={changeHour}
+          onMinuteChange={changeMinute}
+        />
         <Footer
           text='확인'
           onClick={() => handleSubmit(isButtonActive)}
           isButtonDisabled={!isButtonActive}
         />
       </BottomSheet>
-      {/* <Footer text='구독 신청' onClick={handleSubscriptionRequest} /> */}
     </div>
   );
 }
-
-const INITIAL_SCHEDULE_STATE = {};
-
-const SCHEDULE_ACTION_TYPE = {
-  ADD_DAY: 'ADD_DAY',
-  DELETE_DAY: 'DELETE_DAY',
-  CHANGE_TIME: 'CHANGE_TIME',
-};
-
-const DEFAULT_TIME = { hour: '08', min: '10' };
-
-const scheduleReducer = (state, action) => {
-  switch (action.type) {
-    case SCHEDULE_ACTION_TYPE.ADD_DAY:
-      return {
-        ...state,
-        [action.payload.day]: action.payload.time,
-      };
-    case SCHEDULE_ACTION_TYPE.DELETE_DAY:
-      const newState = { ...state };
-      delete newState[action.payload.day];
-      return newState;
-    case SCHEDULE_ACTION_TYPE.CHANGE_TIME:
-      return {
-        ...state,
-        [action.payload.day]: {
-          ...state[action.payload.day],
-          [action.payload.unit]: action.payload.value,
-        },
-      };
-    default:
-      return state;
-  }
-};
