@@ -53,7 +53,7 @@ public class PickUpHistoryResponse {
                         .startTime(pickUpHistory.getStartTime())
                         .startImage(pickUpHistory.getStartImage())
                         .startAddress(pickUpHistory.getSubscription().getPickUpLocation().getStartAddress())
-                        .endAddress(pickUpHistory.getSubscription().getPickUpLocation().getEndAddress())
+                        .endAddress(pickUpHistory.getSubscription().getPickUpLocation().getGoalAddress())
                         .build();
             }
 
@@ -61,7 +61,7 @@ public class PickUpHistoryResponse {
                     .endTime(pickUpHistory.getEndTime())
                     .endImage(pickUpHistory.getEndImage())
                     .startAddress(pickUpHistory.getSubscription().getPickUpLocation().getStartAddress())
-                    .endAddress(pickUpHistory.getSubscription().getPickUpLocation().getEndAddress())
+                    .endAddress(pickUpHistory.getSubscription().getPickUpLocation().getGoalAddress())
                     .status("픽업 종료")
                     .build();
         }

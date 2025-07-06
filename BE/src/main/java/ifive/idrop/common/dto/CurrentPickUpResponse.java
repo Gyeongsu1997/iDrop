@@ -66,9 +66,9 @@ public class CurrentPickUpResponse {
                     .startAddress(location.getStartAddress())
                     .startLatitude(location.getStartLatitude())
                     .startLongitude(location.getStartLongitude())
-                    .endAddress(location.getEndAddress())
-                    .endLatitude(location.getEndLatitude())
-                    .endLongitude(location.getEndLongitude())
+                    .endAddress(location.getGoalAddress())
+                    .endLatitude(location.getGoalLatitude())
+                    .endLongitude(location.getGoalLongitude())
                     .build();
         }
     }

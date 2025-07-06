@@ -41,7 +41,7 @@ public class SubscriptionResponse {
                 .expiredDate(subscription.getExpiredDate())
                 .status(subscription.getStatus().getDesc())
                 .startAddress(subscription.getPickUpLocation().getStartAddress())
-                .endAddress(subscription.getPickUpLocation().getEndAddress())
+                .endAddress(subscription.getPickUpLocation().getGoalAddress())
                 .schedule(schedule)
                 .build();
     }

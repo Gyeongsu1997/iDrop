@@ -84,11 +84,13 @@ CREATE TABLE subscription (
 CREATE TABLE pick_up_location (
     subscription_id	BIGINT UNSIGNED	PRIMARY KEY,
     start_address VARCHAR(255) NOT NULL,
+    start_detailed_address VARCHAR(255),
     start_latitude DOUBLE NOT NULL,
     start_longitude	DOUBLE NOT NULL,
-    end_address	VARCHAR(255) NOT NULL,
-    end_latitude DOUBLE	NOT NULL,
-    end_longitude DOUBLE NOT NULL,
+    goal_address VARCHAR(255) NOT NULL,
+    goal_detailed_address VARCHAR(255),
+    goal_latitude DOUBLE	NOT NULL,
+    goal_longitude DOUBLE NOT NULL,
     FOREIGN KEY (subscription_id) REFERENCES subscription(subscription_id)
 ) ENGINE=InnoDB;
 
