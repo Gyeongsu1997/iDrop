@@ -39,24 +39,6 @@ export async function getDriverDetail(driverId) {
   }
 }
 
-export async function postSubscribe(subscribeOption) {
-  try {
-    const response = await authRequest(`${BASE_URL}/api/subscriptions`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(subscribeOption),
-    });
-
-    if (response.ok) {
-      console.log('Review submitted successfully.');
-    } else {
-      console.error('구독 요청 실패.');
-    }
-  } catch (error) {
-    throw error;
-  }
-}
-
 export async function getSubscriptionHistoryList() {
   try {
     const response = await authRequest(`${BASE_URL}/parent/subscribe/list`);

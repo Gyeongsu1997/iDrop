@@ -4,9 +4,10 @@ import { TimeList } from './TimeList/TimeList';
 import { Footer } from '@/components/Footer/Footer';
 import { Header } from '@/components/Header/Header';
 import { BottomSheet } from '@/components/BottomSheet/BottomSheet';
-import { postSubscribe } from '@/services/parentsAPI';
+import { postSubscription } from '@/services/subscription';
 import styles from './DriverDetail.module.scss';
 import { type State as Schedule, useSchedule } from './useSchedule';
+import { useEffect, useState } from 'react';
 
 const formatSchedule = (schedule: Schedule) => {
   return Object.fromEntries(
@@ -30,6 +31,10 @@ export default function DriverDetail() {
   const {
     state: { startLocation, goalLocation, driver },
   } = useLocation();
+  const [children, setChildren] = useState();
+  const { schedule, toggleDay, changeHour, changeMinute } = useSchedule();
+  useEffect(() => {}, []);
+
   const {
     driverId,
     name,
@@ -40,7 +45,6 @@ export default function DriverDetail() {
     career,
     introduction,
   } = driver;
-  const { schedule, toggleDay, changeHour, changeMinute } = useSchedule();
 
   const handleSubmit = async (isButtonActive: boolean) => {
     if (!isButtonActive) {
@@ -76,7 +80,7 @@ export default function DriverDetail() {
     };
 
     try {
-      await postSubscribe(payload);
+      await postSubscription(payload);
       navigate('/subscription/confirmation');
     } catch (error) {
       console.error(error);
