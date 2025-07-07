@@ -5,6 +5,7 @@ import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -18,5 +19,11 @@ public class ChildRepository {
 
     public Optional<Child> findById(Long childId) {
         return Optional.ofNullable(em.find(Child.class, childId));
+    }
+
+    public List<Child> findByParentId(Long parentId) {
+        return em.createQuery("SELECT c FROM Child c where c.parent.id =: parentId", Child.class)
+                .setParameter("parentId", parentId)
+                .getResultList();
     }
 }
