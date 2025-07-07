@@ -13,11 +13,13 @@ public class SubscriptionRequest {
     private Long driverId;
     private LocalDate startDate;
     private String startAddress;
+    private String startDetailedAddress;
     private Double startLatitude;
     private Double startLongitude;
-    private String endAddress;
-    private Double endLatitude;
-    private Double endLongitude;
+    private String goalAddress;
+    private String goalDetailedAddress;
+    private Double goalLatitude;
+    private Double goalLongitude;
     private Map<Day, LocalTime> schedule;
 }
 
@@ -29,9 +31,9 @@ public class SubscriptionRequest {
  *     "startAddress": "서울특별시 강남구 논현동 58-3 에티버스러닝 학동캠퍼스",
  *     "startLatitude": 37.5138649,
  *     "startLongitude": 127.0295296,
- *     "endAddress": "서울특별시 강남구 학동로31길 15 코마츠",
- *     "endLatitude": 37.51559,
- *     "endLongitude": 127.0316161,
+ *     "goalAddress": "서울특별시 강남구 학동로31길 15 코마츠",
+ *     "goalLatitude": 37.51559,
+ *     "goalLongitude": 127.0316161,
  *     "schedule": {
  *         "MON": "08:30",
  *         "WED": "09:30",

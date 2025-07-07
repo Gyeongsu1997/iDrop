@@ -4,9 +4,11 @@ import { TimeList } from './TimeList/TimeList';
 import { Footer } from '@/components/Footer/Footer';
 import { Header } from '@/components/Header/Header';
 import { BottomSheet } from '@/components/BottomSheet/BottomSheet';
-import { postSubscribe } from '@/services/parentsAPI';
+import { postSubscription } from '@/services/subscription';
+import { useFetch } from '@/hooks/useFetch';
 import styles from './DriverDetail.module.scss';
 import { type State as Schedule, useSchedule } from './useSchedule';
+import { useEffect, useState } from 'react';
 
 const formatSchedule = (schedule: Schedule) => {
   return Object.fromEntries(
@@ -30,6 +32,16 @@ export default function DriverDetail() {
   const {
     state: { startLocation, goalLocation, driver },
   } = useLocation();
+  const { schedule, toggleDay, changeHour, changeMinute } = useSchedule();
+
+  const [children, setChildren] = useState([]);
+  const { data } = useFetch('/api/children');
+  useEffect(() => {
+    if (data) {
+      setChildren(data.data);
+    }
+  }, [data]);
+
   const {
     driverId,
     name,
@@ -40,7 +52,6 @@ export default function DriverDetail() {
     career,
     introduction,
   } = driver;
-  const { schedule, toggleDay, changeHour, changeMinute } = useSchedule();
 
   const handleSubmit = async (isButtonActive: boolean) => {
     if (!isButtonActive) {
@@ -63,6 +74,7 @@ export default function DriverDetail() {
 
     const payload = {
       driverId,
+      childId: children[0].childId,
       startDate: getToday(),
       startAddress,
       startDetailedAddress,
@@ -76,7 +88,7 @@ export default function DriverDetail() {
     };
 
     try {
-      await postSubscribe(payload);
+      await postSubscription(payload);
       navigate('/subscription/confirmation');
     } catch (error) {
       console.error(error);
@@ -88,7 +100,8 @@ export default function DriverDetail() {
   const isButtonActive =
     startLocation.address &&
     goalLocation.address &&
-    Object.keys(schedule).length > 0;
+    Object.keys(schedule).length > 0 &&
+    children.length > 0;
 
   return (
     <div className={styles.container}>

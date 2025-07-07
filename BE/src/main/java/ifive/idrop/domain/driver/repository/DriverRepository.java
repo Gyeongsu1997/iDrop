@@ -31,11 +31,6 @@ public class DriverRepository {
                 .getResultList();
     }
 
-    public List<Driver> findAllDrivers() {
-        return em.createQuery("select d from Driver d", Driver.class)
-                .getResultList();
-    }
-
     public List<Object[]> findAllRunningPickUpInfoOrderByreservedTimeASC(Long driverId) {
         String query = "SELECT pui, pu.reservedTime\n" +
                 "FROM Subscription pui\n" +

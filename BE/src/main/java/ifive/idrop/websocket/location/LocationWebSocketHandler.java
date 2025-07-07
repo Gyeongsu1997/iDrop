@@ -171,7 +171,7 @@ public class LocationWebSocketHandler extends TextWebSocketHandler {
                 .parentId((Long) childIdAndParentId[1])
                 .reservedTime(pickup.getReservedTime())
                 .startLocation(new Location(pickUpLocation.getStartLongitude(), pickUpLocation.getStartLatitude()))
-                .endLocation(new Location(pickUpLocation.getEndLongitude(), pickUpLocation.getEndLatitude()))
+                .endLocation(new Location(pickUpLocation.getGoalLongitude(), pickUpLocation.getGoalLatitude()))
                 .build();
         currentPickUps.put(driverId, currentPickUp);
         parentDriverSets.put((Long) childIdAndParentId[1], driverId);
