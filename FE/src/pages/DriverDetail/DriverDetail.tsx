@@ -5,6 +5,7 @@ import { Footer } from '@/components/Footer/Footer';
 import { Header } from '@/components/Header/Header';
 import { BottomSheet } from '@/components/BottomSheet/BottomSheet';
 import { postSubscription } from '@/services/subscription';
+import { useFetch } from '@/hooks/useFetch';
 import styles from './DriverDetail.module.scss';
 import { type State as Schedule, useSchedule } from './useSchedule';
 import { useEffect, useState } from 'react';
@@ -31,9 +32,15 @@ export default function DriverDetail() {
   const {
     state: { startLocation, goalLocation, driver },
   } = useLocation();
-  const [children, setChildren] = useState();
   const { schedule, toggleDay, changeHour, changeMinute } = useSchedule();
-  useEffect(() => {}, []);
+
+  const [children, setChildren] = useState([]);
+  const { data } = useFetch('/api/children');
+  useEffect(() => {
+    if (data) {
+      setChildren(data.data);
+    }
+  }, [data]);
 
   const {
     driverId,
@@ -67,6 +74,7 @@ export default function DriverDetail() {
 
     const payload = {
       driverId,
+      childId: children[0].childId,
       startDate: getToday(),
       startAddress,
       startDetailedAddress,
@@ -92,7 +100,8 @@ export default function DriverDetail() {
   const isButtonActive =
     startLocation.address &&
     goalLocation.address &&
-    Object.keys(schedule).length > 0;
+    Object.keys(schedule).length > 0 &&
+    children.length > 0;
 
   return (
     <div className={styles.container}>
