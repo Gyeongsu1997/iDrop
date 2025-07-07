@@ -14,10 +14,6 @@ import java.util.stream.Stream;
 public class RequestSchedule {
     private List<LocalDateTime> requestSchedule = new ArrayList<>();
 
-    public void addSchedule(LocalDateTime schedule) {
-        requestSchedule.add(schedule);
-    }
-
     public void sortSchedule() {
         Collections.sort(requestSchedule);
     }
