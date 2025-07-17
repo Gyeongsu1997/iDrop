@@ -18,3 +18,13 @@ export const postSubscription = async (subscribeOption) => {
     throw error;
   }
 };
+
+export const getDriverSubscriptions = async (driverId: number) => {
+  const response = await authRequest(
+    `${BASE_URL}/api/subscriptions/drivers/${driverId}`,
+  );
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
+  return await response.json();
+};

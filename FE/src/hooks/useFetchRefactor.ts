@@ -36,7 +36,11 @@ const reducer = (_: State, action: Action): State => {
   }
 };
 
-export const useFetch = (callback: () => any, deps = [], skip = false) => {
+export const useFetch = (
+  callback: () => any,
+  deps = [],
+  skip = false,
+): [State, () => Promise<void>] => {
   const [state, dispatch] = useReducer<Reducer<State, Action>>(reducer, {
     loading: false,
     data: null,
