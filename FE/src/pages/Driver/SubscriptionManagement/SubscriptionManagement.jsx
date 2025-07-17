@@ -5,11 +5,10 @@ import { transformSchedule } from "../../Parent/History/HistoryItem/transformSch
 import { removeCityPrefix } from "../../../utils/parseData";
 import { Header } from "@/components/Header/Header";
 import { getKidInfo } from "@/services/childrenAPI";
-import { redirect, useLoaderData } from "react-router-dom";
+import { redirect } from "react-router-dom";
 import { ScheduleList } from "../../../components/Schedule/ScheduleList";
 import { postSubscribeRequest } from "../../../services/driverAPI";
 import { useFetch } from "../../../hooks/useFetch";
-import { NoChildItems } from "../../../components/Layout/Content/EmptyChildData";
 import { Loader } from "../../../components/Loader/Loader";
 
 export default function SubscriptionManagement() {
@@ -25,16 +24,16 @@ export default function SubscriptionManagement() {
 
     const isHaveData = subscribeList.length > 0;
 
+    if (!isHaveData) {
+      return <div className={styles.headMessage}>현재 요청된 구독이 없어요</div>;
+    }
+
     return (
         <div>
-            <Header title="구독 요청 목록" />
-            {isHaveData ? (
-                subscribeList.map((subscription, index) => (
-                    <KidInformationBox key={index} {...subscription} />
-                ))
-            ) : (
-                <NoChildItems type="subscribe" />
-            )}
+          <Header title="구독 요청" />
+            subscribeList.map((subscription, index) => (
+                <KidInformationBox key={index} {...subscription} />
+            ))
         </div>
     );
 }
