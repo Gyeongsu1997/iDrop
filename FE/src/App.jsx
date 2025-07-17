@@ -27,8 +27,8 @@ import ManagementSubscription from './pages/Driver/SubscriptionManagement/Subscr
 import SelectChild, {
   fetchPickUpList,
 } from './pages/Driver/SelectChild/SelectChild';
-import History from './pages/Parents/History/History';
-import Profile from './pages/Parents/Profile/Profile';
+import History from './pages/Parent/History/History';
+import Profile from './pages/Parent/Profile/Profile';
 import DriverDetail from './pages/DriverDetail/DriverDetail';
 
 export default function App() {

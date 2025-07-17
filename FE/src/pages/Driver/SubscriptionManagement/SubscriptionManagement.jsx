@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./SubscriptionManagement.module.scss";
 import iDrop from "@/assets/iDropGreen.svg";
-import { transformSchedule } from "../../Parents/History/HistoryItem/transformSchedule";
+import { transformSchedule } from "../../Parent/History/HistoryItem/transformSchedule";
 import { isHaveItems, removeCityPrefix } from "../../../utils/parseData";
 import { Header } from "@/components/Header/Header";
 import { getKidInfo } from "@/services/childrenAPI";
