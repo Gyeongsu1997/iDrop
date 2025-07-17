@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./SubscriptionManagement.module.scss";
 import iDrop from "@/assets/iDropGreen.svg";
 import { transformSchedule } from "../../Parent/History/HistoryItem/transformSchedule";
-import { isHaveItems, removeCityPrefix } from "../../../utils/parseData";
+import { removeCityPrefix } from "../../../utils/parseData";
 import { Header } from "@/components/Header/Header";
 import { getKidInfo } from "@/services/childrenAPI";
 import { redirect, useLoaderData } from "react-router-dom";
@@ -23,7 +23,7 @@ export default function SubscriptionManagement() {
     if (loading || !subscribeList) return <Loader />;
     if (error) redirect("/menu");
 
-    const isHaveData = isHaveItems(subscribeList);
+    const isHaveData = subscribeList.length > 0;
 
     return (
         <div>

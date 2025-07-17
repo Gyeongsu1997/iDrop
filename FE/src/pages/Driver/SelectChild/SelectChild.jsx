@@ -3,12 +3,12 @@ import { Header } from "@/components/Header/Header";
 import { getKidInfo } from "@/services/childrenAPI";
 import styles from "./SelectChild.module.scss";
 import { TodayPickUpList } from "./TodayPickUpList";
-import { isHaveItems, parseData } from "../../../utils/parseData";
+import { parseData } from "../../../utils/parseData";
 import { NoChildItems } from "@/components/Layout/Content/EmptyChildData";
 
 export default function SelectChild() {
     const childrenData = useLoaderData();
-    const isHaveChildData = isHaveItems(childrenData);
+    const isHaveChildData = childrenData.length > 0;
 
     return (
         <>
