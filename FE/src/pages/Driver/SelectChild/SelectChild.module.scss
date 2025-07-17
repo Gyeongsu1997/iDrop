@@ -1,4 +1,14 @@
+@import "@/styles/fontStyle.scss";
+
 .container {
     padding: 10px;
     overflow: scroll;
+}
+
+.headMessage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 450px;
+    @extend %B_18;
 }

@@ -24,6 +24,7 @@ export function KidInformationBox({ subscription }: KidInformationBoxProps) {
     schedule,
   } = subscription;
   const transformedSchedule = transformSchedule(schedule);
+  console.log(transformedSchedule);
 
   const handleSubscription = async (pickUpId, status) => {
     const postData = {

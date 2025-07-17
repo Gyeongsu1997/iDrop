@@ -31,8 +31,11 @@ export default function SubscriptionManagement() {
   return (
     <div>
       <Header title='구독 요청' />
-      {subscriptions.map((subscription, index) => (
-        <KidInformationBox key={index} subscription={subscription} />
+      {subscriptions.map((subscription) => (
+        <KidInformationBox
+          key={subscription.subscriptionId}
+          subscription={subscription}
+        />
       ))}
     </div>
   );
