@@ -24,7 +24,6 @@ export function KidInformationBox({ subscription }: KidInformationBoxProps) {
     schedule,
   } = subscription;
   const transformedSchedule = transformSchedule(schedule);
-  console.log(transformedSchedule);
 
   const handleSubscription = async (pickUpId, status) => {
     const postData = {
@@ -65,7 +64,7 @@ export function KidInformationBox({ subscription }: KidInformationBoxProps) {
           {startAddress} <br /> {'→'} {endAddress}
         </span>
       </div>
-      <ScheduleList schedule={transformedSchedule} status={status} />
+      <ScheduleList schedule={transformedSchedule} />
       <div className={styles.btnBox}>
         {status !== '승인' && (
           <>
@@ -99,15 +98,6 @@ function transformSchedule(schedule) {
     SUN: { order: 7, translation: '일' },
   };
 
-  const makeScheduleObj = (day) => {
-    const [hour, min] = schedule[day].split(':');
-    return {
-      day,
-      hour,
-      min,
-    };
-  };
-
   const translateDay = (schedule) => ({
     ...schedule,
     day: daysInfo[schedule.day].translation,
@@ -115,7 +105,12 @@ function transformSchedule(schedule) {
 
   const sortByDay = (a, b) => daysInfo[a.day].order - daysInfo[b.day].order;
 
-  const scheduleArray = Object.keys(schedule).map(makeScheduleObj);
+  const scheduleArray = Object.keys(schedule).map((day) => {
+    return {
+      day,
+      time: schedule[day],
+    };
+  });
   scheduleArray.sort(sortByDay);
   const translatedScheduleArray = scheduleArray.map(translateDay);
 
