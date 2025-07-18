@@ -71,7 +71,7 @@ CREATE TABLE subscription (
     subscription_id	BIGINT UNSIGNED	AUTO_INCREMENT PRIMARY KEY,
     request_date DATETIME NOT NULL,
     response_date DATETIME,
-    start_date DATE,
+    start_date DATE NOT NULL,
     expired_date DATETIME,
     status_id TINYINT UNSIGNED NOT NULL,
     child_id BIGINT UNSIGNED NOT NULL,
@@ -97,7 +97,7 @@ CREATE TABLE pick_up_location (
 CREATE TABLE pick_up_schedule (
     subscription_id	BIGINT UNSIGNED	NOT NULL,
     day	ENUM('MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN') NOT NULL,
-    start_time TIME,
+    start_time TIME NOT NULL,
     PRIMARY KEY (subscription_id, day),
     FOREIGN KEY (subscription_id) REFERENCES subscription(subscription_id)
 ) ENGINE=InnoDB;
