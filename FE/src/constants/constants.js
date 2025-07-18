@@ -1,11 +1,6 @@
-export const userType = {
-  parent: 0,
-  driver: 1,
-};
+export const DEFAULT_COORDS = { latitude: 37.3595704, longitude: 127.105399 };
 
 export const BASE_URL = import.meta.env.VITE_BASE_URL;
-
-export const DEFAULT_COORDS = { latitude: 37.3595704, longitude: 127.105399 };
 
 export const WEBSOCKET_URL = import.meta.env.VITE_WEBSOCKET_URL;
 
