@@ -5,11 +5,12 @@ import { KidInformationBox } from './KidInformationBox/KidInformationBox';
 import { getDriverSubscriptions } from '../../../services/subscription';
 import { useFetch } from '../../../hooks/useFetchRefactor';
 import { Loader } from '../../../components/Loader/Loader';
+import type { Subscription } from '../../../types/subscription.ts';
 
 export default function SubscriptionManagement() {
-  const [subscriptions, setSubscriptions] = useState([]);
+  const [subscriptions, setSubscriptions] = useState<Subscription[]>([]);
 
-  const [state] = useFetch(() => getDriverSubscriptions(1), []); // client가 driverId를 알고 있어야함.
+  const [state] = useFetch(() => getDriverSubscriptions(1), []); // client가 자신의 driverId를 알고 있어야함.
   const { loading, data, error } = state;
 
   useEffect(() => {
