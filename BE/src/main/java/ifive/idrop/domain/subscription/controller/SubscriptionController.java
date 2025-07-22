@@ -1,6 +1,6 @@
 package ifive.idrop.domain.subscription.controller;
 
-import ifive.idrop.common.dto.DataResponse;
+import ifive.idrop.common.response.DataResponse;
 import ifive.idrop.domain.subscription.dto.SubscriptionRequest;
 import ifive.idrop.domain.subscription.dto.SubscriptionResponse;
 import ifive.idrop.domain.subscription.service.SubscriptionService;

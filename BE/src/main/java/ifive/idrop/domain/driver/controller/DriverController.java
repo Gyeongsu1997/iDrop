@@ -2,11 +2,11 @@ package ifive.idrop.domain.driver.controller;
 
 import ifive.idrop.domain.auth.resolver.Login;
 
-import ifive.idrop.common.dto.DataResponse;
+import ifive.idrop.common.response.DataResponse;
 import ifive.idrop.domain.driver.dto.DriverInformation;
 import ifive.idrop.domain.driver.dto.DriverResponse;
 import ifive.idrop.domain.driver.dto.DriverTodayRemainingPickUpResponse;
-import ifive.idrop.common.dto.CurrentPickUpResponse;
+import ifive.idrop.domain.driver.dto.CurrentPickUpResponse;
 import ifive.idrop.domain.driver.entity.Driver;
 import ifive.idrop.domain.driver.service.DriverService;
 import lombok.RequiredArgsConstructor;

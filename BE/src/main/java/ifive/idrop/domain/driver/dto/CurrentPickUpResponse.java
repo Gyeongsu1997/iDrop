@@ -1,4 +1,4 @@
-package ifive.idrop.common.dto;
+package ifive.idrop.domain.driver.dto;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import ifive.idrop.domain.subscription.entity.Subscription;

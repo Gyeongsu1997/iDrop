@@ -1,6 +1,6 @@
 package ifive.idrop.domain.child.controller;
 
-import ifive.idrop.common.dto.DataResponse;
+import ifive.idrop.common.response.DataResponse;
 import ifive.idrop.domain.auth.resolver.Login;
 import ifive.idrop.domain.child.dto.ChildResponse;
 import ifive.idrop.domain.child.service.ChildService;

@@ -1,7 +1,7 @@
 package ifive.idrop.domain.pickup.controller;
 
 import ifive.idrop.domain.auth.resolver.Login;
-import ifive.idrop.common.dto.DataResponse;
+import ifive.idrop.common.response.DataResponse;
 import ifive.idrop.domain.driver.entity.Driver;
 import ifive.idrop.domain.pickup.entity.PickUpHistory;
 import ifive.idrop.common.exception.BusinessException;

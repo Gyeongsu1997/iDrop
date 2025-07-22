@@ -1,6 +1,6 @@
 package ifive.idrop.domain.driver.service;
 
-import ifive.idrop.common.dto.DataResponse;
+import ifive.idrop.common.response.DataResponse;
 import ifive.idrop.domain.driver.dto.DriverResponse;
 import ifive.idrop.domain.driver.entity.Driver;
 import ifive.idrop.domain.driver.dto.DriverInformation;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import ifive.idrop.common.dto.CurrentPickUpResponse;
+import ifive.idrop.domain.driver.dto.CurrentPickUpResponse;
 import ifive.idrop.domain.subscription.entity.Subscription;
 
 import java.util.List;

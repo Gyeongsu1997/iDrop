@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import ifive.idrop.domain.auth.filter.JwtAuthorizationFilter;
 import ifive.idrop.domain.notification.dto.TokenRequest;
 import ifive.idrop.common.exception.BusinessException;
-import ifive.idrop.common.dto.ErrorResponse;
+import ifive.idrop.common.response.ErrorResponse;
 import ifive.idrop.domain.user.service.UserService;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;

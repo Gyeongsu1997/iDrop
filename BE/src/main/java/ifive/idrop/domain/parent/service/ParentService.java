@@ -1,7 +1,7 @@
 package ifive.idrop.domain.parent.service;
 
-import ifive.idrop.common.dto.DataResponse;
-import ifive.idrop.common.dto.CurrentPickUpResponse;
+import ifive.idrop.common.response.DataResponse;
+import ifive.idrop.domain.driver.dto.CurrentPickUpResponse;
 
 import ifive.idrop.domain.parent.dto.PickUpHistoryResponse;
 import ifive.idrop.domain.parent.dto.ParentSubscribeInfoResponse;

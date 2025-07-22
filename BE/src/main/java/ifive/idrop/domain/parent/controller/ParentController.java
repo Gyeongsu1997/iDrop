@@ -1,6 +1,6 @@
 package ifive.idrop.domain.parent.controller;
 
-import ifive.idrop.common.dto.CurrentPickUpResponse;
+import ifive.idrop.domain.driver.dto.CurrentPickUpResponse;
 import ifive.idrop.domain.parent.dto.ParentSubscribeInfoResponse;
 import ifive.idrop.domain.driver.entity.Driver;
 import ifive.idrop.common.exception.BusinessException;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 import ifive.idrop.domain.auth.resolver.Login;
-import ifive.idrop.common.dto.DataResponse;
+import ifive.idrop.common.response.DataResponse;
 import ifive.idrop.domain.parent.entity.Parent;
 import ifive.idrop.domain.parent.service.ParentService;
 

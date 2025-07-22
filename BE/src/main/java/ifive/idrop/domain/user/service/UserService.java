@@ -3,7 +3,7 @@ package ifive.idrop.domain.user.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ifive.idrop.domain.auth.entity.Auth;
 import ifive.idrop.domain.auth.repository.AuthRepository;
-import ifive.idrop.common.dto.DataResponse;
+import ifive.idrop.common.response.DataResponse;
 import ifive.idrop.domain.auth.dto.LoginRequest;
 import ifive.idrop.domain.driver.entity.Driver;
 import ifive.idrop.domain.user.entity.User;

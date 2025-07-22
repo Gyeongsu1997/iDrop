@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import ifive.idrop.domain.auth.dto.LoginRequest;
 import ifive.idrop.common.enums.Role;
 import ifive.idrop.common.exception.BusinessException;
-import ifive.idrop.common.dto.ErrorResponse;
+import ifive.idrop.common.response.ErrorResponse;
 import ifive.idrop.domain.auth.entity.AuthenticateUser;
 import ifive.idrop.domain.user.service.UserService;
 import jakarta.servlet.*;
