@@ -5,11 +5,9 @@ import ifive.idrop.domain.subscription.entity.Subscription;
 import ifive.idrop.domain.pickup.entity.PickUpLocation;
 import lombok.Builder;
 import lombok.Getter;
-import org.json.simple.JSONObject;
 
 import java.time.LocalDate;
 
-import static ifive.idrop.common.util.ScheduleUtils.*;
 import static ifive.idrop.common.util.ScheduleUtils.calculateEndDate;
 import static ifive.idrop.common.util.ScheduleUtils.calculateStartDate;
 
@@ -24,7 +22,6 @@ public class ParentSubscribeInfoResponse {
     private String startAddress; //출발지 주소
     private String endAddress; //목적지 주소
     private String status;
-    private JSONObject schedule;
 
     public static ParentSubscribeInfoResponse of(Subscription subscription) {
         Driver driver = subscription.getDriver();
@@ -42,7 +39,6 @@ public class ParentSubscribeInfoResponse {
                 .startAddress(pickUpLocation.getStartAddress())
                 .endAddress(pickUpLocation.getGoalAddress())
                 .status(subscription.getStatus().getDesc())
-                .schedule(toJSONObject("pickUpSubscription.getSchedule()"))
                 .build();
     }
 }
