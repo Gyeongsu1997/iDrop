@@ -8,9 +8,6 @@ import lombok.Getter;
 
 import java.time.LocalDate;
 
-import static ifive.idrop.common.util.ScheduleUtils.calculateEndDate;
-import static ifive.idrop.common.util.ScheduleUtils.calculateStartDate;
-
 @Builder
 @Getter
 public class ParentSubscribeInfoResponse {
@@ -18,7 +15,6 @@ public class ParentSubscribeInfoResponse {
     private String driverName;
     private String driverImage;
     private LocalDate startDate;
-    private LocalDate endDate;
     private String startAddress; //출발지 주소
     private String endAddress; //목적지 주소
     private String status;
@@ -27,15 +23,11 @@ public class ParentSubscribeInfoResponse {
         Driver driver = subscription.getDriver();
         PickUpLocation pickUpLocation = subscription.getPickUpLocation();
 
-        LocalDate startDate = calculateStartDate(subscription.getResponseDate());
-        LocalDate endDate = calculateEndDate(subscription.getResponseDate());
-
         return ParentSubscribeInfoResponse.builder()
                 .pickUpInfoId(subscription.getId())
                 .driverName(driver.getName())
                 .driverImage(driver.getImageUrl())
-                .startDate(startDate)
-                .endDate(endDate)
+                .startDate(subscription.getStartDate())
                 .startAddress(pickUpLocation.getStartAddress())
                 .endAddress(pickUpLocation.getGoalAddress())
                 .status(subscription.getStatus().getDesc())

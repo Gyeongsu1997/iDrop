@@ -2,7 +2,6 @@ package ifive.idrop.domain.driver.entity;
 
 import ifive.idrop.domain.driver.dto.DriverInformation;
 import ifive.idrop.domain.driver.dto.WorkHoursDto;
-import ifive.idrop.domain.driver.dto.DriverSummary;
 import ifive.idrop.domain.subscription.entity.Subscription;
 import ifive.idrop.domain.user.entity.User;
 import jakarta.persistence.*;
@@ -38,15 +37,5 @@ public class Driver extends User {
         for (WorkHoursDto workHoursDto : availableTime) {
             workScheduleList.add(workHoursDto.toEntity(this));
         }
-    }
-
-    public DriverSummary getSummary() {
-        return DriverSummary.builder()
-                .driverId(this.getId())
-                .name(this.getName())
-//                .gender((this.gender != null) ? this.gender.getLabel() : null)
-                .image(this.getImageUrl())
-                .introduction(this.getIntroduction())
-                .build();
     }
 }
