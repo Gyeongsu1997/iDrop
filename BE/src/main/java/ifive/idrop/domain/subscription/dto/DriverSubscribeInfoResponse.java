@@ -6,7 +6,6 @@ import ifive.idrop.domain.pickup.entity.PickUpLocation;
 import ifive.idrop.domain.subscription.entity.Subscription;
 import lombok.Builder;
 import lombok.Getter;
-import org.json.simple.JSONObject;
 
 import java.time.LocalDate;
 
@@ -28,7 +27,6 @@ public class DriverSubscribeInfoResponse {
     private String startAddress; //출발지 주소
     private String endAddress; //목적지 주소
     private String status;
-    private JSONObject schedule;
 
     public static DriverSubscribeInfoResponse of(Subscription subscription) {
         Child child = subscription.getChild();
