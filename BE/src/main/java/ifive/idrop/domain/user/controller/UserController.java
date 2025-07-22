@@ -1,7 +1,7 @@
 package ifive.idrop.domain.user.controller;
 
 import ifive.idrop.domain.auth.resolver.Login;
-import ifive.idrop.common.dto.BaseResponse;
+import ifive.idrop.common.dto.DataResponse;
 import ifive.idrop.domain.user.entity.User;
 import ifive.idrop.domain.user.dto.SignUpRequest;
 import ifive.idrop.domain.user.service.UserService;
@@ -16,7 +16,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/signup")
-    public BaseResponse<String> signUp(@RequestBody SignUpRequest signUpRequest) {
+    public DataResponse<String> signUp(@RequestBody SignUpRequest signUpRequest) {
         return userService.signUp(signUpRequest);
     }
 

@@ -3,7 +3,7 @@ package ifive.idrop.domain.user.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ifive.idrop.domain.auth.entity.Auth;
 import ifive.idrop.domain.auth.repository.AuthRepository;
-import ifive.idrop.common.dto.BaseResponse;
+import ifive.idrop.common.dto.DataResponse;
 import ifive.idrop.domain.auth.dto.LoginRequest;
 import ifive.idrop.domain.driver.entity.Driver;
 import ifive.idrop.domain.user.entity.User;
@@ -34,14 +34,14 @@ public class UserService {
     private final ObjectMapper objectMapper;
 
     @Transactional
-    public BaseResponse<String> signUp(SignUpRequest signUpRequest){
+    public DataResponse<String> signUp(SignUpRequest signUpRequest){
         checkDuplicateLoginId(signUpRequest.getLoginId());
         User user = signUpRequest.toEntity();
         userRepository.save(user);
         if (user instanceof Driver)
-            return BaseResponse.of("성공적으로 회원가입 되었습니다.", "기사");
+            return DataResponse.of("기사");
         else
-            return BaseResponse.of("성공적으로 회원가입 되었습니다.", "부모");
+            return DataResponse.of("부모");
     }
 
     private void checkDuplicateLoginId(String loginId) {
@@ -105,10 +105,10 @@ public class UserService {
     }
 
     @Transactional
-    public BaseResponse<String> updateFCMToken(String userId, String fcmToken) {
+    public DataResponse<?> updateFCMToken(String userId, String fcmToken) {
         User foundUser = userRepository.findByLoginId(userId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
         foundUser.updateFcmToken(fcmToken);
-        return BaseResponse.success();
+        return DataResponse.success();
     }
 }

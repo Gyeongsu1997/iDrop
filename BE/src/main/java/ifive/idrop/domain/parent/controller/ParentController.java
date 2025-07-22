@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 import ifive.idrop.domain.auth.resolver.Login;
-import ifive.idrop.common.dto.BaseResponse;
+import ifive.idrop.common.dto.DataResponse;
 import ifive.idrop.domain.parent.entity.Parent;
 import ifive.idrop.domain.parent.service.ParentService;
 
@@ -24,12 +24,12 @@ public class ParentController {
     private final ParentService parentService;
 
     @GetMapping("/pickup/now")
-    public BaseResponse<List<CurrentPickUpResponse>> checkPickUpInfo(@Login Parent parent) {
+    public DataResponse<List<CurrentPickUpResponse>> checkPickUpInfo(@Login Parent parent) {
         return parentService.getChildRunningInfo(parent);
     }
 
     @GetMapping("/history/{pickup-info-id}")
-    public BaseResponse checkHistoryInfo(@Login Parent parent, @PathVariable(value = "pickup-info-id") long pickInfoId) {
+    public DataResponse checkHistoryInfo(@Login Parent parent, @PathVariable(value = "pickup-info-id") long pickInfoId) {
         return parentService.getPickUpHistoryInfo(parent, pickInfoId);
     }
 
@@ -39,14 +39,14 @@ public class ParentController {
     }
 
     @GetMapping("/location/now")
-    public BaseResponse hasCurrentPickUp(@Login Parent parent) {
+    public DataResponse hasCurrentPickUp(@Login Parent parent) {
         if(parentService.hasCurrentPickUp(parent.getId()))
-            return BaseResponse.success();
+            return DataResponse.success();
         throw new BusinessException(ErrorCode.PICKUP_NOT_FOUND);
     }
 
     @GetMapping("/user/pickup/now")
-    public BaseResponse checkPickUpInfo(@Login User user) {
+    public DataResponse checkPickUpInfo(@Login User user) {
         if (user instanceof Parent) {
             return parentService.getChildRunningInfo((Parent) user);
         }

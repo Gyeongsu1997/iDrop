@@ -1,7 +1,7 @@
 package ifive.idrop.domain.pickup.controller;
 
 import ifive.idrop.domain.auth.resolver.Login;
-import ifive.idrop.common.dto.BaseResponse;
+import ifive.idrop.common.dto.DataResponse;
 import ifive.idrop.domain.driver.entity.Driver;
 import ifive.idrop.domain.pickup.entity.PickUpHistory;
 import ifive.idrop.common.exception.BusinessException;
@@ -21,7 +21,7 @@ public class PickUpController {
 
 
     @PostMapping("/driver/pickup")
-    public BaseResponse<String> startOrEndPickUp(@Login Driver driver, Long childId, @ModelAttribute MultipartFile image, String message) throws ExecutionException, InterruptedException {
+    public DataResponse<?> startOrEndPickUp(@Login Driver driver, Long childId, @ModelAttribute MultipartFile image, String message) throws ExecutionException, InterruptedException {
         PickUpHistory pickUpHistory = pickUpService.findCurrentPickUp(driver.getId(), childId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.CURRENT_PICKUP_NOT_FOUND));
         try {
@@ -30,6 +30,6 @@ public class PickUpController {
         } catch (IOException e) {
             new BusinessException(ErrorCode.IMAGE_UPLOAD_ERROR);
         }
-        return BaseResponse.success();
+        return DataResponse.success();
     }
 }

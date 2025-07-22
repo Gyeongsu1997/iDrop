@@ -2,7 +2,7 @@ package ifive.idrop.domain.driver.controller;
 
 import ifive.idrop.domain.auth.resolver.Login;
 
-import ifive.idrop.common.dto.BaseResponse;
+import ifive.idrop.common.dto.DataResponse;
 import ifive.idrop.domain.driver.dto.DriverInformation;
 import ifive.idrop.domain.driver.dto.DriverResponse;
 import ifive.idrop.domain.driver.dto.DriverTodayRemainingPickUpResponse;
@@ -22,13 +22,13 @@ public class DriverController {
     private final DriverService driverService;
 
     @GetMapping("/{driverId}")
-    public BaseResponse<DriverResponse> getDriver(@PathVariable Long driverId) {
+    public DataResponse<DriverResponse> getDriver(@PathVariable Long driverId) {
         DriverResponse driverResponse = driverService.findDriver(driverId);
-        return BaseResponse.of("success", driverResponse);
+        return DataResponse.of(driverResponse);
     }
 
     @GetMapping
-    public BaseResponse<List<DriverResponse>> searchDrivers(@RequestParam("start") String startLatLng, @RequestParam("goal") String goalLatLng) {
+    public DataResponse<List<DriverResponse>> searchDrivers(@RequestParam("start") String startLatLng, @RequestParam("goal") String goalLatLng) {
         StringTokenizer st = new StringTokenizer(startLatLng, ",");
         double startLat = Double.parseDouble(st.nextToken());
         double startLng = Double.parseDouble(st.nextToken());
@@ -38,27 +38,27 @@ public class DriverController {
         double goalLng = Double.parseDouble(st.nextToken());
 
         List<DriverResponse> driverResponseList = driverService.searchDrivers(startLat, startLng, goalLat, goalLng);
-        return BaseResponse.of("success", driverResponseList);
+        return DataResponse.of(driverResponseList);
     }
 
     @PostMapping("/register/info")
-    public BaseResponse<String> registerInfo(@Login Driver driver, @RequestBody DriverInformation driverInformation) {
+    public DataResponse<?> registerInfo(@Login Driver driver, @RequestBody DriverInformation driverInformation) {
         return driverService.registerInfo(driver.getId(), driverInformation);
     }
 
     @GetMapping("/pickup/now")
-    public BaseResponse<List<CurrentPickUpResponse>> checkAllPickUpInfo(@Login Driver driver) {
+    public DataResponse<List<CurrentPickUpResponse>> checkAllPickUpInfo(@Login Driver driver) {
         return driverService.getAllChildRunningInfo(driver);
     }
 
     @GetMapping("/pickup/now/child")
-    public BaseResponse<List<CurrentPickUpResponse>> checkPickUpInfo(@Login Driver driver) {
+    public DataResponse<List<CurrentPickUpResponse>> checkPickUpInfo(@Login Driver driver) {
         return driverService.getChildRunningInfo(driver);
     }
 
     @GetMapping("/pickup/today/remaining")
-    public BaseResponse<List<DriverTodayRemainingPickUpResponse>> getRemainingPickUpList(@Login Driver driver) {
+    public DataResponse<List<DriverTodayRemainingPickUpResponse>> getRemainingPickUpList(@Login Driver driver) {
         List<DriverTodayRemainingPickUpResponse> pickUpList = driverService.getTodayRemainingPickUpList(driver.getId());
-        return BaseResponse.of("Data Successfully Proceed", pickUpList);
+        return DataResponse.of(pickUpList);
     }
 }

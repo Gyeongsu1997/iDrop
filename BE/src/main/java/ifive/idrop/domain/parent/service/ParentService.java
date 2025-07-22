@@ -1,6 +1,6 @@
 package ifive.idrop.domain.parent.service;
 
-import ifive.idrop.common.dto.BaseResponse;
+import ifive.idrop.common.dto.DataResponse;
 import ifive.idrop.common.dto.CurrentPickUpResponse;
 
 import ifive.idrop.domain.parent.dto.PickUpHistoryResponse;
@@ -24,18 +24,16 @@ public class ParentService {
     private final ParentRepository parentRepository;
     private final PickUpRepository pickUpRepository;
 
-    public BaseResponse<List<CurrentPickUpResponse>> getChildRunningInfo(Parent parent) {
+    public DataResponse<List<CurrentPickUpResponse>> getChildRunningInfo(Parent parent) {
         List<Object[]> runningPickInfo = parentRepository.findRunningPickUpInfo(parent.getId());
-        return BaseResponse.of("Data Successfully Proceed",
-                runningPickInfo.stream()
+        return DataResponse.of(runningPickInfo.stream()
                         .map(o -> CurrentPickUpResponse.of((Subscription) o[0], (LocalDateTime) o[1]))
                         .toList());
     }
 
-    public BaseResponse<List<PickUpHistoryResponse>> getPickUpHistoryInfo(Parent parent, long pickInfoId) {
+    public DataResponse<List<PickUpHistoryResponse>> getPickUpHistoryInfo(Parent parent, long pickInfoId) {
         List<PickUpHistory> pickUpHistoryList = pickUpRepository.findPickUpByPickUpInfoIdAndParentIdOrderByReservedTime(parent.getId(), pickInfoId);
-        return BaseResponse.of("Data Successfully Proceed",
-                pickUpHistoryList.stream().map(PickUpHistoryResponse::toEntity)
+        return DataResponse.of(pickUpHistoryList.stream().map(PickUpHistoryResponse::toEntity)
                         .toList());
     }
 

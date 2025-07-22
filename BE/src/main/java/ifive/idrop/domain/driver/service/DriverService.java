@@ -1,6 +1,6 @@
 package ifive.idrop.domain.driver.service;
 
-import ifive.idrop.common.dto.BaseResponse;
+import ifive.idrop.common.dto.DataResponse;
 import ifive.idrop.domain.driver.dto.DriverResponse;
 import ifive.idrop.domain.driver.entity.Driver;
 import ifive.idrop.domain.driver.dto.DriverInformation;
@@ -39,25 +39,23 @@ public class DriverService {
     }
 
     @Transactional
-    public BaseResponse<String> registerInfo(Long driverId, DriverInformation driverInformation) {
+    public DataResponse<?> registerInfo(Long driverId, DriverInformation driverInformation) {
         Driver driver = driverRepository.findById(driverId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
         driver.addAdditionalInfo(driverInformation);
-        return BaseResponse.of("정보가 성공적으로 등록되었습니다.", driver.getName());
+        return DataResponse.success();
     }
 
-    public BaseResponse<List<CurrentPickUpResponse>> getAllChildRunningInfo(Driver driver) {
+    public DataResponse<List<CurrentPickUpResponse>> getAllChildRunningInfo(Driver driver) {
         List<Object[]> runningPickInfo = driverRepository.findAllRunningPickUpInfoOrderByreservedTimeASC(driver.getId());
-        return BaseResponse.of("Data Successfully Proceed",
-                runningPickInfo.stream()
+        return DataResponse.of(runningPickInfo.stream()
                         .map(o -> CurrentPickUpResponse.of((Subscription) o[0], (LocalDateTime) o[1]))
                         .toList());
     }
 
-    public BaseResponse<List<CurrentPickUpResponse>> getChildRunningInfo(Driver driver) {
+    public DataResponse<List<CurrentPickUpResponse>> getChildRunningInfo(Driver driver) {
         List<Object[]> runningPickInfo = driverRepository.findRunningPickUpInfo(driver.getId());
-        return BaseResponse.of("Data Successfully Proceed",
-                runningPickInfo.stream()
+        return DataResponse.of(runningPickInfo.stream()
                         .map(o -> CurrentPickUpResponse.of((Subscription) o[0], (LocalDateTime) o[1]))
                         .toList());
     }

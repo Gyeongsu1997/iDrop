@@ -1,23 +1,17 @@
 package ifive.idrop.common.exception;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 
 @Getter
+@RequiredArgsConstructor
 public class BusinessException extends RuntimeException {
     private final HttpStatus httpStatus;
+    private final int code;
     private final String message;
-    private final String solution;
 
-    public BusinessException(HttpStatus httpStatus, String message, String solution){
-        this.httpStatus = httpStatus;
-        this.message = message;
-        this.solution = solution;
-    }
-
-    public BusinessException(ErrorCode errorCode){
-        this.httpStatus = errorCode.getHttpStatus();
-        this.message = errorCode.getMessage();
-        this.solution = errorCode.getSolution();
+    public BusinessException(ErrorCode errorCode) {
+        this(errorCode.getHttpStatus(),errorCode.getCode(), errorCode.getMessage());
     }
 }

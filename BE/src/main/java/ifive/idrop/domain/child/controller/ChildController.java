@@ -1,6 +1,6 @@
 package ifive.idrop.domain.child.controller;
 
-import ifive.idrop.common.dto.BaseResponse;
+import ifive.idrop.common.dto.DataResponse;
 import ifive.idrop.domain.auth.resolver.Login;
 import ifive.idrop.domain.child.dto.ChildResponse;
 import ifive.idrop.domain.child.service.ChildService;
@@ -19,8 +19,8 @@ public class ChildController {
     private final ChildService childService;
 
     @GetMapping
-    public BaseResponse<List<ChildResponse>> getChildren(@Login Parent parent) {
+    public DataResponse<List<ChildResponse>> getChildren(@Login Parent parent) {
         List<ChildResponse> childResponseList = childService.findChildren(parent.getId());
-        return BaseResponse.of("success", childResponseList);
+        return DataResponse.of(childResponseList);
     }
 }

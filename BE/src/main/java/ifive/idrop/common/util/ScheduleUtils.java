@@ -18,7 +18,7 @@ public class ScheduleUtils {
         try {
             scheduleJSON = (JSONObject)parser.parse(schedule);
         } catch (ParseException e) {
-            throw new BusinessException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), "");
+            throw new BusinessException(HttpStatus.INTERNAL_SERVER_ERROR, 99, e.getMessage());
         }
         return scheduleJSON;
     }

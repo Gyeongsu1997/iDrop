@@ -1,36 +1,35 @@
 package ifive.idrop.common.exception;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 @Getter
-@AllArgsConstructor
+@RequiredArgsConstructor
 public enum ErrorCode {
-    TOKEN_NOT_EXIST(HttpStatus.BAD_REQUEST, "Access Token이 존재하지 않습니다.", "다시 로그인 해주세요."),
-    INVALID_TOKEN(HttpStatus.BAD_REQUEST, "잘못된 토큰입니다.", "다시 로그인 해주세요."),
-    ACCESS_TOKEN_EXPIRED(HttpStatus.UNAUTHORIZED, "Access Token이 만료되었습니다.","Access Token을 재발급하기 위해 Refresh Token이 필요합니다." ),
-    UNAUTHORIZED_USER(HttpStatus.BAD_REQUEST, "접근 권한이 없는 사용자입니다.", ""),
-    USER_NOT_FOUND(HttpStatus.BAD_REQUEST, "회원 조회 시 해당 회원을 찾을 수 없습니다.", "존재하지 않는 회원이므로 로그인 정보를 다시 확인해 주세요."),
-    INVALID_ROLE_OF_USER(HttpStatus.BAD_REQUEST, "회원의 역할이 정확하지 않습니다.", "역할은 '기사' 또는 '부모' 중 하나여야 합니다."),
-    DUPLICATE_USERID(HttpStatus.BAD_REQUEST, "이미 존재하는 아이디입니다.", "다른 아이디를 입력해주세요."),
-    USERID_NOT_EXIST(HttpStatus.BAD_REQUEST, "존재하지 않는 아이디입니다.", "아이디를 다시 확인해주세요."),
-    DRIVER_NOT_EXIST(HttpStatus.BAD_REQUEST, "존재하지 않는 기사입니다.", "기사 정보를 다시 확인해주세요."),
-    CHILD_NOT_EXIST(HttpStatus.BAD_REQUEST, "등록되지 않은 아이입니다.", "아이 정보를 등록해주세요."),
-    ALL_CHILD_NOT_EXIST(HttpStatus.BAD_REQUEST, "아이 정보가 없습니다", "아이 정보를 등록해주세요."),
-    PASSWORD_NOT_MATCHED(HttpStatus.BAD_REQUEST, "비밀번호가 맞지 않습니다.", "비밀번호를 다시 확인해주세요."),
-    INVALID_GENDER(HttpStatus.BAD_REQUEST, "성별이 정확하지 않습니다.", "성별은 '남성' 또는 '여성' 중 하나여야 합니다."),
-    INVALID_DAY_OF_WEEK(HttpStatus.BAD_REQUEST, "요일이 정확하지 않습니다.", "요일은 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun' 중 하나입니다."),
-    SUBSCRIPTION_NOT_FOUND(HttpStatus.NOT_FOUND, "구독이 존재하지 않습니다.", ""),
-    INVALID_PICKUP_STATUS(HttpStatus.BAD_REQUEST, "픽업 상태가 정확하지 않습니다.", "상태는 '거절', '승인', '대기', '취소', '만료' 중 하나여야 합니다."),
-    CURRENT_PICKUP_NOT_FOUND(HttpStatus.NOT_FOUND, "현재 업무 시간인 픽업이 없습니다.", "업무 시간에 픽업을 시작해주세요"),
-    PICKUP_NOT_FOUND(HttpStatus.NOT_FOUND, "픽업이 없습니다.", "다시 확인해주세요"),
-    PICKUP_INFO_NOT_EXIST(HttpStatus.BAD_REQUEST, "해당하는 픽업 정보가 없습니다.", "다시 확인해 주세요."),
-    PICKUP_ALREADY_END(HttpStatus.BAD_REQUEST, "이미 종료된 픽업입니다.", "다시 확인해주세요."),
-    IMAGE_UPLOAD_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "이미지 업로드 중 문제가 발생했습니다.", "다시 요청해주세요."),
-    DIRECTION_NOT_FOUND(HttpStatus.INTERNAL_SERVER_ERROR, "경로가 없습니다.", "도착했는지 확인해주세요.");
+    TOKEN_NOT_EXIST(HttpStatus.BAD_REQUEST, 1, "Access Token이 존재하지 않습니다."),
+    INVALID_TOKEN(HttpStatus.BAD_REQUEST, 2, "잘못된 토큰입니다."),
+    ACCESS_TOKEN_EXPIRED(HttpStatus.UNAUTHORIZED, 3, "Access Token이 만료되었습니다."),
+    UNAUTHORIZED_USER(HttpStatus.BAD_REQUEST, 4, "접근 권한이 없는 사용자입니다."),
+    USER_NOT_FOUND(HttpStatus.BAD_REQUEST, 5, "회원 조회 시 해당 회원을 찾을 수 없습니다."),
+    INVALID_ROLE_OF_USER(HttpStatus.BAD_REQUEST, 6, "회원의 역할이 정확하지 않습니다."),
+    DUPLICATE_USERID(HttpStatus.BAD_REQUEST, 7, "이미 존재하는 아이디입니다."),
+    USERID_NOT_EXIST(HttpStatus.BAD_REQUEST, 8, "존재하지 않는 아이디입니다."),
+    DRIVER_NOT_EXIST(HttpStatus.BAD_REQUEST, 9, "존재하지 않는 기사입니다."),
+    CHILD_NOT_EXIST(HttpStatus.BAD_REQUEST, 10, "등록되지 않은 아이입니다."),
+    ALL_CHILD_NOT_EXIST(HttpStatus.BAD_REQUEST, 11, "아이 정보가 없습니다"),
+    PASSWORD_NOT_MATCHED(HttpStatus.BAD_REQUEST, 12, "비밀번호가 맞지 않습니다."),
+    INVALID_GENDER(HttpStatus.BAD_REQUEST, 13, "성별이 정확하지 않습니다."),
+    INVALID_DAY_OF_WEEK(HttpStatus.BAD_REQUEST, 14, "요일이 정확하지 않습니다."),
+    SUBSCRIPTION_NOT_FOUND(HttpStatus.NOT_FOUND, 15, "구독이 존재하지 않습니다."),
+    INVALID_PICKUP_STATUS(HttpStatus.BAD_REQUEST, 16, "픽업 상태가 정확하지 않습니다."),
+    CURRENT_PICKUP_NOT_FOUND(HttpStatus.NOT_FOUND, 17, "현재 업무 시간인 픽업이 없습니다."),
+    PICKUP_NOT_FOUND(HttpStatus.NOT_FOUND, 18, "픽업이 없습니다."),
+    PICKUP_INFO_NOT_EXIST(HttpStatus.BAD_REQUEST, 19, "해당하는 픽업 정보가 없습니다."),
+    PICKUP_ALREADY_END(HttpStatus.BAD_REQUEST, 20, "이미 종료된 픽업입니다."),
+    IMAGE_UPLOAD_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, 21, "이미지 업로드 중 문제가 발생했습니다."),
+    DIRECTION_NOT_FOUND(HttpStatus.INTERNAL_SERVER_ERROR, 22, "경로가 없습니다.");
 
     private final HttpStatus httpStatus;
+    private final int code;
     private final String message;
-    private final String solution;
 }
-
