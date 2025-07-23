@@ -24,7 +24,7 @@ public class DriverController {
     @GetMapping("/{driverId}")
     public DataResponse<DriverResponse> getDriver(@PathVariable Long driverId) {
         DriverResponse driverResponse = driverService.findDriver(driverId);
-        return DataResponse.of(driverResponse);
+        return DataResponse.success(driverResponse);
     }
 
     @GetMapping
@@ -38,7 +38,7 @@ public class DriverController {
         double goalLng = Double.parseDouble(st.nextToken());
 
         List<DriverResponse> driverResponseList = driverService.searchDrivers(startLat, startLng, goalLat, goalLng);
-        return DataResponse.of(driverResponseList);
+        return DataResponse.success(driverResponseList);
     }
 
     @PostMapping("/register/info")
@@ -59,6 +59,6 @@ public class DriverController {
     @GetMapping("/pickup/today/remaining")
     public DataResponse<List<DriverTodayRemainingPickUpResponse>> getRemainingPickUpList(@Login Driver driver) {
         List<DriverTodayRemainingPickUpResponse> pickUpList = driverService.getTodayRemainingPickUpList(driver.getId());
-        return DataResponse.of(pickUpList);
+        return DataResponse.success(pickUpList);
     }
 }

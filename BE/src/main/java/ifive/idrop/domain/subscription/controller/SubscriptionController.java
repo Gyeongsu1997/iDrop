@@ -24,7 +24,7 @@ public class SubscriptionController {
     @GetMapping("/drivers/{driverId}")
     public DataResponse<List<SubscriptionResponse>> getDriverSubscriptions(@PathVariable Long driverId) {
         List<SubscriptionResponse> subscriptionResponseList = subscriptionService.findDriverSubscriptions(driverId);
-        return DataResponse.of(subscriptionResponseList);
+        return DataResponse.success(subscriptionResponseList);
     }
 
     @PatchMapping("/{subscriptionId}/accept")

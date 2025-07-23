@@ -26,14 +26,14 @@ public class ParentService {
 
     public DataResponse<List<CurrentPickUpResponse>> getChildRunningInfo(Parent parent) {
         List<Object[]> runningPickInfo = parentRepository.findRunningPickUpInfo(parent.getId());
-        return DataResponse.of(runningPickInfo.stream()
+        return DataResponse.success(runningPickInfo.stream()
                         .map(o -> CurrentPickUpResponse.of((Subscription) o[0], (LocalDateTime) o[1]))
                         .toList());
     }
 
     public DataResponse<List<PickUpHistoryResponse>> getPickUpHistoryInfo(Parent parent, long pickInfoId) {
         List<PickUpHistory> pickUpHistoryList = pickUpRepository.findPickUpByPickUpInfoIdAndParentIdOrderByReservedTime(parent.getId(), pickInfoId);
-        return DataResponse.of(pickUpHistoryList.stream().map(PickUpHistoryResponse::toEntity)
+        return DataResponse.success(pickUpHistoryList.stream().map(PickUpHistoryResponse::toEntity)
                         .toList());
     }
 

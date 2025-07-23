@@ -39,9 +39,9 @@ public class UserService {
         User user = signUpRequest.toEntity();
         userRepository.save(user);
         if (user instanceof Driver)
-            return DataResponse.of("기사");
+            return DataResponse.success("기사");
         else
-            return DataResponse.of("부모");
+            return DataResponse.success("부모");
     }
 
     private void checkDuplicateLoginId(String loginId) {

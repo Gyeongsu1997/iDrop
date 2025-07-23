@@ -21,6 +21,6 @@ public class ChildController {
     @GetMapping
     public DataResponse<List<ChildResponse>> getChildren(@Login Parent parent) {
         List<ChildResponse> childResponseList = childService.findChildren(parent.getId());
-        return DataResponse.of(childResponseList);
+        return DataResponse.success(childResponseList);
     }
 }

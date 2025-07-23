@@ -48,14 +48,14 @@ public class DriverService {
 
     public DataResponse<List<CurrentPickUpResponse>> getAllChildRunningInfo(Driver driver) {
         List<Object[]> runningPickInfo = driverRepository.findAllRunningPickUpInfoOrderByreservedTimeASC(driver.getId());
-        return DataResponse.of(runningPickInfo.stream()
+        return DataResponse.success(runningPickInfo.stream()
                         .map(o -> CurrentPickUpResponse.of((Subscription) o[0], (LocalDateTime) o[1]))
                         .toList());
     }
 
     public DataResponse<List<CurrentPickUpResponse>> getChildRunningInfo(Driver driver) {
         List<Object[]> runningPickInfo = driverRepository.findRunningPickUpInfo(driver.getId());
-        return DataResponse.of(runningPickInfo.stream()
+        return DataResponse.success(runningPickInfo.stream()
                         .map(o -> CurrentPickUpResponse.of((Subscription) o[0], (LocalDateTime) o[1]))
                         .toList());
     }
