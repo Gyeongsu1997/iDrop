@@ -1,15 +1,16 @@
 package ifive.idrop.common.enums.converter;
 
 import jakarta.persistence.AttributeConverter;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
+@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class AbstractEnumAttributeConverter<E extends Enum<E> & BaseEnumAttribute<T>, T> implements AttributeConverter<E, T> {
     private final Class<E> enumClass;
     private final String enumName;
     private final boolean nullable;
 
-    public AbstractEnumAttributeConverter(Class<E> enumClass, String enumName) {
+    protected AbstractEnumAttributeConverter(Class<E> enumClass, String enumName) {
         this.enumClass = enumClass;
         this.enumName = enumName;
         this.nullable = false;
